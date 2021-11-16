@@ -1,16 +1,21 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using StatControl.BoilerPlate;
 
 namespace StatControl
 {
     public partial class App : Application
     {
+
+        public Locator locator { get; private set; }
         public App()
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            locator = new Locator(this);
+
+            _ = locator.SetFirstPage();
         }
 
         protected override void OnStart()
