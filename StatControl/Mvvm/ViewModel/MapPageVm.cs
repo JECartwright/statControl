@@ -10,10 +10,7 @@ using System.Threading.Tasks;
 
 namespace StatControl.Mvvm.ViewModel
 {
-    public class StatPageVm
+    internal class MapPageVm : MvvmZeroBaseVm
     {
-        public StatPageVm()
-        {
-        }
     }
 }

@@ -7,7 +7,7 @@
             <Label Text="Welcome to the Home Page"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
-            <Button Command="{Binding StatPageCommand}" Text="{Binding StatPageCommand.Text}" />
+            <Button Command="{Binding MainStatPageCommand}" Text="{Binding MainStatPageCommand.Text}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

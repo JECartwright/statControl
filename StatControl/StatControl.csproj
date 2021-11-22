@@ -25,16 +25,29 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Mvvm\Model\" />
     <Folder Include="Config\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Mvvm\View\AchievementsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Mvvm\View\FunPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Mvvm\View\GunPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Mvvm\View\HomePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Mvvm\View\StatPage.xaml">
+    <EmbeddedResource Update="Mvvm\View\LastMatchPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Mvvm\View\MainStatPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Mvvm\View\MapPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

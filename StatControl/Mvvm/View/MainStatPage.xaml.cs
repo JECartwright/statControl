@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace StatControl.Mvvm.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class StatPage : ContentPage
+    public partial class MainStatPage : ContentPage
     {
-        public StatPage()
+        public MainStatPage()
         {
             InitializeComponent();
         }

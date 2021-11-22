@@ -5,6 +5,8 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using StatControl.Mvvm.View;
 using StatControl.Mvvm.ViewModel;
+using StatControl.Services;
+using StatControl.Services.Rest;
 using FunctionZero.MvvmZero;
 using SimpleInjector;
 using System.Threading.Tasks;
@@ -38,14 +40,26 @@ namespace StatControl.BoilerPlate
 			);
 
 			// Tell the IoC container about our Pages.
+			_IoCC.Register<AchievementsPage>(Lifestyle.Singleton);
+			_IoCC.Register<FunPage>(Lifestyle.Singleton);
+			_IoCC.Register<GunPage>(Lifestyle.Singleton);
 			_IoCC.Register<HomePage>(Lifestyle.Singleton);
-			_IoCC.Register<StatPage>(Lifestyle.Singleton);
+			_IoCC.Register<LastMatchPage>(Lifestyle.Singleton);
+			_IoCC.Register<MainStatPage>(Lifestyle.Singleton);
+			_IoCC.Register<MapPage>(Lifestyle.Singleton);
+
 
 			// Tell the IoC container about our ViewModels.
+			_IoCC.Register<AchievementsPageVm>(Lifestyle.Singleton);
+			_IoCC.Register<FunPageVm>(Lifestyle.Singleton);
+			_IoCC.Register<GunPageVm>(Lifestyle.Singleton);
 			_IoCC.Register<HomePageVm>(Lifestyle.Singleton);
-			_IoCC.Register<StatPageVm>(Lifestyle.Singleton);
+			_IoCC.Register<LastMatchPageVm>(Lifestyle.Singleton);
+			_IoCC.Register<MainStatPageVm>(Lifestyle.Singleton);
+			_IoCC.Register<MapPageVm>(Lifestyle.Singleton);
 
 			// Tell the IoC container about our Services.
+
 		}
 
 		/// <summary>

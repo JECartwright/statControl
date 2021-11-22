@@ -10,21 +10,21 @@ using System.Threading.Tasks;
 
 namespace StatControl.Mvvm.ViewModel
 {
-    public class HomePageVm
+    internal class HomePageVm : MvvmZeroBaseVm
     {
         public IPageServiceZero _pageService;
-        public ICommand StatPageCommand { get; }
+        public ICommand MainStatPageCommand { get; }
 
 
         public HomePageVm(IPageServiceZero pageService)
         {
             _pageService = pageService;
-            StatPageCommand = new CommandBuilder().SetExecuteAsync(StatPageCommandExecuteAsync).SetName("Stats Page").Build();
+            MainStatPageCommand = new CommandBuilder().SetExecuteAsync(MainStatPageCommandExecuteAsync).SetName("Stats Page").Build();
         }
 
-        private async Task StatPageCommandExecuteAsync()
+        private async Task MainStatPageCommandExecuteAsync()
         {
-            await _pageService.PushPageAsync<StatPage, StatPageVm>((vm) => { });
+            await _pageService.PushPageAsync<MainStatPage, MainStatPageVm>((vm) => { });
         }
     }
 }
