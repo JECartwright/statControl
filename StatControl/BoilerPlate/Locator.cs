@@ -11,12 +11,14 @@ using FunctionZero.MvvmZero;
 using SimpleInjector;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using StatControl.Constants;
+using System.Net.Http;
 
 namespace StatControl.BoilerPlate
 {
 	public class Locator
 	{
-		private Container _IoCC;
+		private readonly Container _IoCC;
 
 		internal Locator(Application currentApplication)
 		{
@@ -59,6 +61,8 @@ namespace StatControl.BoilerPlate
 			_IoCC.Register<MapPageVm>(Lifestyle.Singleton);
 
 			// Tell the IoC container about our Services.
+			_IoCC.Register<SteamService>(GetSteamService, Lifestyle.Singleton);
+			_IoCC.Register<IRestService>(GetRestService, Lifestyle.Singleton);
 
 		}
 
@@ -85,5 +89,20 @@ namespace StatControl.BoilerPlate
 		{
 			Debug.WriteLine(thePage);
 		}
+
+		private IRestService GetRestService()
+		{
+			var httpClient = new HttpClient();
+			// Configure the client.
+			httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+
+			return new RestService(httpClient, ApiConstants.SteamBaseApiUrl);
+		}
+
+		private SteamService GetSteamService()
+		{
+			return new SteamService(_IoCC.GetInstance<IRestService>(), ApiConstants.SteamGameStatEndpoint, ApiConstants.SteamApiKey);
+		}
+
 	}
 }

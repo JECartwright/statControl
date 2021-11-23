@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using StatControl.Services.Rest;
-using StatControl.Mvvm.Model;
+using StatControl.Mvvm.Model.SteamGameStats;
 
 namespace StatControl.Services
 {
@@ -20,11 +20,9 @@ namespace StatControl.Services
             _apiKey = apiKey;
         }
 
-        public async Task<StatModel> GetStatsAsync(string id)
+        public async Task<(ResultStatus status, GameStatsResponse payload, string rawResponse)> GetStatsAsync(string id)
         {
-            var result = await _restService.GetAsync<StatModel>($"{_apiPath}?appid=730&apikey={_apiKey}&steamid={id}");
-
-            return result.payload;
+            return await _restService.GetAsync<GameStatsResponse>($"{_apiPath}?appid=730&key={_apiKey}&steamid={id}");
         }
     }
 }

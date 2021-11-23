@@ -19,7 +19,7 @@
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
     <LayoutDir>G:\Programming\statControl\StatControl.UWP\bin\x86\Debug\AppX</LayoutDir>
-    <RegisteredManifestChecksum>B4006B63A8C8F06CC8B7FA513BCC2FCA6F0A0A89FFCCFE6A2B9C932E2455467B</RegisteredManifestChecksum>
+    <RegisteredManifestChecksum>5423DF8287651459C6A46C84F1409EDC060697526FB5498A14CA725B014DAF80</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>47D3DEE1-12BB-49EC-879A-80B4110D9EF5_1.0.0.0_x86__kez4ba2c3fwfy</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>47D3DEE1-12BB-49EC-879A-80B4110D9EF5_kez4ba2c3fwfy!App</RegisteredUserModeAppID>
     <RegisteredPackageID>47D3DEE1-12BB-49EC-879A-80B4110D9EF5</RegisteredPackageID>
@@ -30,13 +30,13 @@
     <AppXManifest Include="G:\Programming\statControl\StatControl.UWP\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-11-22T15:01:12.193</Modified>
+      <Modified>2021-11-23T10:25:20.919</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\bin\x86\Debug\StatControl.UWP.exe">
       <PackagePath>entrypoint\StatControl.UWP.exe</PackagePath>
-      <Modified>2021-11-22T15:01:11.124</Modified>
+      <Modified>2021-11-23T10:25:18.849</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\SmudgeFudge\.nuget\packages\functionzero.commandzero\1.1.0\lib\netstandard2.0\FunctionZero.CommandZero.dll">
       <PackagePath>FunctionZero.CommandZero.dll</PackagePath>
@@ -92,7 +92,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl\bin\Debug\netstandard2.0\StatControl.dll">
       <PackagePath>StatControl.dll</PackagePath>
-      <Modified>2021-11-22T15:01:07.029</Modified>
+      <Modified>2021-11-23T10:25:09.647</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\SmudgeFudge\.nuget\packages\win2d.uwp\1.20.0\lib\uap10.0\Microsoft.Graphics.Canvas.winmd">
       <PackagePath>Microsoft.Graphics.Canvas.winmd</PackagePath>
@@ -251,11 +251,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2021-11-22T15:01:11.075</Modified>
+      <Modified>2021-11-23T10:25:18.795</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2021-11-22T15:01:11.075</Modified>
+      <Modified>2021-11-23T10:25:18.795</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.UniversalCRT.Debug\10.0.19041.0\\redist\Debug\x86\ucrtbased.dll">
       <PackagePath>ucrtbased.dll</PackagePath>
@@ -271,11 +271,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2021-11-22T11:34:39.627</Modified>
+      <Modified>2021-11-23T10:25:19.512</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\bin\x86\Debug\Core\StatControl.UWP.exe">
       <PackagePath>StatControl.UWP.exe</PackagePath>
-      <Modified>2021-11-22T15:01:12.190</Modified>
+      <Modified>2021-11-23T10:25:20.917</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
