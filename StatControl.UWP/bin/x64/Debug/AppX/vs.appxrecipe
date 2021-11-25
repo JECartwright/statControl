@@ -30,13 +30,13 @@
     <AppXManifest Include="G:\Programming\statControl\StatControl.UWP\bin\x64\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-11-25T15:12:09.869</Modified>
+      <Modified>2021-11-25T16:48:03.771</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\bin\x64\Debug\StatControl.UWP.exe">
       <PackagePath>entrypoint\StatControl.UWP.exe</PackagePath>
-      <Modified>2021-11-25T15:12:08.471</Modified>
+      <Modified>2021-11-25T16:48:02.508</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\SmudgeFudge\.nuget\packages\functionzero.commandzero\1.1.0\lib\netstandard2.0\FunctionZero.CommandZero.dll">
       <PackagePath>FunctionZero.CommandZero.dll</PackagePath>
@@ -92,7 +92,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl\bin\Debug\netstandard2.0\StatControl.dll">
       <PackagePath>StatControl.dll</PackagePath>
-      <Modified>2021-11-25T15:12:03.309</Modified>
+      <Modified>2021-11-25T16:46:59.117</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\SmudgeFudge\.nuget\packages\win2d.uwp\1.20.0\lib\uap10.0\Microsoft.Graphics.Canvas.winmd">
       <PackagePath>Microsoft.Graphics.Canvas.winmd</PackagePath>
@@ -109,153 +109,153 @@
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\Assets\LargeTile.scale-100.png">
       <PackagePath>Assets\LargeTile.scale-100.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-11-16T15:47:54.843</Modified>
+      <Modified>2021-11-25T16:29:17.862</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\Assets\LargeTile.scale-200.png">
       <PackagePath>Assets\LargeTile.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-11-16T15:47:54.846</Modified>
+      <Modified>2021-11-25T16:29:17.875</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\Assets\LargeTile.scale-400.png">
       <PackagePath>Assets\LargeTile.scale-400.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-11-16T15:47:54.924</Modified>
+      <Modified>2021-11-25T16:29:17.887</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\Assets\SmallTile.scale-100.png">
       <PackagePath>Assets\SmallTile.scale-100.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-11-16T15:47:54.926</Modified>
+      <Modified>2021-11-25T16:29:17.900</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\Assets\SmallTile.scale-200.png">
       <PackagePath>Assets\SmallTile.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-11-16T15:47:54.928</Modified>
+      <Modified>2021-11-25T16:29:17.913</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\Assets\SmallTile.scale-400.png">
       <PackagePath>Assets\SmallTile.scale-400.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-11-16T15:47:54.938</Modified>
+      <Modified>2021-11-25T16:29:17.926</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\Assets\SplashScreen.scale-100.png">
       <PackagePath>Assets\SplashScreen.scale-100.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-11-16T15:47:54.939</Modified>
+      <Modified>2021-11-25T16:29:17.938</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-11-16T15:47:54.941</Modified>
+      <Modified>2021-11-25T16:29:17.951</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\Assets\SplashScreen.scale-400.png">
       <PackagePath>Assets\SplashScreen.scale-400.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-11-16T15:47:54.944</Modified>
+      <Modified>2021-11-25T16:29:17.964</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\Assets\Square150x150Logo.scale-100.png">
       <PackagePath>Assets\Square150x150Logo.scale-100.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-11-16T15:47:54.946</Modified>
+      <Modified>2021-11-25T16:29:17.977</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-11-16T15:47:54.949</Modified>
+      <Modified>2021-11-25T16:29:17.990</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\Assets\Square150x150Logo.scale-400.png">
       <PackagePath>Assets\Square150x150Logo.scale-400.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-11-16T15:47:54.951</Modified>
+      <Modified>2021-11-25T16:29:18.003</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\Assets\Square44x44Logo.altform-unplated_targetsize-16.png">
       <PackagePath>Assets\Square44x44Logo.altform-unplated_targetsize-16.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-11-16T15:47:54.953</Modified>
+      <Modified>2021-11-25T16:29:18.015</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\Assets\Square44x44Logo.altform-unplated_targetsize-256.png">
       <PackagePath>Assets\Square44x44Logo.altform-unplated_targetsize-256.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-11-16T15:47:54.956</Modified>
+      <Modified>2021-11-25T16:29:18.028</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\Assets\Square44x44Logo.altform-unplated_targetsize-48.png">
       <PackagePath>Assets\Square44x44Logo.altform-unplated_targetsize-48.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-11-16T15:47:54.958</Modified>
+      <Modified>2021-11-25T16:29:18.041</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\Assets\Square44x44Logo.scale-100.png">
       <PackagePath>Assets\Square44x44Logo.scale-100.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-11-16T15:47:54.960</Modified>
+      <Modified>2021-11-25T16:29:18.054</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-11-16T15:47:54.963</Modified>
+      <Modified>2021-11-25T16:29:18.067</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\Assets\Square44x44Logo.scale-400.png">
       <PackagePath>Assets\Square44x44Logo.scale-400.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-11-16T15:47:54.966</Modified>
+      <Modified>2021-11-25T16:29:18.080</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\Assets\Square44x44Logo.targetsize-16.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-16.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-11-16T15:47:54.969</Modified>
+      <Modified>2021-11-25T16:29:18.092</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\Assets\Square44x44Logo.targetsize-256.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-256.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-11-16T15:47:54.971</Modified>
+      <Modified>2021-11-25T16:29:18.105</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\Assets\Square44x44Logo.targetsize-48.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-48.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-11-16T15:47:54.973</Modified>
+      <Modified>2021-11-25T16:29:18.117</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\Assets\StoreLogo.scale-100.png">
       <PackagePath>Assets\StoreLogo.scale-100.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-11-16T15:47:54.977</Modified>
+      <Modified>2021-11-25T16:29:18.143</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\Assets\StoreLogo.scale-200.png">
       <PackagePath>Assets\StoreLogo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-11-16T15:47:54.979</Modified>
+      <Modified>2021-11-25T16:29:18.156</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\Assets\StoreLogo.scale-400.png">
       <PackagePath>Assets\StoreLogo.scale-400.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-11-16T15:47:54.981</Modified>
+      <Modified>2021-11-25T16:29:18.168</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\Assets\Wide310x150Logo.scale-100.png">
       <PackagePath>Assets\Wide310x150Logo.scale-100.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-11-16T15:47:54.983</Modified>
+      <Modified>2021-11-25T16:29:18.181</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-11-16T15:47:54.988</Modified>
+      <Modified>2021-11-25T16:29:18.194</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\Assets\Wide310x150Logo.scale-400.png">
       <PackagePath>Assets\Wide310x150Logo.scale-400.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-11-16T15:47:54.990</Modified>
+      <Modified>2021-11-25T16:29:18.206</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
-      <Modified>2021-11-16T15:47:54.994</Modified>
+      <Modified>2021-11-25T16:29:18.233</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\bin\x64\Debug\StatControl.UWP.xr.xml">
       <PackagePath>StatControl.UWP.xr.xml</PackagePath>
-      <Modified>2021-11-23T15:39:35.291</Modified>
+      <Modified>2021-11-25T16:30:24.198</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\bin\x64\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2021-11-25T15:12:08.413</Modified>
+      <Modified>2021-11-25T16:48:02.463</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\bin\x64\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2021-11-25T15:12:08.413</Modified>
+      <Modified>2021-11-25T16:48:02.463</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.UniversalCRT.Debug\10.0.19041.0\\redist\Debug\X64\ucrtbased.dll">
       <PackagePath>ucrtbased.dll</PackagePath>
@@ -271,11 +271,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\bin\x64\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2021-11-23T16:12:43.958</Modified>
+      <Modified>2021-11-25T16:48:02.711</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="G:\Programming\statControl\StatControl.UWP\bin\x64\Debug\Core\StatControl.UWP.exe">
       <PackagePath>StatControl.UWP.exe</PackagePath>
-      <Modified>2021-11-25T15:12:09.865</Modified>
+      <Modified>2021-11-25T16:48:03.769</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
