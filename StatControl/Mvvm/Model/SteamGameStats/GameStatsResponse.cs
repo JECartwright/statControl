@@ -11,6 +11,6 @@ namespace StatControl.Mvvm.Model.SteamGameStats
             this.playerstats = playerstats;
         }
 
-        public PlayerStatsModel playerstats { get; set; }
+        public PlayerStatsModel playerstats { get; private set; }
     }
 }

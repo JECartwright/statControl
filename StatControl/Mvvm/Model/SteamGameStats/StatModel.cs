@@ -12,8 +12,8 @@ namespace StatControl.Mvvm.Model.SteamGameStats
             this.value = value;
         }
 
-        public string name { get; set; }
-        public int value { get; set; }
+        public string name { get; private set; }
+        public int value { get; private set; }
 
     }
 }

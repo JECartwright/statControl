@@ -10,7 +10,12 @@
       "ProjectGuid": "5b278b2a-64c3-4d0a-9cbd-e2c1eea432ec",
       "DisplayName": "StatControl.UWP",
       "ColorIndex": 1
+    },
+    "db4ce278-f5fa-4370-b406-dc28e852c5e3": {
+      "ProjectGuid": "db4ce278-f5fa-4370-b406-dc28e852c5e3",
+      "DisplayName": "StatControl.Android",
+      "ColorIndex": 2
     }
   },
-  "NextColorIndex": 2
+  "NextColorIndex": 3
 }

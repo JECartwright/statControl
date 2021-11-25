@@ -11,7 +11,7 @@ namespace StatControl.Mvvm.Model.SteamGameStats
             this.name = name;
             this.achieved = achieved;
         }
-        public string name { get; set; }
-        public int achieved { get; set; }
+        public string name { get; private set; }
+        public int achieved { get; private set; }
     }
 }

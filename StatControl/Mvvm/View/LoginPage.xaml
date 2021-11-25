@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StatControl.Mvvm.View.LoginPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <!-- Sort out bind for entry box text -->
+            <Entry Placeholder="Please Enter Your Steam ID..." Text="{Binding SteamProfileIdText}" />
+            <Button Command="{Binding HomePageCommand}" Text="{Binding HomePageCommand.Text}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

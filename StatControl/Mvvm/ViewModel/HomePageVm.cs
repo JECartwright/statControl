@@ -14,34 +14,9 @@ namespace StatControl.Mvvm.ViewModel
 {
     internal class HomePageVm : MvvmZeroBaseVm
     {
-        private string _steamProfileIdText;
-        private readonly SteamService _steamService;
-        private readonly IPageServiceZero _pageService;
-        
-        public ICommand MainStatPageCommand { get; }
-
-        public string SteamProfileIdText
+        public HomePageVm()
         {
-            get => _steamProfileIdText;
-            set => SetProperty(ref _steamProfileIdText, value);
-        }
-        
 
-        private async Task MainStatPageCommandExecuteAsync()
-        {
-            //Testing connection
-            //var result = await _steamService.GetStatsAsync(_steamProfileIdText);
-            //Debug.WriteLine(result.payload.playerstats.steamID);
-            //
-
-            await _pageService.PushPageAsync<MainStatPage, MainStatPageVm>((vm) => { });
-        }
-
-        public HomePageVm(IPageServiceZero pageService, SteamService steamService)
-        {
-            _pageService = pageService;
-            _steamService = steamService;
-            MainStatPageCommand = new CommandBuilder().SetExecuteAsync(MainStatPageCommandExecuteAsync).SetName("Get Stats").Build();
         }
     }
 }

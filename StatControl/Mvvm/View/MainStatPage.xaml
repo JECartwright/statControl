@@ -4,7 +4,7 @@
              x:Class="StatControl.Mvvm.View.MainStatPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to the Main Stat Page"
+            <Label Text="Welcome to the Main Stats Page!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
         </StackLayout>

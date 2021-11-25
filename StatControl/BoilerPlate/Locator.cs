@@ -43,22 +43,30 @@ namespace StatControl.BoilerPlate
 
 			// Tell the IoC container about our Pages.
 			_IoCC.Register<AchievementsPage>(Lifestyle.Singleton);
+			_IoCC.Register<CarouselViewPage>(Lifestyle.Singleton);
 			_IoCC.Register<FunPage>(Lifestyle.Singleton);
-			_IoCC.Register<GunPage>(Lifestyle.Singleton);
 			_IoCC.Register<HomePage>(Lifestyle.Singleton);
+			_IoCC.Register<IndividualWeaponPage>(Lifestyle.Singleton);
+			_IoCC.Register<LoginPage>(Lifestyle.Singleton);
 			_IoCC.Register<LastMatchPage>(Lifestyle.Singleton);
 			_IoCC.Register<MainStatPage>(Lifestyle.Singleton);
 			_IoCC.Register<MapPage>(Lifestyle.Singleton);
+			_IoCC.Register<WeaponsSelectPage>(Lifestyle.Singleton);
+
 
 
 			// Tell the IoC container about our ViewModels.
 			_IoCC.Register<AchievementsPageVm>(Lifestyle.Singleton);
+			_IoCC.Register<CarouselViewPageVm>(Lifestyle.Singleton);
 			_IoCC.Register<FunPageVm>(Lifestyle.Singleton);
-			_IoCC.Register<GunPageVm>(Lifestyle.Singleton);
 			_IoCC.Register<HomePageVm>(Lifestyle.Singleton);
+			_IoCC.Register<IndividualWeaponPageVm>(Lifestyle.Singleton);
+			_IoCC.Register<LoginPageVm>(Lifestyle.Singleton);
 			_IoCC.Register<LastMatchPageVm>(Lifestyle.Singleton);
 			_IoCC.Register<MainStatPageVm>(Lifestyle.Singleton);
 			_IoCC.Register<MapPageVm>(Lifestyle.Singleton);
+			_IoCC.Register<WeaponsSelectPageVm>(Lifestyle.Singleton);
+
 
 			// Tell the IoC container about our Services.
 			_IoCC.Register<SteamService>(GetSteamService, Lifestyle.Singleton);
@@ -78,7 +86,7 @@ namespace StatControl.BoilerPlate
 			// () => ((FlyoutPage)App.Current.MainPage).Detail.Navigation
 			App.Current.MainPage = new NavigationPage();
 			// Ask the PageService to assemble and present our HomePage ...
-			await _IoCC.GetInstance<IPageServiceZero>().PushPageAsync<HomePage, HomePageVm>((vm) => {/* Optionally interact with the vm, e.g. to inject seed-data */ });
+			await _IoCC.GetInstance<IPageServiceZero>().PushPageAsync<LoginPage, LoginPageVm>((vm) => {/* Optionally interact with the vm, e.g. to inject seed-data */ });
 		}
 
 		/// <summary>

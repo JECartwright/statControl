@@ -4,10 +4,9 @@
              x:Class="StatControl.Mvvm.View.HomePage">
     <ContentPage.Content>
         <StackLayout>
-
-            <!-- Sort out bind for entry box text -->
-            <Entry Placeholder="Please Enter Your Steam ID..." Text="{Binding SteamProfileIdText}" />
-            <Button Command="{Binding MainStatPageCommand}" Text="{Binding MainStatPageCommand.Text}" />
+            <Label Text="Welcome to the Home Page!"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

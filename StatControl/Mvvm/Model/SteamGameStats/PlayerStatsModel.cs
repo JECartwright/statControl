@@ -14,9 +14,9 @@ namespace StatControl.Mvvm.Model.SteamGameStats
             this.achievements = achievements;
         }
 
-        public string steamID { get; set; }
-        public string gameName { get; set; }
-        public List<StatModel> stats { get; set; }
-        public List<AchievementModel> achievements { get; set; }
+        public string steamID { get; private set; }
+        public string gameName { get; private set; }
+        public List<StatModel> stats { get; private set; }
+        public List<AchievementModel> achievements { get; private set; }
     }
 }
