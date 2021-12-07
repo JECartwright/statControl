@@ -1,12 +1,95 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="StatControl.Mvvm.View.MainStatPage">
+             xmlns:local="clr-namespace:StatControl.Mvvm.ViewModel"
+             x:Class="StatControl.Mvvm.View.MainStatPage"
+             Visual="Material">
+    <ContentPage.BindingContext>
+        <local:MainStatPageVm/>
+    </ContentPage.BindingContext>
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to the Main Stats Page!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout HorizontalOptions="Center" HeightRequest="40" WidthRequest="300" Spacing="20" Margin="20,20,20,20">
+            <Frame BackgroundColor="#707070">
+                <Label Text="Lifetime Stats!" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+            </Frame>
+
+            <Frame BackgroundColor="#707070">
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                
+                    <Label Grid.Column="0" Grid.Row="0" Text="Rounds Won:"/>
+                    <Label Grid.Column="0" Grid.Row="1" Text="MVP's:"/>
+                    <Label Grid.Column="0" Grid.Row="2" Text="Money Earned:"/>
+                    <Label Grid.Column="0" Grid.Row="3" Text="Bombs Planted:"/>
+                    <Label Grid.Column="0" Grid.Row="4" Text="Bombs Defused:"/>
+                    <Label Grid.Column="0" Grid.Row="5" Text="Weapons Donated:"/>
+
+                    <Label Grid.Column="1" Grid.Row="0" Text="{Binding RoundsWon}"/>
+                    <Label Grid.Column="1" Grid.Row="1" Text="{Binding MVP}"/>
+                    <Label Grid.Column="1" Grid.Row="2" Text="{Binding MoneyEarned}"/>
+                    <Label Grid.Column="1" Grid.Row="3" Text="{Binding BombsPlanted}"/>
+                    <Label Grid.Column="1" Grid.Row="4" Text="{Binding BombsDefused}"/>
+                    <Label Grid.Column="1" Grid.Row="5" Text="{Binding WeaponsDonated}"/>
+                </Grid>
+            </Frame>
+
+            <Frame BackgroundColor="#707070">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                
+                    <Label Grid.Column="0" Grid.Row="0" Text="Damage:"/>
+                    <Label Grid.Column="0" Grid.Row="1" Text="Headshots:"/>
+                    <Label Grid.Column="0" Grid.Row="2" Text="Shots:"/>
+                    <Label Grid.Column="0" Grid.Row="3" Text="Kills:"/>
+                    <Label Grid.Column="0" Grid.Row="4" Text="Hits:"/>
+                    <Label Grid.Column="0" Grid.Row="5" Text="Accuracy:"/>
+
+                    <Label Grid.Column="1" Grid.Row="0" Text="{Binding Damage}"/>
+                    <Label Grid.Column="1" Grid.Row="1" Text="{Binding Headshots}"/>
+                    <Label Grid.Column="1" Grid.Row="2" Text="{Binding Shots}"/>
+                    <Label Grid.Column="1" Grid.Row="3" Text="{Binding Kills}"/>
+                    <Label Grid.Column="1" Grid.Row="4" Text="{Binding Hits}"/>
+                    <Label Grid.Column="1" Grid.Row="5" Text="{Binding Accuracy}"/>
+                </Grid>
+            </Frame>
+
+            <Frame BackgroundColor="#707070">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" Grid.Row="0" Text="Matches Played:"/>
+                    <Label Grid.Column="0" Grid.Row="1" Text="Matches Won:"/>
+                    <Label Grid.Column="0" Grid.Row="2" Text="Matches Win Rate:"/>
+                    <Label Grid.Column="0" Grid.Row="3" Text="Contribution Score:"/>
+
+                    <Label Grid.Column="1" Grid.Row="0" Text="{Binding MatchesPlayed}"/>
+                    <Label Grid.Column="1" Grid.Row="1" Text="{Binding MatchesWon}"/>
+                    <Label Grid.Column="1" Grid.Row="2" Text="{Binding MatchesWinRate}"/>
+                    <Label Grid.Column="1" Grid.Row="3" Text="{Binding ContributionScore}"/>
+                </Grid>
+            </Frame>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

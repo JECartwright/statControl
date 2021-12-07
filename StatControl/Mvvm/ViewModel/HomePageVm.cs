@@ -16,7 +16,7 @@ using System.ComponentModel;
 
 namespace StatControl.Mvvm.ViewModel
 {
-    internal class HomePageVm : MvvmZeroBaseVm, INotifyPropertyChanged
+    internal class HomePageVm : MvvmZeroBaseVm
     {
         private SteamUserProfileResponse _resultProfile;
         public ICommand UpdateCommand { get; }

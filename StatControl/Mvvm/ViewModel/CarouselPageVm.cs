@@ -36,8 +36,12 @@ namespace StatControl.Mvvm.ViewModel
             _resultStats = resultStats;
 
             //Need to initialise all the view models with api calls
+            Debug.WriteLine("Sending resultAchieve");
+            MessagingCenter.Send<CarouselPageVm, SteamUserAchievementsResponse>(this, "resultAchieve", _resultAchieve);
             Debug.WriteLine("Sending resultProfile");
             MessagingCenter.Send<CarouselPageVm, SteamUserProfileResponse>(this, "resultProfile", _resultProfile);
+            Debug.WriteLine("Sending resultStats");
+            MessagingCenter.Send<CarouselPageVm, SteamGameStatsResponse>(this, "resultStats", _resultStats);
             OnPropertyChanged();
             
         }
