@@ -14,14 +14,14 @@
                 <Label Text="Lifetime Stats!" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
             </Frame>
 
-            <Frame BackgroundColor="#707070">
+            <Frame>
                 <Grid >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                 
@@ -41,14 +41,14 @@
                 </Grid>
             </Frame>
 
-            <Frame BackgroundColor="#707070">
+            <Frame>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                 
@@ -68,14 +68,14 @@
                 </Grid>
             </Frame>
 
-            <Frame BackgroundColor="#707070">
+            <Frame>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
