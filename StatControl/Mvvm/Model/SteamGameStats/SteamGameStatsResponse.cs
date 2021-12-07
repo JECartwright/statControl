@@ -4,9 +4,9 @@ using System.Text;
 
 namespace StatControl.Mvvm.Model.SteamGameStats
 {
-    public class GameStatsResponse
+    public class SteamGameStatsResponse
     {
-        public GameStatsResponse(PlayerStatsModel playerstats)
+        public SteamGameStatsResponse(PlayerStatsModel playerstats)
         {
             this.playerstats = playerstats;
         }

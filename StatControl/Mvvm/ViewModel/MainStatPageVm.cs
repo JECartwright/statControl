@@ -14,13 +14,13 @@ namespace StatControl.Mvvm.ViewModel
 {
     internal class MainStatPageVm : MvvmZeroBaseVm
     {
-        public GameStatsResponse GameStatsRespones { get; private set; }
+        public SteamGameStatsResponse GameStatsRespones { get; private set; }
         public MainStatPageVm()
         {
             
         }
 
-        internal void Init(GameStatsResponse payload)
+        internal void Init(SteamGameStatsResponse payload)
         {
             GameStatsRespones = payload;
             Debug.WriteLine(GameStatsRespones.playerstats.steamID);

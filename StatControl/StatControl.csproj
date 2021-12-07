@@ -29,6 +29,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Mvvm\View\CarouselViewPage.xaml.cs">
+      <DependentUpon>CarouselViewPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Mvvm\View\WeaponsSelectPage.xaml.cs">
       <DependentUpon>WeaponsSelectPage.xaml</DependentUpon>
     </Compile>

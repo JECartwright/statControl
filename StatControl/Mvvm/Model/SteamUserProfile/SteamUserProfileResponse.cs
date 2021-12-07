@@ -4,13 +4,13 @@ using System.Text;
 
 namespace StatControl.Mvvm.Model.SteamUserProfile
 {
-    public class UserProfileResponse
+    public class SteamUserProfileResponse
     {
-        public UserProfileResponse(UserProfileResponse response)
+        public SteamUserProfileResponse(ResponseListModel response)
         {
             this.response = response;
         }
 
-        public UserProfileResponse response { get; private set; }
+        public ResponseListModel response { get; private set; }
     }
 }

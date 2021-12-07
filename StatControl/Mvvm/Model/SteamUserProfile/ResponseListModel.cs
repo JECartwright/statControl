@@ -4,7 +4,7 @@ using System.Text;
 
 namespace StatControl.Mvvm.Model.SteamUserProfile
 {
-    internal class ResponseListModel
+    public class ResponseListModel
     {
         public ResponseListModel(List<UserModel> players)
         {

@@ -3,9 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StatControl.Mvvm.View.LoginPage">
     <ContentPage.Content>
-        <StackLayout>
-            <!-- Sort out bind for entry box text -->
-            <Entry Placeholder="Please Enter Your Steam ID..." Text="{Binding SteamProfileIdText}" />
+        <StackLayout VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
+            <Entry Placeholder="Please Enter Your Steam ID..." Text="{Binding SteamProfileIdText}" HorizontalOptions="CenterAndExpand" />
             <Button Command="{Binding HomePageCommand}" Text="{Binding HomePageCommand.Text}" />
         </StackLayout>
     </ContentPage.Content>

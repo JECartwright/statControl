@@ -57,7 +57,7 @@ namespace StatControl.BoilerPlate
 
 			// Tell the IoC container about our ViewModels.
 			_IoCC.Register<AchievementsPageVm>(Lifestyle.Singleton);
-			_IoCC.Register<CarouselViewPageVm>(Lifestyle.Singleton);
+			_IoCC.Register<CarouselPageVm>(Lifestyle.Singleton);
 			_IoCC.Register<FunPageVm>(Lifestyle.Singleton);
 			_IoCC.Register<HomePageVm>(Lifestyle.Singleton);
 			_IoCC.Register<IndividualWeaponPageVm>(Lifestyle.Singleton);
@@ -69,7 +69,9 @@ namespace StatControl.BoilerPlate
 
 
 			// Tell the IoC container about our Services.
-			_IoCC.Register<SteamService>(GetSteamService, Lifestyle.Singleton);
+			_IoCC.Register<SteamGameStatsService>(GetSteamUserStatsService, Lifestyle.Singleton);
+			_IoCC.Register<SteamUserProfileService>(GetSteamUserProfileService, Lifestyle.Singleton);
+			_IoCC.Register<SteamUserAchievementsService>(GetSteamUserAchievementsService, Lifestyle.Singleton);
 			_IoCC.Register<IRestService>(GetRestService, Lifestyle.Singleton);
 
 		}
@@ -107,9 +109,19 @@ namespace StatControl.BoilerPlate
 			return new RestService(httpClient, ApiConstants.SteamBaseApiUrl);
 		}
 
-		private SteamService GetSteamService()
+		private SteamGameStatsService GetSteamUserStatsService()
 		{
-			return new SteamService(_IoCC.GetInstance<IRestService>(), ApiConstants.SteamGameStatEndpoint, ApiConstants.SteamApiKey);
+			return new SteamGameStatsService(_IoCC.GetInstance<IRestService>(), ApiConstants.SteamGameStatEndpoint, ApiConstants.SteamApiKey);
+		}
+
+		private SteamUserProfileService GetSteamUserProfileService()
+		{
+			return new SteamUserProfileService(_IoCC.GetInstance<IRestService>(), ApiConstants.SteamUserProfileSummaryEndpoint, ApiConstants.SteamApiKey);
+		}
+
+		private SteamUserAchievementsService GetSteamUserAchievementsService()
+		{
+			return new SteamUserAchievementsService(_IoCC.GetInstance<IRestService>(), ApiConstants.SteamUserAchievementsEndpoint, ApiConstants.SteamApiKey);
 		}
 
 	}

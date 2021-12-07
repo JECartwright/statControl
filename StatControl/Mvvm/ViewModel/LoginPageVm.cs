@@ -9,13 +9,19 @@ using System.Windows.Input;
 using System.Threading.Tasks;
 using StatControl.Services;
 using System.Diagnostics;
+using Xamarin.Forms;
+using StatControl.Mvvm.Model.SteamUserProfile;
+using StatControl.Mvvm.Model.SteamUserAchievements;
+using StatControl.Mvvm.Model.SteamGameStats;
 
 namespace StatControl.Mvvm.ViewModel
 {
     internal class LoginPageVm : MvvmZeroBaseVm
     {
         private string _steamProfileIdText;
-        private readonly SteamService _steamService;
+        private readonly SteamGameStatsService _steamGameStatsService;
+        private readonly SteamUserAchievementsService _steamUserAchievementsService;
+        private readonly SteamUserProfileService _steamUserProfileService;
         private readonly IPageServiceZero _pageService;
         
         public ICommand HomePageCommand { get; }
@@ -25,23 +31,28 @@ namespace StatControl.Mvvm.ViewModel
             get => _steamProfileIdText;
             set => SetProperty(ref _steamProfileIdText, value);
         }
-        
+
 
         private async Task HomePageCommandExecuteAsync()
-        { 
-            var result = await _steamService.GetStatsAsync(_steamProfileIdText);
-            //Debug.WriteLine(result.payload.playerstats.steamID);
-
-
-            await _pageService.PushPageAsync<CarouselViewPage, CarouselViewPageVm>((vm) => { });//vm.Init(result.payload));
+        {
             
+            var resultAchieve = await _steamUserAchievementsService.GetUserAchieveAsync(_steamProfileIdText);
+            var resultProfile = await _steamUserProfileService.GetUserSummaryAsync(_steamProfileIdText);
+            var resultStats = await _steamGameStatsService.GetUserStatsAsync(_steamProfileIdText);
+
+            await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init(resultAchieve.payload, resultProfile.payload, resultStats.payload));
+
         }
 
-        public LoginPageVm(IPageServiceZero pageService, SteamService steamService)
+        public LoginPageVm(IPageServiceZero pageService, SteamGameStatsService steamGameStatsService, SteamUserAchievementsService steamUserAchievementsService, SteamUserProfileService steamUserProfileService)
         {
             _pageService = pageService;
-            _steamService = steamService;
-            HomePageCommand = new CommandBuilder().SetExecuteAsync(HomePageCommandExecuteAsync).SetName("Get Stats").Build();
+            _steamGameStatsService = steamGameStatsService;
+            _steamUserAchievementsService = steamUserAchievementsService;
+            _steamUserProfileService = steamUserProfileService;
+            SteamProfileIdText = "76561198045733101";
+
+            HomePageCommand = new CommandBuilder().SetExecuteAsync(HomePageCommandExecuteAsync).SetName("Search").Build();
         }
     }
 }

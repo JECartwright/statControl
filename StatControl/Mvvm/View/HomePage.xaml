@@ -1,12 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:StatControl.Mvvm.ViewModel"
+             xmlns:z="clr-namespace:FunctionZero.zBind.z;assembly=FunctionZero.zBind"
              x:Class="StatControl.Mvvm.View.HomePage">
+    <ContentPage.BindingContext>
+        <local:HomePageVm/>
+    </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to the Home Page!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+            <Image Source="{Binding ResultProfile.response.players[0].avatarfull}" IsVisible="{z:Bind 'ResultProfile != null'}"  />
+            <Label Text="{Binding ResultProfile.response.players[0].personaname}"  />
+            <Label Text="{Binding ResultProfile.response.players[0].realname}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
