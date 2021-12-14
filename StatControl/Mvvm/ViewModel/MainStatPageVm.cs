@@ -42,7 +42,6 @@ namespace StatControl.Mvvm.ViewModel
             set
             {
                 SetProperty(ref _roundsWon, value);
-                OnPropertyChanged();
             }
         }
 
@@ -189,6 +188,7 @@ namespace StatControl.Mvvm.ViewModel
                 MatchesWon = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_matches_won")).value.ToString();
                 MatchesWinRate = Math.Round((double)_resultStats.playerstats.stats.Find(x => x.name.Equals("total_matches_won")).value / (double)_resultStats.playerstats.stats.Find(x => x.name.Equals("total_matches_played")).value * 100, 2).ToString();
                 ContributionScore = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_contribution_score")).value.ToString();
+
                 OnPropertyChanged();
             }
         }
@@ -201,10 +201,6 @@ namespace StatControl.Mvvm.ViewModel
                 ResultStats = resultStats;
             });
         }
-
-
-
-
     }
 }
 

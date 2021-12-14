@@ -33,6 +33,7 @@ namespace StatControl.Mvvm.ViewModel
 
         public HomePageVm()
         {
+            
             MessagingCenter.Subscribe<CarouselPageVm, SteamUserProfileResponse>(this, "resultProfile", (sender, resultProfile) =>
             {
                 Debug.WriteLine("Received Result Profile");
