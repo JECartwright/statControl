@@ -13,6 +13,41 @@
             <Label Text="Welcome to the Achievements Page!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+            <ListView
+                ItemsSource="{Binding Achievements}"
+                BackgroundColor="Transparent"
+                HasUnevenRows="True"
+                RowHeight="500">
+                
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="0">
+                                <Frame>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Image Source="{Binding imagePath}"
+                                               WidthRequest="50"/>
+                                        <StackLayout VerticalOptions="Center">
+                                            <Label VerticalOptions="Center"
+                                                   FontSize="Medium"
+                                                   Text="{Binding name}"/>
+                                            <Label VerticalOptions="Center"
+                                                   FontSize="Small"
+                                                   LineBreakMode="CharacterWrap"
+                                                   Text="{Binding description}"/>
+                                        </StackLayout>
+                                        <Label VerticalOptions="Center"
+                                               HorizontalOptions="EndAndExpand"
+                                               FontSize="Large"
+                                               TextColor="{Binding achievedColor}"
+                                               Text="{Binding achieved}"/>
+                                    </StackLayout>                                    
+                                </Frame>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
