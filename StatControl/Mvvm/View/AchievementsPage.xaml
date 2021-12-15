@@ -25,8 +25,8 @@
                             <Grid Padding="0">
                                 <Frame>
                                     <StackLayout Orientation="Horizontal">
-                                        <Image Source="{Binding imagePath}"
-                                               WidthRequest="50"/>
+                                        <!--<Image Source="{Binding imagePath}"
+                                               WidthRequest="50"/>-->
                                         <StackLayout VerticalOptions="Center">
                                             <Label VerticalOptions="Center"
                                                    FontSize="Medium"
@@ -39,7 +39,7 @@
                                         <Label VerticalOptions="Center"
                                                HorizontalOptions="EndAndExpand"
                                                FontSize="Large"
-                                               TextColor="{Binding achievedColor}"
+                                               
                                                Text="{Binding achieved}"/>
                                     </StackLayout>                                    
                                 </Frame>

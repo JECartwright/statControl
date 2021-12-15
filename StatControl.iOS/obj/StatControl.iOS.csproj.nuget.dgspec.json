@@ -1,28 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Users\\Joshua\\Documents\\GitHub\\statControl\\StatControl.iOS\\StatControl.iOS.csproj": {}
+    "G:\\Programming\\statControl\\StatControl.iOS\\StatControl.iOS.csproj": {}
   },
   "projects": {
-    "D:\\Users\\Joshua\\Documents\\GitHub\\statControl\\StatControl.iOS\\StatControl.iOS.csproj": {
+    "G:\\Programming\\statControl\\StatControl.iOS\\StatControl.iOS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Users\\Joshua\\Documents\\GitHub\\statControl\\StatControl.iOS\\StatControl.iOS.csproj",
+        "projectUniqueName": "G:\\Programming\\statControl\\StatControl.iOS\\StatControl.iOS.csproj",
         "projectName": "StatControl.iOS",
-        "projectPath": "D:\\Users\\Joshua\\Documents\\GitHub\\statControl\\StatControl.iOS\\StatControl.iOS.csproj",
-        "packagesPath": "C:\\Users\\Joshua\\.nuget\\packages\\",
-        "outputPath": "D:\\Users\\Joshua\\Documents\\GitHub\\statControl\\StatControl.iOS\\obj\\",
+        "projectPath": "G:\\Programming\\statControl\\StatControl.iOS\\StatControl.iOS.csproj",
+        "packagesPath": "C:\\Users\\SmudgeFudge\\.nuget\\packages\\",
+        "outputPath": "G:\\Programming\\statControl\\StatControl.iOS\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [
-          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Joshua\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\SmudgeFudge\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "xamarinios10"
@@ -34,8 +32,8 @@
         "frameworks": {
           "xamarinios10": {
             "projectReferences": {
-              "D:\\Users\\Joshua\\Documents\\GitHub\\statControl\\StatControl\\StatControl.csproj": {
-                "projectPath": "D:\\Users\\Joshua\\Documents\\GitHub\\statControl\\StatControl\\StatControl.csproj"
+              "G:\\Programming\\statControl\\StatControl\\StatControl.csproj": {
+                "projectPath": "G:\\Programming\\statControl\\StatControl\\StatControl.csproj"
               }
             }
           }
@@ -67,24 +65,22 @@
         }
       }
     },
-    "D:\\Users\\Joshua\\Documents\\GitHub\\statControl\\StatControl\\StatControl.csproj": {
+    "G:\\Programming\\statControl\\StatControl\\StatControl.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Users\\Joshua\\Documents\\GitHub\\statControl\\StatControl\\StatControl.csproj",
+        "projectUniqueName": "G:\\Programming\\statControl\\StatControl\\StatControl.csproj",
         "projectName": "StatControl",
-        "projectPath": "D:\\Users\\Joshua\\Documents\\GitHub\\statControl\\StatControl\\StatControl.csproj",
-        "packagesPath": "C:\\Users\\Joshua\\.nuget\\packages\\",
-        "outputPath": "D:\\Users\\Joshua\\Documents\\GitHub\\statControl\\StatControl\\obj\\",
+        "projectPath": "G:\\Programming\\statControl\\StatControl\\StatControl.csproj",
+        "packagesPath": "C:\\Users\\SmudgeFudge\\.nuget\\packages\\",
+        "outputPath": "G:\\Programming\\statControl\\StatControl\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Joshua\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\SmudgeFudge\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.0"
@@ -133,7 +129,7 @@
             },
             "Xamarin.Forms": {
               "target": "Package",
-              "version": "[5.0.0.2244, )"
+              "version": "[5.0.0.2291, )"
             }
           },
           "imports": [
@@ -146,7 +142,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
