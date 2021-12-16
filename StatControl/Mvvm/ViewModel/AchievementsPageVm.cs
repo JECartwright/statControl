@@ -12,22 +12,19 @@ using StatControl.Mvvm.Model.SteamUserAchievements;
 using StatControl.Mvvm.Model.SteamAchievementData;
 using Xamarin.Forms;
 using System.Diagnostics;
+using StatControl.Mvvm.Model.DisplayModel;
 
 namespace StatControl.Mvvm.ViewModel
 {
     internal class AchievementsPageVm : MvvmZeroBaseVm
     {
-        private string _name;
-        private string _details;
-        private string _apiName;
-        private int _achieved;
         private SteamUserAchievementsResponse _resultUserAchieve;
         private SteamAchievementDataResponse _resultAchieveData;
 
 
 
-        public ObservableCollection<AchievementModel> Achievements { get;}
-
+        public ObservableCollection<AchievementDisplayModel> Achievements { get;}
+        private List<AchievementDisplayModel> AchievementsToSort = new List<AchievementDisplayModel>();
 
         public SteamAchievementDataResponse ResultAchieveData
         {
@@ -48,73 +45,88 @@ namespace StatControl.Mvvm.ViewModel
             }
         }
 
-        public string name
-        {
-            get { return _name;}
-            set
-            {
-                SetProperty(ref _name, value);
-            }
-        }
-        public string details
-        {
-            get { return _details; }
-            set
-            {
-                SetProperty(ref _details, value);
-            }
-        }
-        public string apiName
-        {
-            get { return _apiName; }
-            set
-            {
-                SetProperty(ref _apiName, value);
-            }
-        }
-        public string imagePath
-        {
-            get 
-            {
-                if (_achieved == 0)
-                {
-                    return "GRAY_" + _apiName + ".jpeg";
-                }
-                if (_achieved == 1)
-                {
-                    return _apiName + ".jpeg";
-                }
-                else
-                {
-                    return "DEFAULT";
-                }
-            }
-        }
 
         void CallServer()
         {
+            Debug.WriteLine("started Achvhemenets");
+            List<string> achievementNamesList = new List<string>();
             //_resultUserAchieve.playerstats.achievements.Sort();
             for (int i = 0; i< ResultUserAchieve.playerstats.achievements.Count;i++)
             {
-                Achievements.Add(_resultUserAchieve.playerstats.achievements[i]);             
+                for (int b = 0; b<ResultAchieveData.game.availableGameStats.achievements.Count;b++)
+                {
+                    if (ResultUserAchieve.playerstats.achievements[i].apiname == ResultAchieveData.game.availableGameStats.achievements[b].name)
+                    {
+                        AchievementDisplayModel toPush = new AchievementDisplayModel();
+                        toPush.APIName = ResultUserAchieve.playerstats.achievements[i].apiname;
+                        toPush.Name = ResultUserAchieve.playerstats.achievements[i].name;
+                        achievementNamesList.Add(ResultUserAchieve.playerstats.achievements[i].name);
+                        toPush.Description = ResultUserAchieve.playerstats.achievements[i].description;
+                        toPush.Achieved = ResultUserAchieve.playerstats.achievements[i].achieved;
+                        if (toPush.Achieved == 1)
+                        {
+                            toPush.AchievedText = "✓";
+                            toPush.AchievedColor = new Color(0,255,0);
+                            toPush.ImageAdress = ResultAchieveData.game.availableGameStats.achievements[b].icon;
+                        }
+                        else if (toPush.Achieved == 0)
+                        {
+                            toPush.AchievedText = "✗";
+                            toPush.AchievedColor = new Color(255, 0, 0);
+                            toPush.ImageAdress = ResultAchieveData.game.availableGameStats.achievements[b].icongray;
+                        }
+                        else
+                        {
+                            toPush.AchievedText = "!";
+                            toPush.AchievedColor = new Color(255, 0, 0);
+                            toPush.ImageAdress = "Backup Image.jpg";
+                        }
+                        AchievementsToSort.Add(toPush);
+                    }
+                }          
             }
+            List<AchievementDisplayModel> tempAchieved = new List<AchievementDisplayModel>();
+            List<AchievementDisplayModel> tempNotAchieved = new List<AchievementDisplayModel>();
+            achievementNamesList.Sort();
+            for (int z = 0; z< achievementNamesList.Count; z++)
+            {         
+                for (int x = 0; x< AchievementsToSort.Count; x++)
+                {
+                    if (AchievementsToSort[x].Name == achievementNamesList[z] && AchievementsToSort[x].Achieved == 0)
+                    {
+                        tempNotAchieved.Add(AchievementsToSort[x]);
+                    }
+                    else if (AchievementsToSort[x].Name == achievementNamesList[z] && AchievementsToSort[x].Achieved == 1)
+                    {
+                        tempAchieved.Add(AchievementsToSort[x]);
+                    }
+                }                
+            }
+            for (int y = 0; y < tempAchieved.Count; y++)
+            {
+                Achievements.Add(tempAchieved[y]);
+            }
+            for (int w = 0; w < tempNotAchieved.Count; w++)
+            {
+                Achievements.Add(tempNotAchieved[w]);
+            }
+            Debug.WriteLine("Finished Acvhemenets");
         }
 
         public AchievementsPageVm()
         {
-            Achievements = new ObservableCollection<AchievementModel>();
+            Achievements = new ObservableCollection<AchievementDisplayModel>();
             MessagingCenter.Subscribe<CarouselPageVm, SteamUserAchievementsResponse>(this, "resultUserAchieve", (sender, resultAchieve) =>
             {
                 Debug.WriteLine("Received UserAchieve Achievement Page");
                 ResultUserAchieve = resultAchieve;
-                CallServer();
-
             });
             MessagingCenter.Subscribe<CarouselPageVm, SteamAchievementDataResponse>(this, "resultAchieveData", (sender, resultAchieve) =>
             {
                 Debug.WriteLine("Received AchieveData Achievement Page");
                 ResultAchieveData = resultAchieve;
-                CallServer();
+                //CallServer();
+                new Task(CallServer).Start();
             });
             
         }
