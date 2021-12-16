@@ -361,3 +361,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+.vs/statControl/DesignTimeBuild/.dtbcache.v2
+.vs/statControl/v17/.futdcache.v1
+StatControl.Android/obj/Debug/120/designtime/build.props
+StatControl.iOS/obj/iPhoneSimulator/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+StatControl.iOS/obj/iPhoneSimulator/Debug/StatControl.iOS.csproj.AssemblyReference.cache
+StatControl.iOS/obj/iPhoneSimulator/Debug/StatControl.iOS.csproj.AssemblyReference.cache
