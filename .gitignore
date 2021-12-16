@@ -197,9 +197,9 @@ PublishScripts/
 # NuGet Symbol Packages
 *.snupkg
 # The packages folder can be ignored because of Package Restore
-#**/[Pp]ackages/*
+**/[Pp]ackages/*
 # except build/, which is used as an MSBuild target.
-#!**/[Pp]ackages/build/
+!**/[Pp]ackages/build/
 # Uncomment if necessary however generally it will be regenerated when needed
 #!**/[Pp]ackages/repositories.config
 # NuGet v3's project.json files produces more ignorable files
@@ -361,9 +361,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-StatControl.Android/StatControl.Android.csproj.user
-StatControl.Android/obj/Debug/120/designtime/Resource.designer.cs
-StatControl.Android/obj/Debug/120/designtime/build.props
-StatControl.Android/StatControl.Android.csproj.user
-StatControl.iOS/obj/iPhoneSimulator/Debug/StatControl.iOS.csproj.AssemblyReference.cache
+.vs/statControl/DesignTimeBuild/.dtbcache.v2
 .vs/statControl/v17/.futdcache.v1
+StatControl.Android/obj/Debug/120/designtime/build.props
+StatControl.iOS/obj/iPhoneSimulator/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+StatControl.iOS/obj/iPhoneSimulator/Debug/StatControl.iOS.csproj.AssemblyReference.cache
+StatControl.iOS/obj/iPhoneSimulator/Debug/StatControl.iOS.csproj.AssemblyReference.cache
