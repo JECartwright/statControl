@@ -23,7 +23,7 @@ namespace StatControl.Mvvm.ViewModel
 
 
 
-        public ObservableCollection<AchievementDisplayModel> Achievements { get;}
+        public ObservableCollection<AchievementDisplayModel> Achievements { get; private set; }
         private List<AchievementDisplayModel> AchievementsToSort = new List<AchievementDisplayModel>();
 
         public SteamAchievementDataResponse ResultAchieveData
@@ -48,7 +48,7 @@ namespace StatControl.Mvvm.ViewModel
 
         void CallServer()
         {
-            Debug.WriteLine("started Achvhemenets");
+            Debug.WriteLine("started Achievements");
             List<string> achievementNamesList = new List<string>();
             //_resultUserAchieve.playerstats.achievements.Sort();
             for (int i = 0; i< ResultUserAchieve.playerstats.achievements.Count;i++)
@@ -67,19 +67,19 @@ namespace StatControl.Mvvm.ViewModel
                         {
                             toPush.AchievedText = "✓";
                             toPush.AchievedColor = new Color(0,255,0);
-                            toPush.ImageAdress = ResultAchieveData.game.availableGameStats.achievements[b].icon;
+                            toPush.ImageAddress = ResultAchieveData.game.availableGameStats.achievements[b].icon;
                         }
                         else if (toPush.Achieved == 0)
                         {
                             toPush.AchievedText = "✗";
                             toPush.AchievedColor = new Color(255, 0, 0);
-                            toPush.ImageAdress = ResultAchieveData.game.availableGameStats.achievements[b].icongray;
+                            toPush.ImageAddress = ResultAchieveData.game.availableGameStats.achievements[b].icongray;
                         }
                         else
                         {
                             toPush.AchievedText = "!";
                             toPush.AchievedColor = new Color(255, 0, 0);
-                            toPush.ImageAdress = "Backup Image.jpg";
+                            toPush.ImageAddress = "Backup Image.jpg";
                         }
                         AchievementsToSort.Add(toPush);
                     }
