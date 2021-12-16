@@ -26,7 +26,7 @@
                             <Grid Padding="10">
                                 <Frame>
                                     <StackLayout Orientation="Horizontal">
-                                        <Image Source="{Binding ImageAdress}"
+                                        <Image Source="{Binding ImageAddress}"
                                                WidthRequest="50"/>
                                         <StackLayout VerticalOptions="Center">
                                             <Label VerticalOptions="Center"

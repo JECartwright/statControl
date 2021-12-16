@@ -3412,29 +3412,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Joshua\\.nuget\\packages\\": {},
-    "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\SmudgeFudge\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Users\\Joshua\\Documents\\GitHub\\statControl\\StatControl.Android\\StatControl.Android.csproj",
+      "projectUniqueName": "G:\\Programming\\statControl\\StatControl.Android\\StatControl.Android.csproj",
       "projectName": "StatControl.Android",
-      "projectPath": "D:\\Users\\Joshua\\Documents\\GitHub\\statControl\\StatControl.Android\\StatControl.Android.csproj",
-      "packagesPath": "C:\\Users\\Joshua\\.nuget\\packages\\",
-      "outputPath": "D:\\Users\\Joshua\\Documents\\GitHub\\statControl\\StatControl.Android\\obj\\",
+      "projectPath": "G:\\Programming\\statControl\\StatControl.Android\\StatControl.Android.csproj",
+      "packagesPath": "C:\\Users\\SmudgeFudge\\.nuget\\packages\\",
+      "outputPath": "G:\\Programming\\statControl\\StatControl.Android\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
-        "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Joshua\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\SmudgeFudge\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "monoandroid12.0"
@@ -3445,8 +3442,8 @@
       "frameworks": {
         "monoandroid12.0": {
           "projectReferences": {
-            "D:\\Users\\Joshua\\Documents\\GitHub\\statControl\\StatControl\\StatControl.csproj": {
-              "projectPath": "D:\\Users\\Joshua\\Documents\\GitHub\\statControl\\StatControl\\StatControl.csproj"
+            "G:\\Programming\\statControl\\StatControl\\StatControl.csproj": {
+              "projectPath": "G:\\Programming\\statControl\\StatControl\\StatControl.csproj"
             }
           }
         }

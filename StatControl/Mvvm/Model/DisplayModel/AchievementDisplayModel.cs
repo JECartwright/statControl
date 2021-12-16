@@ -10,7 +10,7 @@ namespace StatControl.Mvvm.Model.DisplayModel
         public string APIName {get;set;}
         public string Name { get; set; }
         public string Description { get; set; }
-        public ImageSource ImageAdress { get; set; }
+        public ImageSource ImageAddress { get; set; }
         public int Achieved { get; set; }
         public string AchievedText { get; set; }
         public Color AchievedColor { get; set; }
