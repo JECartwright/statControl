@@ -365,3 +365,4 @@ StatControl.Android/obj/Debug/120/designtime/build.props
 StatControl.iOS/obj/project.assets.json
 StatControl.iOS/obj/StatControl.iOS.csproj.nuget.dgspec.json
 StatControl.Android/obj/Debug/120/designtime/build.props
+StatControl.iOS/obj/iPhoneSimulator/Debug/StatControl.iOS.csproj.AssemblyReference.cache
