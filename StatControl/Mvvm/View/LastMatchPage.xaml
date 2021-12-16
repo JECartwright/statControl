@@ -9,10 +9,41 @@
     </ContentPage.BindingContext>
     
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to the Last Match Page!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout HorizontalOptions="CenterAndExpand" HeightRequest="40" WidthRequest="300" Spacing="20" Margin="20,20,20,20">
+            <Frame>
+                <StackLayout>
+                    <Label Text="LAST MATCH" HorizontalOptions="CenterAndExpand"/>
+                    <Label Text="MATCH RESULTS PLACEHOLDER" HorizontalOptions="CenterAndExpand"/>
+                </StackLayout>
+            </Frame>
+            <Frame>
+                <StackLayout>
+                    <Label Text="FAVOURITE WEAPON" HorizontalOptions="CenterAndExpand"/>
+                    <BoxView VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="1" WidthRequest="300" Color="#414141"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Text="SHOTS"/>
+                        <Label Grid.Row="0" Grid.Column="1" Text="HITS"/>
+                        <Label Grid.Row="1" Grid.Column="0" Text="KILLS"/>
+                        <Label Grid.Row="1" Grid.Column="1" Text="ACCURACY"/>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+            <Frame>
+                <StackLayout>
+                    <Label Text="MVP PLACEHOLDER" HorizontalOptions="CenterAndExpand"/>
+                    <Label Text="KILLS PLACEHOLDER" HorizontalOptions="CenterAndExpand"/>
+                    <Label Text="DEATHS PLACEHOLDER" HorizontalOptions="CenterAndExpand"/>
+                    <Label Text="KD PLACEHOLDER" HorizontalOptions="CenterAndExpand"/>
+                    <Label Text="DAMAGE PLACEHOLDER" HorizontalOptions="CenterAndExpand"/>
+                    <Label Text="ADR PLACEHOLDER" HorizontalOptions="CenterAndExpand"/>
+                    <Label Text="MONEY SPENT PLACEHOLDER" HorizontalOptions="CenterAndExpand"/>
+                    <Label Text="SCORE PLACEHOLDER" HorizontalOptions="CenterAndExpand"/>
+                </StackLayout>
+            </Frame>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
