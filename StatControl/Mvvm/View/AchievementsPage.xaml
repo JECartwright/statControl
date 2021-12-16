@@ -17,30 +17,31 @@
                 ItemsSource="{Binding Achievements}"
                 BackgroundColor="Transparent"
                 HasUnevenRows="True"
-                RowHeight="500">
+                RowHeight="150"
+                SelectionMode="None">
                 
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Grid Padding="0">
+                            <Grid Padding="10">
                                 <Frame>
                                     <StackLayout Orientation="Horizontal">
-                                        <!--<Image Source="{Binding imagePath}"
-                                               WidthRequest="50"/>-->
+                                        <Image Source="{Binding ImageAdress}"
+                                               WidthRequest="50"/>
                                         <StackLayout VerticalOptions="Center">
                                             <Label VerticalOptions="Center"
                                                    FontSize="Medium"
-                                                   Text="{Binding name}"/>
+                                                   Text="{Binding Name}"/>
                                             <Label VerticalOptions="Center"
-                                                   FontSize="Small"
+                                                   FontSize="Micro"
                                                    LineBreakMode="CharacterWrap"
-                                                   Text="{Binding description}"/>
+                                                   Text="{Binding Description}"/>
                                         </StackLayout>
                                         <Label VerticalOptions="Center"
                                                HorizontalOptions="EndAndExpand"
-                                               FontSize="Large"
-                                               
-                                               Text="{Binding achieved}"/>
+                                               FontSize="Small"
+                                               TextColor="{Binding AchievedColor}"
+                                               Text="{Binding AchievedText}"/>
                                     </StackLayout>                                    
                                 </Frame>
                             </Grid>

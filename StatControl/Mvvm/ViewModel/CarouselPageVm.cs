@@ -48,7 +48,7 @@ namespace StatControl.Mvvm.ViewModel
             Debug.WriteLine("Sending resultStats");
             MessagingCenter.Send<CarouselPageVm, SteamGameStatsResponse>(this, "resultStats", _resultStats);
             OnPropertyChanged();
-            
+            //do not change load order will break achevements (resultAchieveData must be loaded after resultUserAchieve)
         }
     }
 }

@@ -103,7 +103,7 @@
           "lib/xamarinios10/Xamarin.Essentials.dll": {}
         }
       },
-      "Xamarin.Forms/5.0.0.2244": {
+      "Xamarin.Forms/5.0.0.2291": {
         "type": "package",
         "compile": {
           "lib/Xamarin.iOS10/Xamarin.Forms.Core.dll": {},
@@ -346,7 +346,7 @@
           "lib/xamarinios10/Xamarin.Essentials.dll": {}
         }
       },
-      "Xamarin.Forms/5.0.0.2244": {
+      "Xamarin.Forms/5.0.0.2291": {
         "type": "package",
         "compile": {
           "lib/Xamarin.iOS10/Xamarin.Forms.Core.dll": {},
@@ -589,7 +589,7 @@
           "lib/xamarinios10/Xamarin.Essentials.dll": {}
         }
       },
-      "Xamarin.Forms/5.0.0.2244": {
+      "Xamarin.Forms/5.0.0.2291": {
         "type": "package",
         "compile": {
           "lib/Xamarin.iOS10/Xamarin.Forms.Core.dll": {},
@@ -832,7 +832,7 @@
           "lib/xamarinios10/Xamarin.Essentials.dll": {}
         }
       },
-      "Xamarin.Forms/5.0.0.2244": {
+      "Xamarin.Forms/5.0.0.2291": {
         "type": "package",
         "compile": {
           "lib/Xamarin.iOS10/Xamarin.Forms.Core.dll": {},
@@ -1226,10 +1226,10 @@
         "xamarin.essentials.nuspec"
       ]
     },
-    "Xamarin.Forms/5.0.0.2244": {
-      "sha512": "Ssr+0Pf11oHcaMHM4dHXW1NGex0h9uH7gQxuoLtiZcdPtXBli3SXzY3rF9ovp4Bw2mTe7cYpvy554pIpuW6fvA==",
+    "Xamarin.Forms/5.0.0.2291": {
+      "sha512": "No5HI+c05RBDT5Oe7ZSRaO+cQVeZNhrYdchvczNeZdWQiwrux8RJcVg8chI4DZ2xODeBjF0juIF9u1A5ysZ+uQ==",
       "type": "package",
-      "path": "xamarin.forms/5.0.0.2244",
+      "path": "xamarin.forms/5.0.0.2291",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1438,7 +1438,7 @@
         "lib/uap10.0.16299/Xamarin.Forms.Xaml.dll",
         "lib/uap10.0.16299/Xamarin.Forms.Xaml.pdb",
         "lib/uap10.0.16299/Xamarin.Forms.Xaml.xml",
-        "xamarin.forms.5.0.0.2244.nupkg.sha512",
+        "xamarin.forms.5.0.0.2291.nupkg.sha512",
         "xamarin.forms.nuspec"
       ]
     },
@@ -1452,30 +1452,33 @@
     "Xamarin.iOS,Version=v1.0": [
       "StatControl >= 1.0.0",
       "Xamarin.Essentials >= 1.7.0",
-      "Xamarin.Forms >= 5.0.0.2244"
+      "Xamarin.Forms >= 5.0.0.2291"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\SmudgeFudge\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Joshua\\.nuget\\packages\\": {},
+    "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\Programming\\statControl\\StatControl.iOS\\StatControl.iOS.csproj",
+      "projectUniqueName": "D:\\Users\\Joshua\\Documents\\GitHub\\statControl\\StatControl.iOS\\StatControl.iOS.csproj",
       "projectName": "StatControl.iOS",
-      "projectPath": "G:\\Programming\\statControl\\StatControl.iOS\\StatControl.iOS.csproj",
-      "packagesPath": "C:\\Users\\SmudgeFudge\\.nuget\\packages\\",
-      "outputPath": "G:\\Programming\\statControl\\StatControl.iOS\\obj\\",
+      "projectPath": "D:\\Users\\Joshua\\Documents\\GitHub\\statControl\\StatControl.iOS\\StatControl.iOS.csproj",
+      "packagesPath": "C:\\Users\\Joshua\\.nuget\\packages\\",
+      "outputPath": "D:\\Users\\Joshua\\Documents\\GitHub\\statControl\\StatControl.iOS\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\SmudgeFudge\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Joshua\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "xamarinios10"
@@ -1487,8 +1490,8 @@
       "frameworks": {
         "xamarinios10": {
           "projectReferences": {
-            "G:\\Programming\\statControl\\StatControl\\StatControl.csproj": {
-              "projectPath": "G:\\Programming\\statControl\\StatControl\\StatControl.csproj"
+            "D:\\Users\\Joshua\\Documents\\GitHub\\statControl\\StatControl\\StatControl.csproj": {
+              "projectPath": "D:\\Users\\Joshua\\Documents\\GitHub\\statControl\\StatControl\\StatControl.csproj"
             }
           }
         }
@@ -1503,7 +1506,7 @@
           },
           "Xamarin.Forms": {
             "target": "Package",
-            "version": "[5.0.0.2244, )"
+            "version": "[5.0.0.2291, )"
           }
         }
       }
@@ -1519,20 +1522,5 @@
         "#import": []
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1605",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Detected package downgrade: Xamarin.Forms from 5.0.0.2291 to 5.0.0.2244. Reference the package directly from the project to select a different version. \r\n StatControl.iOS -> StatControl -> Xamarin.Forms (>= 5.0.0.2291) \r\n StatControl.iOS -> Xamarin.Forms (>= 5.0.0.2244)",
-      "libraryId": "Xamarin.Forms",
-      "targetGraphs": [
-        "Xamarin.iOS,Version=v1.0",
-        "Xamarin.iOS,Version=v1.0/win",
-        "Xamarin.iOS,Version=v1.0/win-x64",
-        "Xamarin.iOS,Version=v1.0/win-x86"
-      ]
-    }
-  ]
+  }
 }
