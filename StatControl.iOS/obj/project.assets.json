@@ -346,7 +346,6 @@
           "lib/xamarinios10/Xamarin.Essentials.dll": {}
         }
       },
-      "Xamarin.Forms/5.0.0.2244": {
       "Xamarin.Forms/5.0.0.2291": {
         "type": "package",
         "compile": {
