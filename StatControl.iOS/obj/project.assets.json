@@ -234,7 +234,7 @@
           "Newtonsoft.Json": "13.0.1",
           "SimpleInjector": "5.3.2",
           "Xamarin.Essentials": "1.7.0",
-          "Xamarin.Forms": "5.0.0.2244"
+          "Xamarin.Forms": "5.0.0.2291"
         },
         "compile": {
           "bin/placeholder/StatControl.dll": {}
@@ -477,7 +477,7 @@
           "Newtonsoft.Json": "13.0.1",
           "SimpleInjector": "5.3.2",
           "Xamarin.Essentials": "1.7.0",
-          "Xamarin.Forms": "5.0.0.2244"
+          "Xamarin.Forms": "5.0.0.2291"
         },
         "compile": {
           "bin/placeholder/StatControl.dll": {}
@@ -720,7 +720,7 @@
           "Newtonsoft.Json": "13.0.1",
           "SimpleInjector": "5.3.2",
           "Xamarin.Essentials": "1.7.0",
-          "Xamarin.Forms": "5.0.0.2244"
+          "Xamarin.Forms": "5.0.0.2291"
         },
         "compile": {
           "bin/placeholder/StatControl.dll": {}
@@ -963,7 +963,7 @@
           "Newtonsoft.Json": "13.0.1",
           "SimpleInjector": "5.3.2",
           "Xamarin.Essentials": "1.7.0",
-          "Xamarin.Forms": "5.0.0.2244"
+          "Xamarin.Forms": "5.0.0.2291"
         },
         "compile": {
           "bin/placeholder/StatControl.dll": {}
@@ -1519,5 +1519,20 @@
         "#import": []
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1605",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Detected package downgrade: Xamarin.Forms from 5.0.0.2291 to 5.0.0.2244. Reference the package directly from the project to select a different version. \r\n StatControl.iOS -> StatControl -> Xamarin.Forms (>= 5.0.0.2291) \r\n StatControl.iOS -> Xamarin.Forms (>= 5.0.0.2244)",
+      "libraryId": "Xamarin.Forms",
+      "targetGraphs": [
+        "Xamarin.iOS,Version=v1.0",
+        "Xamarin.iOS,Version=v1.0/win",
+        "Xamarin.iOS,Version=v1.0/win-x64",
+        "Xamarin.iOS,Version=v1.0/win-x86"
+      ]
+    }
+  ]
 }
