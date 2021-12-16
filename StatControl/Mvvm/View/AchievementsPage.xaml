@@ -13,6 +13,42 @@
             <Label Text="Welcome to the Achievements Page!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+            <ListView
+                ItemsSource="{Binding Achievements}"
+                BackgroundColor="Transparent"
+                HasUnevenRows="True"
+                RowHeight="150"
+                SelectionMode="None">
+                
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="10">
+                                <Frame>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Image Source="{Binding ImageAddress}"
+                                               WidthRequest="50"/>
+                                        <StackLayout VerticalOptions="Center">
+                                            <Label VerticalOptions="Center"
+                                                   FontSize="Medium"
+                                                   Text="{Binding Name}"/>
+                                            <Label VerticalOptions="Center"
+                                                   FontSize="Micro"
+                                                   LineBreakMode="CharacterWrap"
+                                                   Text="{Binding Description}"/>
+                                        </StackLayout>
+                                        <Label VerticalOptions="Center"
+                                               HorizontalOptions="EndAndExpand"
+                                               FontSize="Small"
+                                               TextColor="{Binding AchievedColor}"
+                                               Text="{Binding AchievedText}"/>
+                                    </StackLayout>                                    
+                                </Frame>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -21,7 +21,7 @@ namespace StatControl.Services.Rest
         public async Task<(ResultStatus status, TResponse payload, string rawResponse)> GetAsync<TResponse>(string path)
         {
             string uri = Path.Combine(_host, path);
-            //Debug.WriteLine(uri); //Debugging API Calls
+            Debug.WriteLine("API Call: " + uri); //Debugging API Calls
             HttpResponseMessage response = await _httpClient.GetAsync(Sanitise(uri));
 
             if (response.IsSuccessStatusCode == true)
