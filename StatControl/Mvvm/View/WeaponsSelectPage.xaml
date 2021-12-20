@@ -1,18 +1,57 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:StatControl.Controls"
              xmlns:local="clr-namespace:StatControl.Mvvm.ViewModel"
              x:Class="StatControl.Mvvm.View.WeaponsSelectPage">
+             
 
     <ContentPage.BindingContext>
         <local:WeaponsSelectPageVm/>
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to the Weapons Select Page!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <CollectionView Margin="0,20,0,0" ItemsSource="{Binding WeaponsDisplay}" ItemsLayout="VerticalGrid, 3" SelectionMode="Single" VerticalScrollBarVisibility="Always">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="10" WidthRequest="100" HeightRequest="160">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Ellipse Stroke="Transparent" Fill="#a7a7a7" StrokeThickness="10" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="95" HeightRequest="95"/>
+                        <Image Source="{Binding WeaponImage}"
+                               WidthRequest="100"
+                               HeightRequest="100"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center">
+                            <Image.Clip>
+                                <EllipseGeometry
+                                    Center="50,50"
+                                    RadiusX="40"
+                                    RadiusY="40"/>
+                            </Image.Clip>
+                        </Image>
+                        <Ellipse Stroke="#252525" Fill="Transparent" StrokeThickness="10" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="95" HeightRequest="95"/>
+                        <controls:CircleCountdown 
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center"
+                                HeightRequest="103"
+                                WidthRequest="103"
+                                Progress="{Binding ArcAngle}"
+                                ProgressStartColor="#273507"
+                                ProgressEndColor="#5C7E10"
+                                StrokeWidth="{Binding Source={RelativeSource AncestorType={x:Type local:WeaponsSelectPageVm}}, Path=ProgressBarSize}"
+                                Grid.Row="0"/>
+                        <StackLayout Orientation="Horizontal" BackgroundColor="Transparent" Grid.Row="2" VerticalOptions="Center" HorizontalOptions="Center">
+                            <Label Text="{Binding KillsText}" FontSize="Micro" VerticalOptions="Center"/>
+                            <Label Text="{Binding AccuracyText}" FontSize="Micro" VerticalOptions="Center"/>
+                        </StackLayout>
+                        <Label Text="{Binding WeaponName}" FontSize="Micro" VerticalOptions="End" HorizontalOptions="Center" Grid.Row="1"/>
+                    </Grid>                          
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </ContentPage.Content>
 </ContentPage>
