@@ -126,7 +126,10 @@ namespace StatControl.Mvvm.ViewModel
                 Debug.WriteLine("Received AchieveData Achievement Page");
                 ResultAchieveData = resultAchieve;
                 //CallServer();
-                new Task(CallServer).Start();
+
+                Achievements.Clear();
+                AchievementsToSort.Clear();
+                CallServer();
             });
             
         }
