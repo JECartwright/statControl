@@ -20,6 +20,7 @@ namespace StatControl.Mvvm.ViewModel
     internal class LoginPageVm : MvvmZeroBaseVm
     {
         private string _steamProfileIdText;
+
         private readonly SteamGameStatsService _steamGameStatsService;
         private readonly SteamUserAchievementsService _steamUserAchievementsService;
         private readonly SteamUserProfileService _steamUserProfileService;
@@ -33,7 +34,6 @@ namespace StatControl.Mvvm.ViewModel
             get => _steamProfileIdText;
             set => SetProperty(ref _steamProfileIdText, value);
         }
-
 
         private async Task HomePageCommandExecuteAsync()
         {
