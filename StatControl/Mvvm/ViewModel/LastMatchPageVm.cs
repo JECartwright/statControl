@@ -128,7 +128,14 @@ namespace StatControl.Mvvm.ViewModel
                 TextMVP = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_mvps")).value.ToString();
                 TextKills = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_kills")).value.ToString();
                 TextDeaths =  _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_deaths")).value.ToString();
-                TextKD = Math.Round((double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_kills")).value / (double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_deaths")).value, 2).ToString();
+                
+                if (_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_deaths")).value == 0) {
+                    TextKD = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_kills")).value.ToString();
+                } else
+                {
+                    TextKD = Math.Round((double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_kills")).value / (double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_deaths")).value, 2).ToString();
+                }
+
                 TextDamage = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_damage")).value.ToString();
                 TextADR = Math.Round((double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_damage")).value / (double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_rounds")).value, 2).ToString();
                 TextScore =  _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_contribution_score")).value.ToString();
