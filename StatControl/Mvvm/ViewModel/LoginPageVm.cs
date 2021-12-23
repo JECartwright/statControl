@@ -40,7 +40,15 @@ namespace StatControl.Mvvm.ViewModel
             var resultProfile = await _steamUserProfileService.GetUserSummaryAsync(_steamProfileIdText);
             var resultStats = await _steamGameStatsService.GetUserStatsAsync(_steamProfileIdText);
 
-            await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init(resultAchieve.payload, resultProfile.payload, resultStats.payload));
+            if (resultAchieve.status == 0 & resultProfile.status == 0 & resultStats.status == 0)
+            {
+                await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init(resultAchieve.payload, resultProfile.payload, resultStats.payload));
+            }
+            else
+            {
+                Debug.WriteLine("Error in getting API");
+            }
+            
 
         }
 
