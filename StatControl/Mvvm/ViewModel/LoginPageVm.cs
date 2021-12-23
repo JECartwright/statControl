@@ -13,18 +13,19 @@ using Xamarin.Forms;
 using StatControl.Mvvm.Model.SteamUserProfile;
 using StatControl.Mvvm.Model.SteamUserAchievements;
 using StatControl.Mvvm.Model.SteamGameStats;
+using StatControl.Mvvm.Model.SteamAchievementData;
 
 namespace StatControl.Mvvm.ViewModel
 {
     internal class LoginPageVm : MvvmZeroBaseVm
     {
         private string _steamProfileIdText;
-
         private readonly SteamGameStatsService _steamGameStatsService;
         private readonly SteamUserAchievementsService _steamUserAchievementsService;
         private readonly SteamUserProfileService _steamUserProfileService;
+        private readonly SteamAchievementService _steamAchievementDataService;
         private readonly IPageServiceZero _pageService;
-        
+
         public ICommand HomePageCommand { get; }
 
         public string SteamProfileIdText
@@ -35,14 +36,22 @@ namespace StatControl.Mvvm.ViewModel
 
         private async Task HomePageCommandExecuteAsync()
         {
-            
-            var resultAchieve = await _steamUserAchievementsService.GetUserAchieveAsync(_steamProfileIdText);
-            var resultProfile = await _steamUserProfileService.GetUserSummaryAsync(_steamProfileIdText);
-            var resultStats = await _steamGameStatsService.GetUserStatsAsync(_steamProfileIdText);
 
-            if (resultAchieve.status == 0 & resultProfile.status == 0 & resultStats.status == 0)
+            var resultUserAchieve = await _steamUserAchievementsService.GetUserAchieveAsync(_steamProfileIdText);
+            Debug.WriteLine("User Achievements Response Received");
+
+            var resultProfile = await _steamUserProfileService.GetUserSummaryAsync(_steamProfileIdText);
+            Debug.WriteLine("User Profile Response Received");
+
+            var resultStats = await _steamGameStatsService.GetUserStatsAsync(_steamProfileIdText);
+            Debug.WriteLine("Game Stats Response Received");
+
+            var resultAchieveData = await _steamAchievementDataService.GetAchieveInfoAsync();
+            Debug.WriteLine("Steam Achievements Response Received");
+
+            if (resultUserAchieve.status == 0 & resultAchieveData.status == 0 & resultProfile.status == 0 & resultStats.status == 0)
             {
-                await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init(resultAchieve.payload, resultProfile.payload, resultStats.payload));
+                await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init(resultUserAchieve.payload, resultAchieveData.payload, resultProfile.payload, resultStats.payload));
             }
             else
             {
@@ -52,12 +61,13 @@ namespace StatControl.Mvvm.ViewModel
 
         }
 
-        public LoginPageVm(IPageServiceZero pageService, SteamGameStatsService steamGameStatsService, SteamUserAchievementsService steamUserAchievementsService, SteamUserProfileService steamUserProfileService)
+        public LoginPageVm(IPageServiceZero pageService, SteamGameStatsService steamGameStatsService, SteamUserAchievementsService steamUserAchievementsService, SteamUserProfileService steamUserProfileService, SteamAchievementService steamAchievementDataService)
         {
             _pageService = pageService;
             _steamGameStatsService = steamGameStatsService;
             _steamUserAchievementsService = steamUserAchievementsService;
             _steamUserProfileService = steamUserProfileService;
+            _steamAchievementDataService = steamAchievementDataService;
             SteamProfileIdText = "76561198045733101";
 
             HomePageCommand = new CommandBuilder().SetExecuteAsync(HomePageCommandExecuteAsync).SetName("Search").Build();
