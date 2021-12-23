@@ -37,6 +37,7 @@ namespace StatControl.Mvvm.ViewModel
                 SetProperty(ref _progressBarSize, value);
             }
         }
+        //for push
         private readonly Dictionary<String, String> _favWeaponDictionary = new Dictionary<String, String>()
             {
                 { "deagle", "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/weapons/base_weapons/weapon_deagle.29e8f0d7d0be5e737d4f663ee8b394b5c9e00bdd.png" },
