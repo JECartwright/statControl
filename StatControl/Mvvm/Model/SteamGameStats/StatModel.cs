@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace StatControl.Mvvm.Model.SteamGameStats
@@ -13,6 +15,7 @@ namespace StatControl.Mvvm.Model.SteamGameStats
         }
 
         public string name { get; private set; }
+
         public int value { get; private set; }
 
     }

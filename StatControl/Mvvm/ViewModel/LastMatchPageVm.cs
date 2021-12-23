@@ -31,7 +31,7 @@ namespace StatControl.Mvvm.ViewModel
         private string _FavWeaponID;
         private SteamGameStatsResponse _resultStats;
 
-        private Dictionary<int, String> _favWeaponDictionary;
+        private readonly Dictionary<int, String> _favWeaponDictionary;
 
         public string FavWeaponID
         {
@@ -124,30 +124,30 @@ namespace StatControl.Mvvm.ViewModel
             {
                 SetProperty(ref _resultStats, value);
 
-                TextMatchResults = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_wins")).value.ToString() + " / " + (_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_rounds")).value - _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_wins")).value).ToString();
-                TextMVP = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_mvps")).value.ToString();
-                TextKills = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_kills")).value.ToString();
-                TextDeaths =  _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_deaths")).value.ToString();
+                TextMatchResults = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_wins"))?.value.ToString() + " / " + (_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_rounds"))?.value - _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_wins"))?.value).ToString() ?? "0";
+                TextMVP = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_mvps"))?.value.ToString() ?? "0";
+                TextKills = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_kills"))?.value.ToString() ?? "0";
+                TextDeaths =  _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_deaths"))?.value.ToString() ?? "0";
                 
-                if (_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_deaths")).value == 0) {
-                    TextKD = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_kills")).value.ToString();
+                if (_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_deaths"))?.value == 0) {
+                    TextKD = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_kills"))?.value.ToString();
                 } else
                 {
-                    TextKD = Math.Round((double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_kills")).value / (double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_deaths")).value, 2).ToString();
+                    TextKD = Math.Round((double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_kills"))?.value / (double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_deaths"))?.value, 2).ToString() ?? "0";
                 }
 
-                TextDamage = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_damage")).value.ToString();
-                TextADR = Math.Round((double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_damage")).value / (double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_rounds")).value, 2).ToString();
-                TextScore =  _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_contribution_score")).value.ToString();
-                TextMoneySpent =  _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_money_spent")).value.ToString();
+                TextDamage = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_damage"))?.value.ToString() ?? "0";
+                TextADR = Math.Round((double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_damage"))?.value / (double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_rounds"))?.value, 2).ToString() ?? "0";
+                TextScore =  _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_contribution_score"))?.value.ToString() ?? "0";
+                TextMoneySpent =  _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_money_spent"))?.value.ToString() ?? "0";
 
                 //Favourite Weapon
                 FavWeaponID = _favWeaponDictionary[_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_id")).value];
 
-                TextFavShots = "Shots: " + _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_shots")).value.ToString();
-                TextFavHits = "Hits: " + _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_hits")).value.ToString();
-                TextFavKills = "Kills: " + _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_kills")).value.ToString();
-                TextFavAccuracy = "Accuracy: " + Math.Round((double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_hits")).value / (double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_shots")).value * 100, 2).ToString() + "%";
+                TextFavShots = "Shots: " + _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_shots"))?.value.ToString() ?? "0";
+                TextFavHits = "Hits: " + _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_hits"))?.value.ToString() ?? "0";
+                TextFavKills = "Kills: " + _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_kills"))?.value.ToString() ?? "0";
+                TextFavAccuracy = "Accuracy: " + Math.Round((double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_hits"))?.value / (double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_shots"))?.value * 100, 2).ToString() + "%";
 
 
                 OnPropertyChanged();
