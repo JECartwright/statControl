@@ -20,7 +20,7 @@ namespace StatControl.Services
             _apiKey = apiKey;
         }
 
-        public async Task<(ResultStatus status, SteamAchievementDataResponse payload, string rawResponse)> GetAchieveInfoAsync(string id)
+        public async Task<(ResultStatus status, SteamAchievementDataResponse payload, string rawResponse)> GetAchieveInfoAsync()
         {
             return await _restService.GetAsync<SteamAchievementDataResponse>($"{_apiPath}?key={_apiKey}&appid=730&l=english&format=json");
         }
