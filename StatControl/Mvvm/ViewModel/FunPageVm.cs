@@ -154,19 +154,19 @@ namespace StatControl.Mvvm.ViewModel
             {
                 SetProperty(ref _resultStats, value);
 
-                WindowsBroken = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_broken_windows")).value.ToString();
-                PistolRounds = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_wins_pistolround")).value.ToString();
-                EnemyWeapon = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_kills_enemy_weapon")).value.ToString();
-                EnemyFlash = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_kills_enemy_blinded")).value.ToString();
-                KnifeKill = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_kills_knife_fight")).value.ToString();
-                ZoomSniperKill = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_kills_against_zoomed_sniper")).value.ToString();
-                Domination = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_dominations")).value.ToString();
-                Overkill = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_domination_overkills")).value.ToString();
-                Revenges = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_revenges")).value.ToString();
-                GGRoundWon = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_gun_game_rounds_won")).value.ToString();
-                GGRoundPlayed = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_gun_game_rounds_played")).value.ToString();
-                GGLifetimeScore = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_gun_game_contribution_score")).value.ToString();
-                HostagesSaved = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_rescued_hostages")).value.ToString();
+                WindowsBroken = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_broken_windows"))?.value.ToString() ?? "0";
+                PistolRounds = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_wins_pistolround"))?.value.ToString() ?? "0";
+                EnemyWeapon = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_kills_enemy_weapon"))?.value.ToString() ?? "0";
+                EnemyFlash = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_kills_enemy_blinded"))?.value.ToString() ?? "0";
+                KnifeKill = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_kills_knife_fight"))?.value.ToString() ?? "0";
+                ZoomSniperKill = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_kills_against_zoomed_sniper"))?.value.ToString() ?? "0";
+                Domination = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_dominations"))?.value.ToString() ?? "0";
+                Overkill = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_domination_overkills"))?.value.ToString() ?? "0";
+                Revenges = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_revenges"))?.value.ToString() ?? "0";
+                GGRoundWon = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_gun_game_rounds_won"))?.value.ToString() ?? "0";
+                GGRoundPlayed = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_gun_game_rounds_played"))?.value.ToString() ?? "0";
+                GGLifetimeScore = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_gun_game_contribution_score"))?.value.ToString() ?? "0";
+                HostagesSaved = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_rescued_hostages"))?.value.ToString() ?? "0";
                 
                 OnPropertyChanged();
             }

@@ -38,7 +38,6 @@ namespace StatControl.Mvvm.ViewModel
             _resultProfile = resultProfile;
             _resultStats = resultStats;
 
-            //Need to initialise all the view models with api calls
             Debug.WriteLine("Sending resultUserAchieve");
             MessagingCenter.Send<CarouselPageVm, SteamUserAchievementsResponse>(this, "resultUserAchieve", _resultUserAchieve);
             Debug.WriteLine("Sending resultAchieveData");
@@ -48,7 +47,6 @@ namespace StatControl.Mvvm.ViewModel
             Debug.WriteLine("Sending resultStats");
             MessagingCenter.Send<CarouselPageVm, SteamGameStatsResponse>(this, "resultStats", _resultStats);
             OnPropertyChanged();
-            //do not change load order will break achevements (resultAchieveData must be loaded after resultUserAchieve)
         }
     }
 }

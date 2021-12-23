@@ -25,7 +25,7 @@ namespace StatControl.Mvvm.ViewModel
         private readonly SteamUserProfileService _steamUserProfileService;
         private readonly SteamAchievementService _steamAchievementDataService;
         private readonly IPageServiceZero _pageService;
-        
+
         public ICommand HomePageCommand { get; }
 
         public string SteamProfileIdText
@@ -34,33 +34,40 @@ namespace StatControl.Mvvm.ViewModel
             set => SetProperty(ref _steamProfileIdText, value);
         }
 
-
         private async Task HomePageCommandExecuteAsync()
         {
-            
+
             var resultUserAchieve = await _steamUserAchievementsService.GetUserAchieveAsync(_steamProfileIdText);
-            Debug.WriteLine("User Achievements Received");
+            Debug.WriteLine("User Achievements Response Received");
 
             var resultProfile = await _steamUserProfileService.GetUserSummaryAsync(_steamProfileIdText);
-            Debug.WriteLine("User Profile Received");
+            Debug.WriteLine("User Profile Response Received");
 
             var resultStats = await _steamGameStatsService.GetUserStatsAsync(_steamProfileIdText);
-            Debug.WriteLine("Game Stats Received");
+            Debug.WriteLine("Game Stats Response Received");
 
-            var resultAchieveData = await _steamAchievementDataService.GetAchieveInfoAsync(_steamProfileIdText);
-            Debug.WriteLine("Steam Achievements Received");
+            var resultAchieveData = await _steamAchievementDataService.GetAchieveInfoAsync();
+            Debug.WriteLine("Steam Achievements Response Received");
 
-            await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init(resultUserAchieve.payload, resultAchieveData.payload, resultProfile.payload, resultStats.payload));
+            if (resultUserAchieve.status == 0 & resultAchieveData.status == 0 & resultProfile.status == 0 & resultStats.status == 0)
+            {
+                await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init(resultUserAchieve.payload, resultAchieveData.payload, resultProfile.payload, resultStats.payload));
+            }
+            else
+            {
+                Debug.WriteLine("Error in getting API");
+            }
+            
 
         }
 
-        public LoginPageVm(IPageServiceZero pageService, SteamGameStatsService steamGameStatsService, SteamUserAchievementsService steamUserAchievementsService, SteamUserProfileService steamUserProfileService, SteamAchievementService steamAchievementService)
+        public LoginPageVm(IPageServiceZero pageService, SteamGameStatsService steamGameStatsService, SteamUserAchievementsService steamUserAchievementsService, SteamUserProfileService steamUserProfileService, SteamAchievementService steamAchievementDataService)
         {
             _pageService = pageService;
             _steamGameStatsService = steamGameStatsService;
             _steamUserAchievementsService = steamUserAchievementsService;
             _steamUserProfileService = steamUserProfileService;
-            _steamAchievementDataService = steamAchievementService;
+            _steamAchievementDataService = steamAchievementDataService;
             SteamProfileIdText = "76561198045733101";
 
             HomePageCommand = new CommandBuilder().SetExecuteAsync(HomePageCommandExecuteAsync).SetName("Search").Build();

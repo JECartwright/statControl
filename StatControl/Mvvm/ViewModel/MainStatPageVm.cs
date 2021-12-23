@@ -48,120 +48,120 @@ namespace StatControl.Mvvm.ViewModel
         public string MVP { 
             get => _mVP; 
             set
-            { 
-                SetProperty(ref _mVP, value); 
+            {
+                SetProperty(ref _mVP, value);
             } 
         }
 
         public string MoneyEarned { 
             get => _moneyEarned; 
             set
-            { 
-                SetProperty(ref _moneyEarned, value); 
+            {
+                SetProperty(ref _moneyEarned, value);
             } 
         }
 
         public string BombsPlanted { 
             get => _bombsPlanted;
             set
-            { 
-                SetProperty(ref _bombsPlanted, value); 
+            {
+                SetProperty(ref _bombsPlanted, value);
             } 
         }
 
         public string BombsDefused { 
             get => _bombsDefused; 
             set
-            { 
-                SetProperty(ref _bombsDefused, value); 
+            {
+                SetProperty(ref _bombsDefused, value);
             } 
         }
 
         public string WeaponsDonated { 
             get => _weaponsDonated; 
             set
-            { 
-                SetProperty(ref _weaponsDonated, value); 
+            {
+                SetProperty(ref _weaponsDonated, value);
             } 
         }
 
         public string Damage { 
             get => _damage; 
             set
-            { 
-                SetProperty(ref _damage, value); 
+            {
+                SetProperty(ref _damage, value);
             } 
         }
 
         public string Headshots { 
             get => _headshots; 
             set
-            { 
-                SetProperty(ref _headshots, value); 
+            {
+                SetProperty(ref _headshots, value);
             } 
         }
 
         public string Shots { 
             get => _shots; 
             set
-            { 
-                SetProperty(ref _shots, value); 
+            {
+                SetProperty(ref _shots, value);
             } 
         }
 
         public string Kills { 
             get => _kills; 
             set
-            { 
-                SetProperty(ref _kills, value); 
+            {
+                SetProperty(ref _kills, value);
             } 
         }
 
         public string Hits { 
             get => _hits; 
             set
-            { 
-                SetProperty(ref _hits, value); 
+            {
+                SetProperty(ref _hits, value);
             } 
         }
 
         public string Accuracy { 
             get => _accuracy; 
             set
-            { 
-                SetProperty(ref _accuracy, value); 
+            {
+                SetProperty(ref _accuracy, value);
             } 
         }
 
         public string MatchesPlayed { 
             get => _matchesPlayed; 
             set
-            { 
-                SetProperty(ref _matchesPlayed, value); 
+            {
+                SetProperty(ref _matchesPlayed, value);
             } 
         }
 
         public string MatchesWon { 
             get => _matchesWon; 
             set
-            { 
-                SetProperty(ref _matchesWon, value); 
+            {
+                SetProperty(ref _matchesWon, value);
             } 
         }
 
         public string MatchesWinRate { 
             get => _matchesWinRate; 
             set
-            { 
-                SetProperty(ref _matchesWinRate, value); 
+            {
+                SetProperty(ref _matchesWinRate, value);
             } 
         }
 
         public string ContributionScore { 
             get => _contributionScore; 
             set
-            { 
-                SetProperty(ref _contributionScore, value); 
+            {
+                SetProperty(ref _contributionScore, value);
             } 
         }
 
@@ -172,22 +172,22 @@ namespace StatControl.Mvvm.ViewModel
             {
                 SetProperty(ref _resultStats, value);
                 
-                RoundsWon = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_wins")).value.ToString();
-                MVP = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_mvps")).value.ToString();
-                MoneyEarned = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_money_earned")).value.ToString();
-                BombsPlanted = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_planted_bombs")).value.ToString();
-                BombsDefused = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_defused_bombs")).value.ToString();
-                WeaponsDonated = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_weapons_donated")).value.ToString();
-                Damage = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_damage_done")).value.ToString();
-                Headshots = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_kills_headshot")).value.ToString();
-                Shots = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_shots_fired")).value.ToString();
-                Kills = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_kills")).value.ToString();
-                Hits = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_shots_hit")).value.ToString();
-                Accuracy = Math.Round((double)_resultStats.playerstats.stats.Find(x => x.name.Equals("total_shots_hit")).value / (double)_resultStats.playerstats.stats.Find(x => x.name.Equals("total_shots_fired")).value * 100, 2).ToString();
-                MatchesPlayed = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_matches_played")).value.ToString();
-                MatchesWon = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_matches_won")).value.ToString();
-                MatchesWinRate = Math.Round((double)_resultStats.playerstats.stats.Find(x => x.name.Equals("total_matches_won")).value / (double)_resultStats.playerstats.stats.Find(x => x.name.Equals("total_matches_played")).value * 100, 2).ToString();
-                ContributionScore = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_contribution_score")).value.ToString();
+                RoundsWon = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_wins"))?.value.ToString() ?? "0";
+                MVP = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_mvps"))?.value.ToString() ?? "0";
+                MoneyEarned = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_money_earned"))?.value.ToString() ?? "0";
+                BombsPlanted = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_planted_bombs"))?.value.ToString() ?? "0";
+                BombsDefused = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_defused_bombs"))?.value.ToString() ?? "0";
+                WeaponsDonated = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_weapons_donated"))?.value.ToString() ?? "0";
+                Damage = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_damage_done"))?.value.ToString() ?? "0";
+                Headshots = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_kills_headshot"))?.value.ToString() ?? "0";
+                Shots = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_shots_fired"))?.value.ToString() ?? "0";
+                Kills = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_kills"))?.value.ToString() ?? "0";
+                Hits = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_shots_hit"))?.value.ToString() ?? "0";
+                Accuracy = Math.Round((double)_resultStats.playerstats.stats.Find(x => x.name.Equals("total_shots_hit"))?.value / (double)_resultStats.playerstats.stats.Find(x => x.name.Equals("total_shots_fired"))?.value * 100, 2).ToString() ?? "0";
+                MatchesPlayed = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_matches_played"))?.value.ToString() ?? "0";
+                MatchesWon = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_matches_won"))?.value.ToString() ?? "0";
+                MatchesWinRate = Math.Round((double)_resultStats.playerstats.stats.Find(x => x.name.Equals("total_matches_won"))?.value / (double)_resultStats.playerstats.stats.Find(x => x.name.Equals("total_matches_played"))?.value * 100, 2).ToString() ?? "0";
+                ContributionScore = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_contribution_score"))?.value.ToString() ?? "0";
 
                 OnPropertyChanged();
             }
