@@ -10,9 +10,6 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to the Achievements Page!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
             <ListView
                 ItemsSource="{Binding Achievements}"
                 BackgroundColor="Transparent"
