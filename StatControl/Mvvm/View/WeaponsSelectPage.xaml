@@ -4,7 +4,6 @@
              xmlns:controls="clr-namespace:StatControl.Controls"
              xmlns:local="clr-namespace:StatControl.Mvvm.ViewModel"
              x:Class="StatControl.Mvvm.View.WeaponsSelectPage">
-             
 
     <ContentPage.BindingContext>
         <local:WeaponsSelectPageVm/>
