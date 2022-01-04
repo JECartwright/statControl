@@ -4,11 +4,11 @@
              xmlns:pages="clr-namespace:StatControl.Mvvm.View"
              x:Class="StatControl.Mvvm.View.CarouselViewPage">
 
-    <pages:HomePage></pages:HomePage>
+    <!--<pages:HomePage></pages:HomePage>
     <pages:MainStatPage></pages:MainStatPage>
     <pages:LastMatchPage></pages:LastMatchPage>
     <pages:WeaponsSelectPage></pages:WeaponsSelectPage>
     <pages:MapPage></pages:MapPage>
     <pages:FunPage></pages:FunPage>
-    <pages:AchievementsPage></pages:AchievementsPage>
+    <pages:AchievementsPage></pages:AchievementsPage>-->
 </CarouselPage>
