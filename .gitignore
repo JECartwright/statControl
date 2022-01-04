@@ -425,3 +425,11 @@ StatControl.Android/obj/Debug/120/designtime/Resource.designer.cs
 StatControl.Android/obj/Debug/120/DesignTimeResolveAssemblyReferencesInput.cache
 StatControl.iOS/obj/iPhoneSimulator/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 StatControl.iOS/obj/iPhoneSimulator/Debug/StatControl.iOS.csproj.AssemblyReference.cache
+FodyWeavers.xsd
+.vs/statControl/DesignTimeBuild/.dtbcache.v2
+.vs/statControl/v17/.futdcache.v1
+StatControl.Android/obj/Debug/120/designtime/build.props
+StatControl.iOS/obj/iPhoneSimulator/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+StatControl.iOS/obj/iPhoneSimulator/Debug/StatControl.iOS.csproj.AssemblyReference.cache
+StatControl.iOS/obj/iPhoneSimulator/Debug/StatControl.iOS.csproj.AssemblyReference.cache
+Resource.designer.cs
