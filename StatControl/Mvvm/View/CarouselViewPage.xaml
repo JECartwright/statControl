@@ -2,8 +2,7 @@
 <CarouselPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:StatControl.Mvvm.View"
-              x:Class="StatControl.Mvvm.View.CarouselViewPage"
-              Visual="Material">
+             x:Class="StatControl.Mvvm.View.CarouselViewPage">
 
     <pages:HomePage></pages:HomePage>
     <pages:MainStatPage></pages:MainStatPage>
