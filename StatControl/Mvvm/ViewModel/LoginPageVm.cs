@@ -14,6 +14,7 @@ using StatControl.Mvvm.Model.SteamUserProfile;
 using StatControl.Mvvm.Model.SteamUserAchievements;
 using StatControl.Mvvm.Model.SteamGameStats;
 using StatControl.Mvvm.Model.SteamAchievementData;
+using Xamarin.Essentials;
 
 namespace StatControl.Mvvm.ViewModel
 {
@@ -61,6 +62,29 @@ namespace StatControl.Mvvm.ViewModel
 
         }
 
+        public string privatepolicy = "";
+
+        public bool IsFirstRun 
+        {
+            get => Preferences.Get(nameof(IsFirstRun), true);
+            set => Preferences.Set(nameof(IsFirstRun), value);
+        }
+
+        public bool HasAgreed
+        {
+            get => Preferences.Get(nameof(HasAgreed), false);
+            set => Preferences.Set(nameof(HasAgreed), value);
+        }
+
+        async void DisplayTerms()
+        {
+            bool answer = await Application.Current.MainPage.DisplayAlert("Question?", "Do You Agree To Our Private Policy?\n\r Found At: https://www.privacypolicies.com/live/5b5de50a-58df-4081-8360-4047ead0a94a \n\r Warning Without Agreeing We Cannot Show Your Stats Inprovement \n\r You Can Reboot The App To Select Yes At A Future Point", "Yes", "No");
+            if (answer)
+            {
+                HasAgreed = true;
+            }
+        }
+
         public LoginPageVm(IPageServiceZero pageService, SteamGameStatsService steamGameStatsService, SteamUserAchievementsService steamUserAchievementsService, SteamUserProfileService steamUserProfileService, SteamAchievementService steamAchievementDataService)
         {
             _pageService = pageService;
@@ -69,6 +93,12 @@ namespace StatControl.Mvvm.ViewModel
             _steamUserProfileService = steamUserProfileService;
             _steamAchievementDataService = steamAchievementDataService;
             SteamProfileIdText = "76561198045733101";
+
+            if (IsFirstRun || !HasAgreed)
+            {
+                IsFirstRun = false;
+                DisplayTerms();                
+            }
 
             HomePageCommand = new CommandBuilder().SetExecuteAsync(HomePageCommandExecuteAsync).SetName("Search").Build();
         }
