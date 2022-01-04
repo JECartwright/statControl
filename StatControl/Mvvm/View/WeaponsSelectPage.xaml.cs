@@ -16,5 +16,10 @@ namespace StatControl.Mvvm.View
         {
             InitializeComponent();
         }
+
+        private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

@@ -18,10 +18,35 @@ namespace StatControl.Mvvm.ViewModel
 {
     internal class WeaponsSelectPageVm : MvvmZeroBaseVm
     {
-        private readonly IPageServiceZero _pageService;
         private SteamGameStatsResponse _resultGameStats;
         private int _progressBarSize;
         public ObservableCollection<WeaponSelectDisplayModel> WeaponsDisplay { get; private set; }
+        private readonly IPageServiceZero _pageService;
+
+        private async void _startWeaponPage()
+        {
+            await _pageService.PushPageAsync<IndividualWeaponPage, IndividualWeaponPageVm>((vm) => vm.Init(_previousWeapon));
+        }
+
+        WeaponSelectDisplayModel _previousWeapon;
+        WeaponSelectDisplayModel _selectedWeapon;
+        public WeaponSelectDisplayModel SelectedWeapon
+        {
+            get => _selectedWeapon;
+            set
+            {
+                if (value != null)
+                {
+                    
+                    _previousWeapon = value;
+                    _startWeaponPage();
+                    value =null;
+                }
+                _selectedWeapon = value;
+                OnPropertyChanged();
+            }
+        }
+
         public SteamGameStatsResponse ResultStats
         {
             get { return _resultGameStats; }
@@ -170,12 +195,25 @@ namespace StatControl.Mvvm.ViewModel
                     break;
             }
         }
-
-        public WeaponsSelectPageVm(IPageServiceZero pageService)
+        /*
+        public CarouselPageVm(IPageServiceZero pageService)
         {
             _pageService = pageService;
-
+        }
+        */
+        public WeaponsSelectPageVm(/*PageServiceZero pageService*/)
+        {
+            //_pageService = pageService;
             WeaponsDisplay = new ObservableCollection<WeaponSelectDisplayModel>();
+            MessagingCenter.Subscribe<CarouselPageVm, SteamGameStatsResponse>(this, "resultStats", (sender, resultStats) =>
+            {
+                Debug.WriteLine("Received Stats Main");
+                ResultStats = resultStats;
+                WeaponsDisplay.Clear();
+                onStarted();
+                platformHelper();
+            });
+
         }
     }
 }//steamGameStatsService
