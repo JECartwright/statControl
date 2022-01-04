@@ -11,7 +11,7 @@
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
-        <CollectionView Margin="0,20,0,0" ItemsSource="{Binding WeaponsDisplay}" ItemsLayout="VerticalGrid, 3" SelectionMode="Single" VerticalScrollBarVisibility="Always">
+        <CollectionView Margin="0,20,0,0" ItemsSource="{Binding WeaponsDisplay}" ItemsLayout="VerticalGrid, 3" SelectionMode="Single" VerticalScrollBarVisibility="Always" SelectedItem="{Binding SelectedWeapon, Mode=TwoWay}" >
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid Padding="10" WidthRequest="100" HeightRequest="160">
