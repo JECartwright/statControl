@@ -175,7 +175,7 @@ namespace StatControl.Mvvm.ViewModel
             WeaponsDisplay = new ObservableCollection<WeaponSelectDisplayModel>();
             MessagingCenter.Subscribe<CarouselPageVm, SteamGameStatsResponse>(this, "resultStats", (sender, resultStats) =>
             {
-                Debug.WriteLine("Received Stats Main");
+                Debug.WriteLine("WEAPON_SELECT_PAGE: Received resultStats");
                 ResultStats = resultStats;
                 WeaponsDisplay.Clear();
                 onStarted();

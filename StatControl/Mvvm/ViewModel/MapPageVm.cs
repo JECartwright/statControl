@@ -35,7 +35,7 @@ namespace StatControl.Mvvm.ViewModel
         {
             MessagingCenter.Subscribe<CarouselPageVm, SteamGameStatsResponse>(this, "resultStats", (sender, resultStats) =>
             {
-                Debug.WriteLine("Received Stats Map");
+                Debug.WriteLine("MAP_PAGE: Received resultStats");
                 ResultStats = resultStats;
             });
         }

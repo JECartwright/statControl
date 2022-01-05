@@ -38,16 +38,16 @@ namespace StatControl.Mvvm.ViewModel
         {
 
             var resultUserAchieve = await _steamUserAchievementsService.GetUserAchieveAsync(_steamProfileIdText);
-            Debug.WriteLine("User Achievements Response Received");
+            Debug.WriteLine("LOGIN_PAGE: User Achievements Response Received");
 
             var resultProfile = await _steamUserProfileService.GetUserSummaryAsync(_steamProfileIdText);
-            Debug.WriteLine("User Profile Response Received");
+            Debug.WriteLine("LOGIN_PAGE: User Profile Response Received");
 
             var resultStats = await _steamGameStatsService.GetUserStatsAsync(_steamProfileIdText);
-            Debug.WriteLine("Game Stats Response Received");
+            Debug.WriteLine("LOGIN_PAGE: Game Stats Response Received");
 
             var resultAchieveData = await _steamAchievementDataService.GetAchieveInfoAsync();
-            Debug.WriteLine("Steam Achievements Response Received");
+            Debug.WriteLine("LOGIN_PAGE: Steam Achievements Response Received");
 
             if (resultUserAchieve.status == 0 & resultAchieveData.status == 0 & resultProfile.status == 0 & resultStats.status == 0)
             {

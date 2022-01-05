@@ -1,14 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <CarouselPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:pages="clr-namespace:StatControl.Mvvm.View"
+             xmlns:local="clr-namespace:StatControl.Mvvm.ViewModel"
+             xmlns:v="clr-namespace:StatControl.Mvvm.View"
              x:Class="StatControl.Mvvm.View.CarouselViewPage">
 
-    <pages:HomePage></pages:HomePage>
-    <pages:MainStatPage></pages:MainStatPage>
-    <pages:LastMatchPage></pages:LastMatchPage>
-    <pages:WeaponsSelectPage></pages:WeaponsSelectPage>
-    <pages:MapPage></pages:MapPage>
-    <pages:FunPage></pages:FunPage>
-    <pages:AchievementsPage></pages:AchievementsPage>
+    <v:HomePage/>
+    <v:MainStatPage/>
+    <v:LastMatchPage/>
+    <v:WeaponsSelectPage/>
+    <v:MapPage/>
+    <v:FunPage/>
+    <v:AchievementsPage/>
+
 </CarouselPage>

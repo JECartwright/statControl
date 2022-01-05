@@ -158,7 +158,7 @@ namespace StatControl.Mvvm.ViewModel
         {
             MessagingCenter.Subscribe<CarouselPageVm, SteamGameStatsResponse>(this, "resultStats", (sender, resultStats) =>
             {
-                Debug.WriteLine("Received Lastmatch Fun");
+                Debug.WriteLine("LAST_MATCH_PAGE: Received resultStats");
                 ResultStats = resultStats;
             });
 

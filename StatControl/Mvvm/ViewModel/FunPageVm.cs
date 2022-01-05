@@ -176,7 +176,7 @@ namespace StatControl.Mvvm.ViewModel
         {
             MessagingCenter.Subscribe<CarouselPageVm, SteamGameStatsResponse>(this, "resultStats", (sender, resultStats) =>
             {
-                Debug.WriteLine("Received Stats Fun");
+                Debug.WriteLine("FUN_PAGE: Received resultStats");
                 ResultStats = resultStats;
             });
         }
