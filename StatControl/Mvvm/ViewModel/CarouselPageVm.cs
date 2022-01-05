@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
 using System.Diagnostics;
+using System.Collections.ObjectModel;
 
 namespace StatControl.Mvvm.ViewModel
 {
@@ -23,6 +24,9 @@ namespace StatControl.Mvvm.ViewModel
         SteamGameStatsResponse _resultStats;
         SteamAchievementDataResponse _resultAchieveData;
         private readonly IPageServiceZero _pageService;
+
+        public ObservableCollection<ContentPage> Pages { get; set; } = new ObservableCollection<ContentPage>();
+
         public ICommand TestCommand { get; }
 
 
@@ -38,13 +42,17 @@ namespace StatControl.Mvvm.ViewModel
             _resultProfile = resultProfile;
             _resultStats = resultStats;
 
-            Debug.WriteLine("Sending resultUserAchieve");
+            Pages.Add(new HomePage());
+            Pages.Add(new MainStatPage());
+
+
+            Debug.WriteLine("CAROUSEL_PAGE: Sending resultUserAchieve");
             MessagingCenter.Send<CarouselPageVm, SteamUserAchievementsResponse>(this, "resultUserAchieve", _resultUserAchieve);
-            Debug.WriteLine("Sending resultAchieveData");
+            Debug.WriteLine("CAROUSEL_PAGE: Sending resultAchieveData");
             MessagingCenter.Send<CarouselPageVm, SteamAchievementDataResponse>(this, "resultAchieveData", _resultAchieveData);
-            Debug.WriteLine("Sending resultProfile");
+            Debug.WriteLine("CAROUSEL_PAGE: Sending resultProfile");
             MessagingCenter.Send<CarouselPageVm, SteamUserProfileResponse>(this, "resultProfile", _resultProfile);
-            Debug.WriteLine("Sending resultStats");
+            Debug.WriteLine("CAROUSEL_PAGE: Sending resultStats");
             MessagingCenter.Send<CarouselPageVm, SteamGameStatsResponse>(this, "resultStats", _resultStats);
             OnPropertyChanged();
         }

@@ -48,7 +48,6 @@ namespace StatControl.Mvvm.ViewModel
 
         void CallServer()
         {
-            Debug.WriteLine("started Achievements");
             List<string> achievementNamesList = new List<string>();
             //_resultUserAchieve.playerstats.achievements.Sort();
             for (int i = 0; i< ResultUserAchieve.playerstats.achievements.Count;i++)
@@ -110,7 +109,6 @@ namespace StatControl.Mvvm.ViewModel
             {
                 Achievements.Add(tempNotAchieved[w]);
             }
-            Debug.WriteLine("Finished Acvhemenets");
         }
 
         public AchievementsPageVm()
@@ -118,12 +116,12 @@ namespace StatControl.Mvvm.ViewModel
             Achievements = new ObservableCollection<AchievementDisplayModel>();
             MessagingCenter.Subscribe<CarouselPageVm, SteamUserAchievementsResponse>(this, "resultUserAchieve", (sender, resultAchieve) =>
             {
-                Debug.WriteLine("Received UserAchieve Achievement Page");
+                Debug.WriteLine("ACHIEVEMENT_PAGE: Received resultUserAchieve");
                 ResultUserAchieve = resultAchieve;
             });
             MessagingCenter.Subscribe<CarouselPageVm, SteamAchievementDataResponse>(this, "resultAchieveData", (sender, resultAchieve) =>
             {
-                Debug.WriteLine("Received AchieveData Achievement Page");
+                Debug.WriteLine("ACHIEVEMENT_PAGE: Received resultAchieveData");
                 ResultAchieveData = resultAchieve;
                 //CallServer();
 
