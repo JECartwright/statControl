@@ -14,6 +14,7 @@ using StatControl.Mvvm.Model.DisplayModel;
 using StatControl.Mvvm.Model.SteamGameStats;
 using System.Diagnostics;
 
+
 namespace StatControl.Mvvm.ViewModel
 {
     internal class WeaponsSelectPageVm : MvvmZeroBaseVm
@@ -21,14 +22,20 @@ namespace StatControl.Mvvm.ViewModel
         private SteamGameStatsResponse _resultGameStats;
         private int _progressBarSize;
         public ObservableCollection<WeaponSelectDisplayModel> WeaponsDisplay { get; private set; }
-        private readonly IPageServiceZero _pageService;
 
-        private async void _startWeaponPage()
+        private async void _startWeaponPage(WeaponSelectDisplayModel weapon)
         {
-            await _pageService.PushPageAsync<IndividualWeaponPage, IndividualWeaponPageVm>((vm) => vm.Init(_previousWeapon));
+            CurrentWeapon = weapon.APIName;
+            await App.Current.MainPage.Navigation.PushAsync(new IndividualWeaponPage());
         }
 
-        WeaponSelectDisplayModel _previousWeapon;
+        public string CurrentWeapon
+        {
+            get => Preferences.Get(nameof(CurrentWeapon), null);
+            set => Preferences.Set(nameof(CurrentWeapon), value);
+        }
+
+        //WeaponSelectDisplayModel _previousWeapon;
         WeaponSelectDisplayModel _selectedWeapon;
         public WeaponSelectDisplayModel SelectedWeapon
         {
@@ -38,8 +45,8 @@ namespace StatControl.Mvvm.ViewModel
                 if (value != null)
                 {
                     
-                    _previousWeapon = value;
-                    _startWeaponPage();
+                    //_previousWeapon = value;
+                    _startWeaponPage(value);
                     value =null;
                 }
                 _selectedWeapon = value;
