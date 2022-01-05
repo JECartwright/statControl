@@ -1,12 +1,86 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="StatControl.Mvvm.View.IndividualWeaponPage">
+             x:Class="StatControl.Mvvm.View.IndividualWeaponPage"
+             xmlns:local="clr-namespace:StatControl.Mvvm.ViewModel">
+    <ContentPage.BindingContext>
+        <local:IndividualWeaponPageVm/>
+    </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Individual Weapons Page!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <StackLayout Orientation="Vertical">
+            <Frame HorizontalOptions="Center" HeightRequest="50">
+                <Label Text="{Binding Weapon}" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold"/>  
+            </Frame>
+            <StackLayout HeightRequest="50" Orientation="Horizontal">
+                <!-- Insert Drop Down Heare  -->
+                <Rectangle Fill="green" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="100" HeightRequest="25"/>
+                <Rectangle Fill="green" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="100" HeightRequest="25"/>
+            </StackLayout>
+            <Rectangle Fill="green" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="400" HeightRequest="300"/>
+            <Frame>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height ="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height ="*"/>
+                            <RowDefinition Height ="*"/>
+                            <RowDefinition Height ="*"/>
+                            <RowDefinition Height ="*"/>
+                            <RowDefinition Height ="*"/>
+                            <RowDefinition Height ="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="Changes Over TIMEFRAME" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+                        <Label Text="Accuracy: XX%" Grid.Row="1" Grid.Column="0"/>
+                        <Label Text="↑ XX%" Grid.Row="1" Grid.Column="1" TextColor="#00ff00"/>
+                        <Label Text="Kills: XX%" Grid.Row="2" Grid.Column="0"/>
+                        <Label Text="↑ XX%" Grid.Row="2" Grid.Column="1" TextColor="#00ff00"/>
+                        <Label Text="Hits: XX%" Grid.Row="3" Grid.Column="0"/>
+                        <Label Text="↑ XX%" Grid.Row="3" Grid.Column="1" TextColor="#00ff00"/>
+                        <Label Text="Shots: XX%" Grid.Row="4" Grid.Column="0"/>
+                        <Label Text="↑ XX%" Grid.Row="4" Grid.Column="1" TextColor="#00ff00"/>
+                        <Label Text="Misses: XX%" Grid.Row="5" Grid.Column="0"/>
+                        <Label Text="↑ XX%" Grid.Row="5" Grid.Column="1" TextColor="#00ff00"/>
+                    </Grid>
+                    <Grid Grid.Row="0" Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height ="*"/>
+                            <RowDefinition Height ="*"/>
+                            <RowDefinition Height ="*"/>
+                            <RowDefinition Height ="*"/>
+                            <RowDefinition Height ="*"/>
+                            <RowDefinition Height ="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="Lifetime Stats" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+                        <Label Text="Accuracy: XX%" Grid.Row="1" Grid.Column="0"/>
+                        <Label Text="↑ XX%" Grid.Row="1" Grid.Column="1" TextColor="#00ff00"/>
+                        <Label Text="Kills: XX%" Grid.Row="2" Grid.Column="0"/>
+                        <Label Text="↑ XX%" Grid.Row="2" Grid.Column="1" TextColor="#00ff00"/>
+                        <Label Text="Hits: XX%" Grid.Row="3" Grid.Column="0"/>
+                        <Label Text="↑ XX%" Grid.Row="3" Grid.Column="1" TextColor="#00ff00"/>
+                        <Label Text="Shots: XX%" Grid.Row="4" Grid.Column="0"/>
+                        <Label Text="↑ XX%" Grid.Row="4" Grid.Column="1" TextColor="#00ff00"/>
+                        <Label Text="Misses: XX%" Grid.Row="5" Grid.Column="0"/>
+                        <Label Text="↑ XX%" Grid.Row="5" Grid.Column="1" TextColor="#00ff00"/>
+                    </Grid>                    
+                </Grid>                
+            </Frame>
+            <Frame>
+                <Label Text="Score: XXXXXX" HorizontalOptions="Center" FontSize="Medium"/>
+            </Frame>
+        </StackLayout>        
     </ContentPage.Content>
 </ContentPage>
