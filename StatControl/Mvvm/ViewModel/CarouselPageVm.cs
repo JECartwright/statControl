@@ -25,8 +25,6 @@ namespace StatControl.Mvvm.ViewModel
         SteamAchievementDataResponse _resultAchieveData;
         private readonly IPageServiceZero _pageService;
 
-        public ObservableCollection<ContentPage> Pages { get; set; } = new ObservableCollection<ContentPage>();
-
         public ICommand TestCommand { get; }
 
 
@@ -41,10 +39,6 @@ namespace StatControl.Mvvm.ViewModel
             _resultAchieveData = resultAchieveData;
             _resultProfile = resultProfile;
             _resultStats = resultStats;
-
-            Pages.Add(new HomePage());
-            Pages.Add(new MainStatPage());
-
 
             Debug.WriteLine("CAROUSEL_PAGE: Sending resultUserAchieve");
             MessagingCenter.Send<CarouselPageVm, SteamUserAchievementsResponse>(this, "resultUserAchieve", _resultUserAchieve);
