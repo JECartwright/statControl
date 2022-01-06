@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:StatControl.Mvvm.ViewModel"
+             xmlns:model="clr-namespace:StatControl.Mvvm.Model.DisplayModel"
              x:Class="StatControl.Mvvm.View.MapPage">
     
     <ContentPage.BindingContext>
@@ -9,10 +10,40 @@
     </ContentPage.BindingContext>
     
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to the Map Stats Page!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout HorizontalOptions="Center" HeightRequest="40" WidthRequest="300" Spacing="20" Margin="20,20,20,20">
+            <Frame>
+                <Label Text="Map Stats!" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Large" />
+            </Frame>
+            <ListView ItemsSource="{Binding MapDisplay}"
+                RowHeight="125"
+                SelectionMode="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:MapDisplayModel">
+                        <ViewCell>
+                            <Frame CornerRadius="0">
+                                <Frame.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0.55,0">
+                                        <GradientStop Color="#707070" Offset="0"/>
+                                        <GradientStop Color="Transparent" Offset="1.0"/>
+                                    </LinearGradientBrush>
+                                </Frame.Background>
+
+                                <StackLayout BackgroundColor="Transparent" VerticalOptions="Center">
+                                    <Label Text="{Binding ApiName}" FontSize="Small" VerticalOptions="Center"/>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Total Rounds Played" FontSize="Micro"/>
+                                        <Label Text="{Binding TotalRounds}" FontSize="Micro" VerticalOptions="Center"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Total Rounds Played" FontSize="Micro"/>
+                                        <Label Text="{Binding TotalRoundsWon}" FontSize="Micro" VerticalOptions="Center"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

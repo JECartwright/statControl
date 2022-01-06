@@ -7,7 +7,7 @@ namespace StatControl.Mvvm.Model.DisplayModel
 {
     class AchievementDisplayModel
     {
-        public string APIName {get;set;}
+        public string APIName { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public ImageSource ImageAddress { get; set; }
