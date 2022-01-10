@@ -18,6 +18,7 @@ namespace StatControl.Mvvm.ViewModel
 {
     internal class WeaponsSelectPageVm : MvvmZeroBaseVm
     {
+        private readonly IPageServiceZero _pageService;
         private SteamGameStatsResponse _resultGameStats;
         private int _progressBarSize;
         public ObservableCollection<WeaponSelectDisplayModel> WeaponsDisplay { get; private set; }
@@ -170,18 +171,11 @@ namespace StatControl.Mvvm.ViewModel
             }
         }
 
-        public WeaponsSelectPageVm()
+        public WeaponsSelectPageVm(IPageServiceZero pageService)
         {
-            WeaponsDisplay = new ObservableCollection<WeaponSelectDisplayModel>();
-            MessagingCenter.Subscribe<CarouselPageVm, SteamGameStatsResponse>(this, "resultStats", (sender, resultStats) =>
-            {
-                Debug.WriteLine("WEAPON_SELECT_PAGE: Received resultStats");
-                ResultStats = resultStats;
-                WeaponsDisplay.Clear();
-                onStarted();
-                platformHelper();
-            });
+            _pageService = pageService;
 
+            WeaponsDisplay = new ObservableCollection<WeaponSelectDisplayModel>();
         }
     }
 }//steamGameStatsService

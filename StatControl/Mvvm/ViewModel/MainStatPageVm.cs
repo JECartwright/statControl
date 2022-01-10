@@ -18,6 +18,7 @@ namespace StatControl.Mvvm.ViewModel
 {
     internal class MainStatPageVm : MvvmZeroBaseVm
     {
+        private readonly IPageServiceZero _pageService;
         private SteamGameStatsResponse _resultStats;
         private string _roundsWon;
         private string _mVP;
@@ -193,13 +194,9 @@ namespace StatControl.Mvvm.ViewModel
             }
         }
 
-        public MainStatPageVm()
+        public MainStatPageVm(IPageServiceZero pageService)
         {
-            MessagingCenter.Subscribe<CarouselPageVm, SteamGameStatsResponse>(this, "resultStats", (sender, resultStats) =>
-            {
-                Debug.WriteLine("MAIN_STAT_PAGE: Received resultStats");
-                ResultStats = resultStats;
-            });
+            _pageService = pageService;
         }
     }
 }

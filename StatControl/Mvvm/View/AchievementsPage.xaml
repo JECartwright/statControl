@@ -5,10 +5,6 @@
              xmlns:model="clr-namespace:StatControl.Mvvm.Model.DisplayModel"
              x:Class="StatControl.Mvvm.View.AchievementsPage">
 
-    <ContentPage.BindingContext>
-        <local:AchievementsPageVm/>
-    </ContentPage.BindingContext>
-
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Welcome to the Achievements Page!"

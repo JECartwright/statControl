@@ -13,6 +13,7 @@ namespace StatControl.Mvvm.ViewModel
 {
     internal class FunPageVm : MvvmZeroBaseVm
     {
+        private readonly IPageServiceZero _pageService;
         private SteamGameStatsResponse _resultStats;
         private string _windowsBroken;
         private string _pistolRounds;
@@ -172,13 +173,9 @@ namespace StatControl.Mvvm.ViewModel
             }
         }
 
-        public FunPageVm()
+        public FunPageVm(IPageServiceZero pageService)
         {
-            MessagingCenter.Subscribe<CarouselPageVm, SteamGameStatsResponse>(this, "resultStats", (sender, resultStats) =>
-            {
-                Debug.WriteLine("FUN_PAGE: Received resultStats");
-                ResultStats = resultStats;
-            });
+            _pageService = pageService;
         }
     }
 }

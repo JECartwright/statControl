@@ -4,11 +4,7 @@
              xmlns:local="clr-namespace:StatControl.Mvvm.ViewModel"
              xmlns:model="clr-namespace:StatControl.Mvvm.Model.DisplayModel"
              x:Class="StatControl.Mvvm.View.MapPage">
-    
-    <ContentPage.BindingContext>
-        <local:MapPageVm/>
-    </ContentPage.BindingContext>
-    
+
     <ContentPage.Content>
         <StackLayout HorizontalOptions="Center" HeightRequest="40" WidthRequest="300" Spacing="20" Margin="20,20,20,20">
             <Frame>

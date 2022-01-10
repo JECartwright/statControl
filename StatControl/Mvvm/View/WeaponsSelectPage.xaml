@@ -5,10 +5,6 @@
              xmlns:local="clr-namespace:StatControl.Mvvm.ViewModel"
              x:Class="StatControl.Mvvm.View.WeaponsSelectPage">
 
-    <ContentPage.BindingContext>
-        <local:WeaponsSelectPageVm/>
-    </ContentPage.BindingContext>
-
     <ContentPage.Content>
         <CollectionView Margin="0,20,0,0" ItemsSource="{Binding WeaponsDisplay}" ItemsLayout="VerticalGrid, 3" SelectionMode="Single" VerticalScrollBarVisibility="Always">
             <CollectionView.ItemTemplate>

@@ -15,6 +15,7 @@ namespace StatControl.Mvvm.ViewModel
 {
     internal class LastMatchPageVm : MvvmZeroBaseVm
     {
+        private readonly IPageServiceZero _pageService;
         private string _textMatchResults;
         private string _textMVP;
         private string _textKills;
@@ -154,14 +155,9 @@ namespace StatControl.Mvvm.ViewModel
             }
         }
 
-        public LastMatchPageVm()
+        public LastMatchPageVm(IPageServiceZero pageService)
         {
-            MessagingCenter.Subscribe<CarouselPageVm, SteamGameStatsResponse>(this, "resultStats", (sender, resultStats) =>
-            {
-                Debug.WriteLine("LAST_MATCH_PAGE: Received resultStats");
-                ResultStats = resultStats;
-            });
-
+            _pageService = pageService;
             _favWeaponDictionary = new Dictionary<int, String>()
             {
                 { 1, "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/weapons/base_weapons/weapon_deagle.29e8f0d7d0be5e737d4f663ee8b394b5c9e00bdd.png" },

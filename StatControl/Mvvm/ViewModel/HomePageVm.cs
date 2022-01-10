@@ -18,9 +18,10 @@ namespace StatControl.Mvvm.ViewModel
 {
     internal class HomePageVm : MvvmZeroBaseVm
     {
+        private readonly IPageServiceZero _pageService;
         private SteamUserProfileResponse _resultProfile;
-        public ICommand UpdateCommand { get; }
 
+        public ICommand UpdateCommand { get; }
         public SteamUserProfileResponse ResultProfile
         {
             get => _resultProfile;
@@ -31,14 +32,9 @@ namespace StatControl.Mvvm.ViewModel
             }
         }
 
-        public HomePageVm()
+        public HomePageVm(IPageServiceZero pageService)
         {
-            
-            MessagingCenter.Subscribe<CarouselPageVm, SteamUserProfileResponse>(this, "resultProfile", (sender, resultProfile) =>
-            {
-                Debug.WriteLine("HOME_PAGE: Received resultProfile");
-                ResultProfile = resultProfile;
-            });
+            _pageService = pageService;
         }
     }
 }
