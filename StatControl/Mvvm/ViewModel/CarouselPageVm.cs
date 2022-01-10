@@ -17,13 +17,14 @@ using System.Collections.ObjectModel;
 
 namespace StatControl.Mvvm.ViewModel
 {
-    internal class CarouselPageVm : MvvmZeroBaseVm//CarouselPage
+    internal class CarouselPageVm : CarouselPage
     {
         private readonly IPageServiceZero _pageService;
         SteamUserAchievementsResponse _resultUserAchieve;
         SteamUserProfileResponse _resultProfile;
         SteamGameStatsResponse _resultStats;
         SteamAchievementDataResponse _resultAchieveData;
+        
         public ICommand TestCommand { get; }
 
         public HomePageVm HomeVm { get; private set; }
@@ -33,7 +34,6 @@ namespace StatControl.Mvvm.ViewModel
         public MapPageVm MapVm { get; private set; }
         public FunPageVm FunVm { get; private set; }
         public AchievementsPageVm AchieveVm { get; private set; }
-
 
         public CarouselPageVm(IPageServiceZero pageService)
         {
@@ -63,8 +63,6 @@ namespace StatControl.Mvvm.ViewModel
 
             AchieveVm.ResultUserAchieve = _resultUserAchieve;
             AchieveVm.ResultAchieveData = _resultAchieveData;
-
-
 
             OnPropertyChanged();
         }
