@@ -6,6 +6,7 @@
     <ContentPage.BindingContext>
         <local:IndividualWeaponPageVm/>
     </ContentPage.BindingContext>
+    
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
             <Frame HorizontalOptions="Center" HeightRequest="50">

@@ -24,33 +24,28 @@ namespace StatControl.Mvvm.ViewModel
         private int _progressBarSize;
         public ObservableCollection<WeaponSelectDisplayModel> WeaponsDisplay { get; private set; }
 
-        private async void _startWeaponPage(WeaponSelectDisplayModel weapon)
+        private async void StartWeaponPage(WeaponSelectDisplayModel weapon)
         {
-            CurrentWeapon = weapon.APIName;
-            await App.Current.MainPage.Navigation.PushAsync(new IndividualWeaponPage());
+            //--Temporary Fix For Deselecting, until Xamarin gets updated.
+            await Task.Delay(10);
+            SelectedWeapon = null;
+            //--
+
+            await _pageService.PushPageAsync<IndividualWeaponPage, IndividualWeaponPageVm>((vm) => vm.Init(_resultGameStats, weapon.APIName));
         }
 
-        public string CurrentWeapon
-        {
-            get => Preferences.Get(nameof(CurrentWeapon), null);
-            set => Preferences.Set(nameof(CurrentWeapon), value);
-        }
-
-        //WeaponSelectDisplayModel _previousWeapon;
         WeaponSelectDisplayModel _selectedWeapon;
         public WeaponSelectDisplayModel SelectedWeapon
         {
             get => _selectedWeapon;
             set
             {
+
                 if (value != null)
                 {
-                    
-                    //_previousWeapon = value;
-                    _startWeaponPage(value);
-                    value =null;
+                    StartWeaponPage(value);
                 }
-                _selectedWeapon = value;
+                SetProperty(ref _selectedWeapon, value);
                 OnPropertyChanged();
             }
         }
@@ -108,41 +103,44 @@ namespace StatControl.Mvvm.ViewModel
                 { "hegrenade", "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/weapons/base_weapons/weapon_hegrenade.7b344756d5dbdda4fd2e583a227a670599889f59.png" }
             };
 
-        void onStarted()
-        {            
-            List<WeaponSelectDisplayModel> Weapons = new List<WeaponSelectDisplayModel>();
-            Weapons.Add(new WeaponSelectDisplayModel("deagle", "Deagle/R8"));
-            Weapons.Add(new WeaponSelectDisplayModel("elite", "Dual Elites"));
-            Weapons.Add(new WeaponSelectDisplayModel("fiveseven", "Five Seven"));
-            Weapons.Add(new WeaponSelectDisplayModel("glock", "Glock"));
-            Weapons.Add(new WeaponSelectDisplayModel("ak47", "AK47"));
-            Weapons.Add(new WeaponSelectDisplayModel("aug", "AUG"));
-            Weapons.Add(new WeaponSelectDisplayModel("awp", "AWP"));
-            Weapons.Add(new WeaponSelectDisplayModel("famas", "Famas"));
-            Weapons.Add(new WeaponSelectDisplayModel("g3sg1", "G3SG1"));
-            Weapons.Add(new WeaponSelectDisplayModel("galilar", "Galil AR"));
-            Weapons.Add(new WeaponSelectDisplayModel("m249", "M249"));
-            Weapons.Add(new WeaponSelectDisplayModel("m4a1", "M4A1-S/M4A4"));
-            Weapons.Add(new WeaponSelectDisplayModel("mac10", "MAC10"));
-            Weapons.Add(new WeaponSelectDisplayModel("p90", "P90"));
-            Weapons.Add(new WeaponSelectDisplayModel("ump45", "UMP 45"));
-            Weapons.Add(new WeaponSelectDisplayModel("xm1014", "XM1014"));
-            Weapons.Add(new WeaponSelectDisplayModel("bizon", "Bizon"));
-            Weapons.Add(new WeaponSelectDisplayModel("mag7", "MAG7"));
-            Weapons.Add(new WeaponSelectDisplayModel("negev", "Negev"));
-            Weapons.Add(new WeaponSelectDisplayModel("sawedoff", "Sawed Off"));
-            Weapons.Add(new WeaponSelectDisplayModel("tec9", "Tec9"));
-            Weapons.Add(new WeaponSelectDisplayModel("taser", "Zeus"));
-            Weapons.Add(new WeaponSelectDisplayModel("hkp2000", "P2000/USP-S"));
-            Weapons.Add(new WeaponSelectDisplayModel("mp7", "MP7/MP5-SD"));
-            Weapons.Add(new WeaponSelectDisplayModel("mp9", "MP9"));
-            Weapons.Add(new WeaponSelectDisplayModel("nova", "Nova"));
-            Weapons.Add(new WeaponSelectDisplayModel("p250", "P250"));
-            Weapons.Add(new WeaponSelectDisplayModel("scar20", "Scar20"));
-            Weapons.Add(new WeaponSelectDisplayModel("sg556", "SG556"));
-            Weapons.Add(new WeaponSelectDisplayModel("ssg08", "SSG08"));
-            Weapons.Add(new WeaponSelectDisplayModel("knife", "Knife"));
-            Weapons.Add(new WeaponSelectDisplayModel("hegrenade", "Grenade"));
+        public void onStarted()
+        {
+            List<WeaponSelectDisplayModel> Weapons = new List<WeaponSelectDisplayModel>
+            {
+                new WeaponSelectDisplayModel("deagle", "Deagle/R8"),
+                new WeaponSelectDisplayModel("elite", "Dual Elites"),
+                new WeaponSelectDisplayModel("fiveseven", "Five Seven"),
+                new WeaponSelectDisplayModel("glock", "Glock"),
+                new WeaponSelectDisplayModel("ak47", "AK47"),
+                new WeaponSelectDisplayModel("aug", "AUG"),
+                new WeaponSelectDisplayModel("awp", "AWP"),
+                new WeaponSelectDisplayModel("famas", "Famas"),
+                new WeaponSelectDisplayModel("g3sg1", "G3SG1"),
+                new WeaponSelectDisplayModel("galilar", "Galil AR"),
+                new WeaponSelectDisplayModel("m249", "M249"),
+                new WeaponSelectDisplayModel("m4a1", "M4A1-S/M4A4"),
+                new WeaponSelectDisplayModel("mac10", "MAC10"),
+                new WeaponSelectDisplayModel("p90", "P90"),
+                new WeaponSelectDisplayModel("ump45", "UMP 45"),
+                new WeaponSelectDisplayModel("xm1014", "XM1014"),
+                new WeaponSelectDisplayModel("bizon", "Bizon"),
+                new WeaponSelectDisplayModel("mag7", "MAG7"),
+                new WeaponSelectDisplayModel("negev", "Negev"),
+                new WeaponSelectDisplayModel("sawedoff", "Sawed Off"),
+                new WeaponSelectDisplayModel("tec9", "Tec9"),
+                new WeaponSelectDisplayModel("taser", "Zeus"),
+                new WeaponSelectDisplayModel("hkp2000", "P2000/USP-S"),
+                new WeaponSelectDisplayModel("mp7", "MP7/MP5-SD"),
+                new WeaponSelectDisplayModel("mp9", "MP9"),
+                new WeaponSelectDisplayModel("nova", "Nova"),
+                new WeaponSelectDisplayModel("p250", "P250"),
+                new WeaponSelectDisplayModel("scar20", "Scar20"),
+                new WeaponSelectDisplayModel("sg556", "SG556"),
+                new WeaponSelectDisplayModel("ssg08", "SSG08"),
+                new WeaponSelectDisplayModel("knife", "Knife"),
+                new WeaponSelectDisplayModel("hegrenade", "Grenade")
+            };
+
             for (int i = 0;i< ResultStats.playerstats.stats.Count; i++)
             {
                 for (int b = 0; b < Weapons.Count;b++)
@@ -203,16 +201,12 @@ namespace StatControl.Mvvm.ViewModel
                     break;
             }
         }
-        /*
-        public CarouselPageVm(IPageServiceZero pageService)
+
+        public WeaponsSelectPageVm(IPageServiceZero pageService)
         {
             _pageService = pageService;
-        }
-        */
-        public WeaponsSelectPageVm(/*PageServiceZero pageService*/)
-        {
-            //_pageService = pageService;
             WeaponsDisplay = new ObservableCollection<WeaponSelectDisplayModel>();
+            WeaponsDisplay.Clear();
         }
     }
-}//steamGameStatsService
+}

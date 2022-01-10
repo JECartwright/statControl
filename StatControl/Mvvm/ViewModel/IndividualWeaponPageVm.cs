@@ -55,12 +55,13 @@ namespace StatControl.Mvvm.ViewModel
 
         //geter seters
 
-        private SteamGameStatsResponse _resultStats;
+        private SteamGameStatsResponse _resultGameStats;
 
+        private string _currentWeapon;
         public string CurrentWeapon
         {
-            get => Preferences.Get(nameof(CurrentWeapon), null);
-            set => Preferences.Set(nameof(CurrentWeapon), value);
+            get => _currentWeapon;
+            set => SetProperty(ref _currentWeapon, value);
         }
         private string _weapon;
         public string Weapon 
@@ -544,46 +545,26 @@ namespace StatControl.Mvvm.ViewModel
         public string WeaponDataHits;
         public string WeaponDataKills;
 
-        public SteamGameStatsResponse ResultStats
+        public SteamGameStatsResponse ResultGameStats
         {
-            get => _resultStats;
+            get => _resultGameStats;
             set
             {
                 //_resultStats = value;
-                SetProperty(ref _resultStats, value);                
+                SetProperty(ref _resultGameStats, value);                
             }
         }
 
         //fuctions
 
-        public void PageSettup(SteamGameStatsResponse data)
+        public void PageSetup(SteamGameStatsResponse data)
         {            
-            Weapon = CurrentWeapon;
             WeaponImage = _favWeaponDictionary[Weapon];
             WeaponDataShots = data.playerstats.stats.Find(x => x.name.Equals($"total_shots_{Weapon}"))?.value.ToString() ?? "0";
             WeaponDataHits = data.playerstats.stats.Find(x => x.name.Equals($"total_hits_{Weapon}"))?.value.ToString() ?? "0";
             WeaponDataKills = data.playerstats.stats.Find(x => x.name.Equals($"total_kills_{Weapon}"))?.value.ToString() ?? "0";
             SetTrueValues();
             OnPropertyChanged();
-        }
-
-        public void GetWeaponAsync()
-        {
-            MessagingCenter.Subscribe<CarouselPageVm, SteamGameStatsResponse>(this, "resultStats", (sender, resultStats) =>
-            {
-                Debug.WriteLine("Weapon Messaging Compleate");
-                ResultStats = resultStats;
-                //_resultStats = resultStats;
-                Debug.WriteLine("test");
-            });
-            while (true)
-            {
-                if (this.IsOwnerPageVisible)
-                {
-                    PageSettup(_resultStats);                    
-                    break;
-                }
-            }           
         }
 
         public void SetDefaultValues()
@@ -645,11 +626,15 @@ namespace StatControl.Mvvm.ViewModel
 
         public IndividualWeaponPageVm()
         {
-            Task.Run(() =>
-            {
-                GetWeaponAsync();
-            });
             SetDefaultValues();            
+        }
+
+        internal void Init(SteamGameStatsResponse resultGameStats, string currentWeapon)
+        {
+            ResultGameStats = resultGameStats;
+            Weapon = currentWeapon;
+
+            PageSetup(_resultGameStats);
         }
     }
 }
