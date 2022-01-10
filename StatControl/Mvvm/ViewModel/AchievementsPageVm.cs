@@ -18,10 +18,9 @@ namespace StatControl.Mvvm.ViewModel
 {
     internal class AchievementsPageVm : MvvmZeroBaseVm
     {
+        private readonly IPageServiceZero _pageService;
         private SteamUserAchievementsResponse _resultUserAchieve;
         private SteamAchievementDataResponse _resultAchieveData;
-
-
 
         public ObservableCollection<AchievementDisplayModel> Achievements { get; private set; }
         private List<AchievementDisplayModel> AchievementsToSort = new List<AchievementDisplayModel>();
@@ -32,6 +31,10 @@ namespace StatControl.Mvvm.ViewModel
             set
             {
                 SetProperty(ref _resultAchieveData, value);
+
+                Achievements.Clear();
+                AchievementsToSort.Clear();
+                CallServer();
             }
         }
 
@@ -111,26 +114,10 @@ namespace StatControl.Mvvm.ViewModel
             }
         }
 
-        public AchievementsPageVm()
+        public AchievementsPageVm(IPageServiceZero pageService)
         {
-            Achievements = new ObservableCollection<AchievementDisplayModel>();
-            MessagingCenter.Subscribe<CarouselPageVm, SteamUserAchievementsResponse>(this, "resultUserAchieve", (sender, resultAchieve) =>
-            {
-                Debug.WriteLine("ACHIEVEMENT_PAGE: Received resultUserAchieve");
-                ResultUserAchieve = resultAchieve;
-            });
-            MessagingCenter.Subscribe<CarouselPageVm, SteamAchievementDataResponse>(this, "resultAchieveData", (sender, resultAchieve) =>
-            {
-                Debug.WriteLine("ACHIEVEMENT_PAGE: Received resultAchieveData");
-                ResultAchieveData = resultAchieve;
-                //CallServer();
-
-                Achievements.Clear();
-                AchievementsToSort.Clear();
-                CallServer();
-            });
-            
+            _pageService = pageService;
+            Achievements = new ObservableCollection<AchievementDisplayModel>();           
         }
-
     }
 }

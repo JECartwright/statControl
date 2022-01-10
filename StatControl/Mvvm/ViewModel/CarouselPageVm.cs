@@ -17,20 +17,34 @@ using System.Collections.ObjectModel;
 
 namespace StatControl.Mvvm.ViewModel
 {
-    internal class CarouselPageVm : CarouselPage
+    internal class CarouselPageVm : MvvmZeroBaseVm//CarouselPage
     {
+        private readonly IPageServiceZero _pageService;
         SteamUserAchievementsResponse _resultUserAchieve;
         SteamUserProfileResponse _resultProfile;
         SteamGameStatsResponse _resultStats;
         SteamAchievementDataResponse _resultAchieveData;
-        private readonly IPageServiceZero _pageService;
-
         public ICommand TestCommand { get; }
+
+        public HomePageVm HomeVm { get; private set; }
+        public MainStatPageVm MainVm { get; private set; }
+        public LastMatchPageVm LastVm { get; private set; }
+        public WeaponsSelectPageVm WeaSelectVm { get; private set; }
+        public MapPageVm MapVm { get; private set; }
+        public FunPageVm FunVm { get; private set; }
+        public AchievementsPageVm AchieveVm { get; private set; }
 
 
         public CarouselPageVm(IPageServiceZero pageService)
         {
             _pageService = pageService;
+            HomeVm = new HomePageVm(_pageService);
+            MainVm = new MainStatPageVm(_pageService);
+            LastVm = new LastMatchPageVm(_pageService);
+            WeaSelectVm = new WeaponsSelectPageVm(_pageService);
+            MapVm = new MapPageVm(_pageService);
+            FunVm = new FunPageVm(_pageService);
+            AchieveVm = new AchievementsPageVm(_pageService);
         }
 
         internal void Init(SteamUserAchievementsResponse resultUserAchieve, SteamAchievementDataResponse resultAchieveData, SteamUserProfileResponse resultProfile, SteamGameStatsResponse resultStats)
@@ -40,14 +54,18 @@ namespace StatControl.Mvvm.ViewModel
             _resultProfile = resultProfile;
             _resultStats = resultStats;
 
-            Debug.WriteLine("CAROUSEL_PAGE: Sending resultUserAchieve");
-            MessagingCenter.Send<CarouselPageVm, SteamUserAchievementsResponse>(this, "resultUserAchieve", _resultUserAchieve);
-            Debug.WriteLine("CAROUSEL_PAGE: Sending resultAchieveData");
-            MessagingCenter.Send<CarouselPageVm, SteamAchievementDataResponse>(this, "resultAchieveData", _resultAchieveData);
-            Debug.WriteLine("CAROUSEL_PAGE: Sending resultProfile");
-            MessagingCenter.Send<CarouselPageVm, SteamUserProfileResponse>(this, "resultProfile", _resultProfile);
-            Debug.WriteLine("CAROUSEL_PAGE: Sending resultStats");
-            MessagingCenter.Send<CarouselPageVm, SteamGameStatsResponse>(this, "resultStats", _resultStats);
+            HomeVm.ResultProfile = _resultProfile;
+            MainVm.ResultStats = _resultStats;
+            LastVm.ResultStats = _resultStats;
+            WeaSelectVm.ResultStats = _resultStats;
+            MapVm.ResultStats = _resultStats;
+            FunVm.ResultStats = _resultStats;
+
+            AchieveVm.ResultUserAchieve = _resultUserAchieve;
+            AchieveVm.ResultAchieveData = _resultAchieveData;
+
+
+
             OnPropertyChanged();
         }
     }

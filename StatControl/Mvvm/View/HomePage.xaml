@@ -5,10 +5,6 @@
              xmlns:z="clr-namespace:FunctionZero.zBind.z;assembly=FunctionZero.zBind"
              x:Class="StatControl.Mvvm.View.HomePage">
 
-    <ContentPage.BindingContext>
-        <local:HomePageVm/>
-    </ContentPage.BindingContext>
-    
     <ContentPage.Content>
         <StackLayout VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
             <Frame HorizontalOptions="Center">
@@ -16,9 +12,7 @@
             </Frame>
             <Frame>
                 <Label Text="{Binding ResultProfile.response.players[0].personaname}"  HorizontalOptions="Center" FontSize="Large"/>
-                <!-- <Label Text="{Binding ResultProfile.response.players[0].realname}" HorizontalOptions="Center" FontSize="Medium"/> -->
             </Frame>
-
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
