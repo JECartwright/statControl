@@ -16,26 +16,29 @@
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="model:MapDisplayModel">
                         <ViewCell>
-                            <Frame CornerRadius="0">
-                                <Frame.Background>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0.55,0">
-                                        <GradientStop Color="#707070" Offset="0"/>
-                                        <GradientStop Color="Transparent" Offset="1.0"/>
-                                    </LinearGradientBrush>
-                                </Frame.Background>
+                            <Grid>
+                                <Image Source="{Binding MapImage}" Aspect="AspectFill"/>
+                                <Frame CornerRadius="0">
+                                    <Frame.Background>
+                                        <LinearGradientBrush StartPoint="0.3,0" EndPoint="1,0">
+                                            <GradientStop Color="#707070" Offset="0"/>
+                                            <GradientStop Color="Transparent" Offset="2"/>
+                                        </LinearGradientBrush>
+                                    </Frame.Background>
 
-                                <StackLayout BackgroundColor="Transparent" VerticalOptions="Center">
-                                    <Label Text="{Binding ApiName}" FontSize="Small" VerticalOptions="Center"/>
-                                    <StackLayout Orientation="Horizontal">
-                                        <Label Text="Total Rounds Played" FontSize="Micro"/>
-                                        <Label Text="{Binding TotalRounds}" FontSize="Micro" VerticalOptions="Center"/>
+                                    <StackLayout BackgroundColor="Transparent" VerticalOptions="Center">
+                                        <Label Text="{Binding ApiName}" FontSize="Small" VerticalOptions="Center"/>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Total Rounds Played" FontSize="Micro"/>
+                                            <Label Text="{Binding TotalRounds}" FontSize="Micro" VerticalOptions="Center"/>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Total Rounds Won" FontSize="Micro"/>
+                                            <Label Text="{Binding TotalRoundsWon}" FontSize="Micro" VerticalOptions="Center"/>
+                                        </StackLayout>
                                     </StackLayout>
-                                    <StackLayout Orientation="Horizontal">
-                                        <Label Text="Total Rounds Played" FontSize="Micro"/>
-                                        <Label Text="{Binding TotalRoundsWon}" FontSize="Micro" VerticalOptions="Center"/>
-                                    </StackLayout>
-                                </StackLayout>
-                            </Frame>
+                                </Frame>
+                            </Grid>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
