@@ -14,6 +14,7 @@ using StatControl.Mvvm.Model.DisplayModel;
 using StatControl.Mvvm.Model.SteamGameStats;
 using System.Diagnostics;
 
+
 namespace StatControl.Mvvm.ViewModel
 {
     internal class WeaponsSelectPageVm : MvvmZeroBaseVm
@@ -22,6 +23,38 @@ namespace StatControl.Mvvm.ViewModel
         private SteamGameStatsResponse _resultGameStats;
         private int _progressBarSize;
         public ObservableCollection<WeaponSelectDisplayModel> WeaponsDisplay { get; private set; }
+
+        private async void _startWeaponPage(WeaponSelectDisplayModel weapon)
+        {
+            CurrentWeapon = weapon.APIName;
+            await App.Current.MainPage.Navigation.PushAsync(new IndividualWeaponPage());
+        }
+
+        public string CurrentWeapon
+        {
+            get => Preferences.Get(nameof(CurrentWeapon), null);
+            set => Preferences.Set(nameof(CurrentWeapon), value);
+        }
+
+        //WeaponSelectDisplayModel _previousWeapon;
+        WeaponSelectDisplayModel _selectedWeapon;
+        public WeaponSelectDisplayModel SelectedWeapon
+        {
+            get => _selectedWeapon;
+            set
+            {
+                if (value != null)
+                {
+                    
+                    //_previousWeapon = value;
+                    _startWeaponPage(value);
+                    value =null;
+                }
+                _selectedWeapon = value;
+                OnPropertyChanged();
+            }
+        }
+
         public SteamGameStatsResponse ResultStats
         {
             get { return _resultGameStats; }
@@ -170,11 +203,15 @@ namespace StatControl.Mvvm.ViewModel
                     break;
             }
         }
-
-        public WeaponsSelectPageVm(IPageServiceZero pageService)
+        /*
+        public CarouselPageVm(IPageServiceZero pageService)
         {
             _pageService = pageService;
-
+        }
+        */
+        public WeaponsSelectPageVm(/*PageServiceZero pageService*/)
+        {
+            //_pageService = pageService;
             WeaponsDisplay = new ObservableCollection<WeaponSelectDisplayModel>();
         }
     }
