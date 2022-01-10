@@ -432,3 +432,4 @@ StatControl.Android/obj/Debug/120/designtime/build.props
 StatControl.iOS/obj/iPhoneSimulator/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 StatControl.iOS/obj/iPhoneSimulator/Debug/StatControl.iOS.csproj.AssemblyReference.cache
 StatControl.iOS/obj/iPhoneSimulator/Debug/StatControl.iOS.csproj.AssemblyReference.cache
+Resource.designer.cs
