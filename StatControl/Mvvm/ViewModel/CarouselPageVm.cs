@@ -17,7 +17,7 @@ using System.Collections.ObjectModel;
 
 namespace StatControl.Mvvm.ViewModel
 {
-    internal class CarouselPageVm : MvvmZeroBaseVm//CarouselPage
+    internal class CarouselPageVm : CarouselPage
     {
         private readonly IPageServiceZero _pageService;
         SteamUserAchievementsResponse _resultUserAchieve;
