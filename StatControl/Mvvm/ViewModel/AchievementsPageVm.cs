@@ -53,9 +53,9 @@ namespace StatControl.Mvvm.ViewModel
         {
             List<string> achievementNamesList = new List<string>();
             //_resultUserAchieve.playerstats.achievements.Sort();
-            for (int i = 0; i< ResultUserAchieve.playerstats.achievements.Count;i++)
+            for (int i = 0; i< ResultUserAchieve.playerstats.achievements.Count; i++)
             {
-                for (int b = 0; b<ResultAchieveData.game.availableGameStats.achievements.Count;b++)
+                for (int b = 0; b<ResultAchieveData.game.availableGameStats.achievements.Count; b++)
                 {
                     if (ResultUserAchieve.playerstats.achievements[i].apiname == ResultAchieveData.game.availableGameStats.achievements[b].name)
                     {
