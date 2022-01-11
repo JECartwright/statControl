@@ -7,11 +7,7 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to the Achievements Page!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-            <ListView
-                ItemsSource="{Binding Achievements}"
+            <ListView ItemsSource="{Binding Achievements}"
                 BackgroundColor="Transparent"
                 HasUnevenRows="True"
                 RowHeight="150"

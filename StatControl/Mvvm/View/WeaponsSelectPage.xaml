@@ -3,12 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:StatControl.Controls"
              xmlns:local="clr-namespace:StatControl.Mvvm.ViewModel"
+             xmlns:model="clr-namespace:StatControl.Mvvm.Model.DisplayModel"
              x:Class="StatControl.Mvvm.View.WeaponsSelectPage">
 
     <ContentPage.Content>
-        <CollectionView Margin="0,20,0,0" ItemsSource="{Binding WeaponsDisplay}" ItemsLayout="VerticalGrid, 3" SelectionMode="Single" VerticalScrollBarVisibility="Always">
+        <CollectionView Margin="0,20,0,0" 
+                        x:DataType="local:WeaponsSelectPageVm"
+                        ItemsSource="{Binding WeaponsDisplay}"
+                        ItemsLayout="VerticalGrid, 3"
+                        SelectionMode="Single" 
+                        VerticalScrollBarVisibility="Always" 
+                        SelectedItem="{Binding SelectedWeapon, Mode=TwoWay}">
             <CollectionView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="model:WeaponSelectDisplayModel">
                     <Grid Padding="10" WidthRequest="100" HeightRequest="160">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>

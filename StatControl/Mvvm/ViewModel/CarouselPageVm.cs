@@ -64,6 +64,10 @@ namespace StatControl.Mvvm.ViewModel
             AchieveVm.ResultUserAchieve = _resultUserAchieve;
             AchieveVm.ResultAchieveData = _resultAchieveData;
 
+            WeaSelectVm.WeaponsDisplay.Clear();
+            WeaSelectVm.onStarted();
+            WeaSelectVm.platformHelper();
+
             OnPropertyChanged();
         }
     }
