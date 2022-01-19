@@ -14,17 +14,21 @@ using StatControl.Mvvm.Model.SteamUserProfile;
 using StatControl.Mvvm.Model.SteamUserAchievements;
 using StatControl.Mvvm.Model.SteamGameStats;
 using StatControl.Mvvm.Model.SteamAchievementData;
+using StatControl.Mvvm.Model.SteamVanityUrl;
 using Xamarin.Essentials;
+using System.Text.RegularExpressions;
 
 namespace StatControl.Mvvm.ViewModel
 {
     internal class LoginPageVm : MvvmZeroBaseVm
     {
         private string _steamProfileIdText;
+        
         private readonly SteamGameStatsService _steamGameStatsService;
         private readonly SteamUserAchievementsService _steamUserAchievementsService;
         private readonly SteamUserProfileService _steamUserProfileService;
         private readonly SteamAchievementService _steamAchievementDataService;
+        private readonly SteamVanityUrlService _steamVanityUrlService;
         private readonly IPageServiceZero _pageService;
 
         public ICommand HomePageCommand { get; }
@@ -35,23 +39,42 @@ namespace StatControl.Mvvm.ViewModel
             set => SetProperty(ref _steamProfileIdText, value);
         }
 
+        //Check to see what type the steam ID is
+        private async Task GetIdTypeAsync(string id)
+        {
+            string pattern = @"7656119[0-9]{10}";
+            Regex r = new Regex(pattern, RegexOptions.IgnoreCase);
+            Match m = r.Match(id);
+
+            if (m.Success) //****Placeholder**** Regex for steam64ID
+            {
+                var resultVantityUrl = await _steamVanityUrlService.GetVanityUrlSummaryAsync(id);
+                SteamProfileIdText = resultVantityUrl.payload.response.steamid;
+            }
+        }
+
         private async Task HomePageCommandExecuteAsync()
         {
+            await GetIdTypeAsync(SteamProfileIdText);
 
-            var resultUserAchieve = await _steamUserAchievementsService.GetUserAchieveAsync(_steamProfileIdText);
-            Debug.WriteLine("LOGIN_PAGE: User Achievements Response Received");
+            //Getting Data
+            var resultUserAchieve = await _steamUserAchievementsService.GetUserAchieveAsync(SteamProfileIdText);
+            Debug.WriteLine("LOGIN_PAGE: User Achievements Response Received");       
 
-            var resultProfile = await _steamUserProfileService.GetUserSummaryAsync(_steamProfileIdText);
+            var resultProfile = await _steamUserProfileService.GetUserSummaryAsync(SteamProfileIdText);
             Debug.WriteLine("LOGIN_PAGE: User Profile Response Received");
 
-            var resultStats = await _steamGameStatsService.GetUserStatsAsync(_steamProfileIdText);
+            var resultStats = await _steamGameStatsService.GetUserStatsAsync(SteamProfileIdText);
             Debug.WriteLine("LOGIN_PAGE: Game Stats Response Received");
 
             var resultAchieveData = await _steamAchievementDataService.GetAchieveInfoAsync();
             Debug.WriteLine("LOGIN_PAGE: Steam Achievements Response Received");
+            //
 
+            //Checking to see if the response was successful
             if (resultUserAchieve.status == 0 & resultAchieveData.status == 0 & resultProfile.status == 0 & resultStats.status == 0)
             {
+                //Checking to see if the response contains data
                 if (resultStats.payload.playerstats.stats != null)
                 {
                     await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init(resultUserAchieve.payload, resultAchieveData.payload, resultProfile.payload, resultStats.payload));
@@ -91,13 +114,14 @@ namespace StatControl.Mvvm.ViewModel
             }
         }
 
-        public LoginPageVm(IPageServiceZero pageService, SteamGameStatsService steamGameStatsService, SteamUserAchievementsService steamUserAchievementsService, SteamUserProfileService steamUserProfileService, SteamAchievementService steamAchievementDataService)
+        public LoginPageVm(IPageServiceZero pageService, SteamGameStatsService steamGameStatsService, SteamUserAchievementsService steamUserAchievementsService, SteamUserProfileService steamUserProfileService, SteamAchievementService steamAchievementDataService, SteamVanityUrlService steamVanityUrlService)
         {
             _pageService = pageService;
             _steamGameStatsService = steamGameStatsService;
             _steamUserAchievementsService = steamUserAchievementsService;
             _steamUserProfileService = steamUserProfileService;
             _steamAchievementDataService = steamAchievementDataService;
+            _steamVanityUrlService = steamVanityUrlService;
             SteamProfileIdText = "76561198045733101";
 
             if (IsFirstRun || !HasAgreed)

@@ -20,7 +20,6 @@ namespace StatControl.Mvvm.ViewModel
     internal class CarouselPageVm : CarouselPage
     {
         private readonly IPageServiceZero _pageService;
-        private string _userTitle;
         SteamUserAchievementsResponse _resultUserAchieve;
         SteamUserProfileResponse _resultProfile;
         SteamGameStatsResponse _resultStats;
