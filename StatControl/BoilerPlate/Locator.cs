@@ -127,13 +127,15 @@ namespace StatControl.BoilerPlate
 		{
 			return new SteamUserAchievementsService(_IoCC.GetInstance<IRestService>(), ApiConstants.SteamUserAchievementsEndpoint, ApiConstants.SteamApiKey);
 		}
+
 		private SteamAchievementService GetSteamAchievementsService()
 		{
 			return new SteamAchievementService(_IoCC.GetInstance<IRestService>(), ApiConstants.SteamAchieveEndpoint, ApiConstants.SteamApiKey);
 		}
+
 		private SteamFriendsService GetSteamFriendsService()
 		{
-			return new SteamFriendsService(_IoCC.GetInstance<IRestService>(), ApiConstants.SteamAchieveEndpoint, ApiConstants.SteamApiKey);
+			return new SteamFriendsService(_IoCC.GetInstance<IRestService>(), ApiConstants.SteamFriendsEndpoint, ApiConstants.SteamApiKey);
 		}
 
 	}

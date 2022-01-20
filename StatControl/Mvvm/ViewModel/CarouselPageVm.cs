@@ -25,7 +25,7 @@ namespace StatControl.Mvvm.ViewModel
         SteamUserProfileResponse _resultProfile;
         SteamGameStatsResponse _resultStats;
         SteamAchievementDataResponse _resultAchieveData;
-        SteamFriendsResponce _resultFriends;
+        SteamFriendsResponse _resultFriends;
         
         public ICommand TestCommand { get; }
         public SocialPageVm SocialVm { get; private set; }
@@ -50,14 +50,15 @@ namespace StatControl.Mvvm.ViewModel
             AchieveVm = new AchievementsPageVm(_pageService);
         }
 
-        internal void Init(SteamUserAchievementsResponse resultUserAchieve, SteamAchievementDataResponse resultAchieveData, SteamUserProfileResponse resultProfile, SteamGameStatsResponse resultStats, SteamFriendsResponce resultFriends)
+        internal void Init(SteamUserAchievementsResponse resultUserAchieve, SteamAchievementDataResponse resultAchieveData, SteamUserProfileResponse resultProfile, SteamGameStatsResponse resultStats, SteamFriendsResponse resultFriends)
         {
             _resultUserAchieve = resultUserAchieve;
             _resultAchieveData = resultAchieveData;
             _resultProfile = resultProfile;
             _resultStats = resultStats;
             _resultFriends = resultFriends;
-            SocialVm.Responce = _resultFriends;
+
+            SocialVm.Response = _resultFriends;
             HomeVm.ResultProfile = _resultProfile;
             MainVm.ResultStats = _resultStats;
             LastVm.ResultStats = _resultStats;

@@ -4,12 +4,13 @@ using System.Text;
 
 namespace StatControl.Mvvm.Model.SteamUserFriends
 {
-    public class SteamFriendsResponce
+    public class SteamFriendsResponse
     {
-        public Friendslist friendslist { get; private set; }
-        SteamFriendsResponce(Friendslist friendslist)
+        public SteamFriendsResponse(Friendslist friendslist)
         {
             this.friendslist = friendslist;
         }
+
+        public Friendslist friendslist { get; private set; }
     }
 }

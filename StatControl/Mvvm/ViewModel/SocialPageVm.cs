@@ -34,14 +34,14 @@ namespace StatControl.Mvvm.ViewModel
                 OnPropertyChanged();
             }
         }
-        private SteamFriendsResponce _responce;
-        public SteamFriendsResponce Responce
+        private SteamFriendsResponse _response;
+        public SteamFriendsResponse Response
         {
-            get { return _responce; }
+            get { return _response; }
             set
             {
-                SetProperty(ref _responce, value);
-                DisplayTest = _responce.friendslist.friends[0].steamid.ToString();
+                SetProperty(ref _response, value);
+                DisplayTest = _response.friendslist.friends[0].steamid;
 
 
 
