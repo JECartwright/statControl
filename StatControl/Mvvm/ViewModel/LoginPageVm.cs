@@ -39,20 +39,6 @@ namespace StatControl.Mvvm.ViewModel
             set => SetProperty(ref _steamProfileIdText, value);
         }
 
-        //Check to see what type the steam ID is
-        private async Task GetIdTypeAsync(string id)
-        {
-            string pattern = @"7656119[0-9]{10}";
-            Regex r = new Regex(pattern, RegexOptions.IgnoreCase);
-            Match m = r.Match(id);
-
-            if (m.Success) //****Placeholder**** Regex for steam64ID
-            {
-                var resultVantityUrl = await _steamVanityUrlService.GetVanityUrlSummaryAsync(id);
-                SteamProfileIdText = resultVantityUrl.payload.response.steamid;
-            }
-        }
-
         private async Task HomePageCommandExecuteAsync()
         {
             await GetIdTypeAsync(SteamProfileIdText);
@@ -87,8 +73,20 @@ namespace StatControl.Mvvm.ViewModel
             {
                 Debug.WriteLine("Error in getting API.");
             }
-            
+        }
 
+        //Check to see what type the steam ID is
+        private async Task GetIdTypeAsync(string id)
+        {
+            string pattern = @"7656119[0-9]{10}";
+            Regex r = new Regex(pattern, RegexOptions.IgnoreCase);
+            Match m = r.Match(id);
+
+            if (!m.Success) //if input is not Steam64 convert
+            {
+                var resultVantityUrl = await _steamVanityUrlService.GetVanityUrlSummaryAsync(id);
+                SteamProfileIdText = resultVantityUrl.payload.response.steamid;
+            }
         }
 
         public string privatepolicy = "";
