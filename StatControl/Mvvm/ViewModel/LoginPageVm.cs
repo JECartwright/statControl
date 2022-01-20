@@ -52,7 +52,7 @@ namespace StatControl.Mvvm.ViewModel
             Debug.WriteLine("LOGIN_PAGE: Steam Achievements Response Received");
 
             var resultFriends = await _steamFriendsService.GetFriendsListAsync(_steamProfileIdText);
-            Debug.WriteLine("LOGIN_PAGE: Steam Achievements Response Received");
+            Debug.WriteLine("LOGIN_PAGE: Steam Friends Response Received");
 
             if (resultUserAchieve.status == 0 & resultAchieveData.status == 0 & resultProfile.status == 0 & resultStats.status == 0 & resultStats.payload.playerstats.stats != null)
             {
@@ -90,13 +90,15 @@ namespace StatControl.Mvvm.ViewModel
             await Application.Current.MainPage.DisplayAlert("Alert", "Swipe left and right to navigate", "OK");
         }
 
-        public LoginPageVm(IPageServiceZero pageService, SteamGameStatsService steamGameStatsService, SteamUserAchievementsService steamUserAchievementsService, SteamUserProfileService steamUserProfileService, SteamAchievementService steamAchievementDataService)
+        public LoginPageVm(IPageServiceZero pageService, SteamGameStatsService steamGameStatsService, SteamUserAchievementsService steamUserAchievementsService, SteamUserProfileService steamUserProfileService, SteamAchievementService steamAchievementDataService, SteamFriendsService steamFriendsService)
         {
             _pageService = pageService;
             _steamGameStatsService = steamGameStatsService;
             _steamUserAchievementsService = steamUserAchievementsService;
             _steamUserProfileService = steamUserProfileService;
             _steamAchievementDataService = steamAchievementDataService;
+            _steamFriendsService = steamFriendsService;
+
             SteamProfileIdText = "76561198045733101";
 
             if (IsFirstRun || !HasAgreed)

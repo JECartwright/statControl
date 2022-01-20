@@ -6,7 +6,7 @@
               x:Class="StatControl.Mvvm.View.CarouselViewPage"
               x:DataType="vm:CarouselPageVm">
 
-    <v:SocialPage v:BindingContext="{Binding }"/>
+    <v:SocialPage v:BindingContext="{Binding SocialVm}"/>
     <v:HomePage v:BindingContext="{Binding HomeVm}"/>
     <v:MainStatPage v:BindingContext="{Binding MainVm}"/>
     <v:LastMatchPage v:BindingContext="{Binding LastVm}"/>
