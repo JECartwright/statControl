@@ -6,6 +6,10 @@ namespace StatControl.Mvvm.Model.SteamUserFriends
 {
     public class SteamFriendsResponce
     {
-        public Friendslist friendslist { get; set; }
+        public Friendslist friendslist { get; private set; }
+        SteamFriendsResponce(Friendslist friendslist)
+        {
+            this.friendslist = friendslist;
+        }
     }
 }
