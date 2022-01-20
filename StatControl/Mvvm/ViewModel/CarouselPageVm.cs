@@ -2,6 +2,7 @@
 using StatControl.Mvvm.Model.SteamUserAchievements;
 using StatControl.Mvvm.Model.SteamUserProfile;
 using StatControl.Mvvm.Model.SteamAchievementData;
+using StatControl.Mvvm.Model.SteamUserFriends;
 using StatControl.Mvvm.View;
 using FunctionZero.CommandZero;
 using FunctionZero.MvvmZero;
@@ -22,6 +23,7 @@ namespace StatControl.Mvvm.ViewModel
         SteamUserProfileResponse _resultProfile;
         SteamGameStatsResponse _resultStats;
         SteamAchievementDataResponse _resultAchieveData;
+        Root _resultFriends;
         private readonly IPageServiceZero _pageService;
         public ICommand TestCommand { get; }
 
@@ -31,12 +33,13 @@ namespace StatControl.Mvvm.ViewModel
             _pageService = pageService;
         }
 
-        internal void Init(SteamUserAchievementsResponse resultUserAchieve, SteamAchievementDataResponse resultAchieveData, SteamUserProfileResponse resultProfile, SteamGameStatsResponse resultStats)
+        internal void Init(SteamUserAchievementsResponse resultUserAchieve, SteamAchievementDataResponse resultAchieveData, SteamUserProfileResponse resultProfile, SteamGameStatsResponse resultStats, Root resultFriends)
         {
             _resultUserAchieve = resultUserAchieve;
             _resultAchieveData = resultAchieveData;
             _resultProfile = resultProfile;
             _resultStats = resultStats;
+            _resultFriends = resultFriends;
 
             Debug.WriteLine("Sending resultUserAchieve");
             MessagingCenter.Send<CarouselPageVm, SteamUserAchievementsResponse>(this, "resultUserAchieve", _resultUserAchieve);

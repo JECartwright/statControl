@@ -25,6 +25,7 @@ namespace StatControl.Mvvm.ViewModel
         private readonly SteamUserAchievementsService _steamUserAchievementsService;
         private readonly SteamUserProfileService _steamUserProfileService;
         private readonly SteamAchievementService _steamAchievementDataService;
+        private readonly SteamFriendsService _steamFriendsService;
         private readonly IPageServiceZero _pageService;
 
         public ICommand HomePageCommand { get; }
@@ -50,9 +51,12 @@ namespace StatControl.Mvvm.ViewModel
             var resultAchieveData = await _steamAchievementDataService.GetAchieveInfoAsync();
             Debug.WriteLine("Steam Achievements Response Received");
 
-            if (resultUserAchieve.status == 0 & resultAchieveData.status == 0 & resultProfile.status == 0 & resultStats.status == 0)
+            var resultFriends = await _steamFriendsService.GetFriendsListAsync(_steamProfileIdText);
+            Debug.WriteLine("Steam Achievements Response Received");
+
+            if (resultUserAchieve.status == 0 & resultAchieveData.status == 0 & resultProfile.status == 0 & resultStats.status == 0 & resultFriends.status == 0)
             {
-                await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init(resultUserAchieve.payload, resultAchieveData.payload, resultProfile.payload, resultStats.payload));
+                await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init(resultUserAchieve.payload, resultAchieveData.payload, resultProfile.payload, resultStats.payload, resultFriends.payload));
             }
             else
             {

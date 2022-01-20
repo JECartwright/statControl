@@ -131,7 +131,6 @@ namespace StatControl.Mvvm.ViewModel
                 AchievementsToSort.Clear();
                 CallServer();
             });
-            
         }
 
     }
