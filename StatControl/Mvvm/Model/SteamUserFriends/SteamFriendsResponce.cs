@@ -4,7 +4,7 @@ using System.Text;
 
 namespace StatControl.Mvvm.Model.SteamUserFriends
 {
-    public class Root
+    public class SteamFriendsResponce
     {
         public Friendslist friendslist { get; set; }
     }

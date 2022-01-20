@@ -20,9 +20,9 @@ namespace StatControl.Services
             _apiKey = apiKey;
         }
 
-        public async Task<(ResultStatus status, Root payload, string rawResponse)> GetFriendsListAsync(string ID)
+        public async Task<(ResultStatus status, SteamFriendsResponce payload, string rawResponse)> GetFriendsListAsync(string ID)
         {
-            return await _restService.GetAsync<Root>($"{_apiPath}?key={_apiKey}&steamid={ID}&relationship=friend&format=json");
+            return await _restService.GetAsync<SteamFriendsResponce>($"{_apiPath}?key={_apiKey}&steamid={ID}&relationship=friend&format=json");
         }
     }
 }

@@ -25,9 +25,10 @@ namespace StatControl.Mvvm.ViewModel
         SteamUserProfileResponse _resultProfile;
         SteamGameStatsResponse _resultStats;
         SteamAchievementDataResponse _resultAchieveData;
+        SteamFriendsResponce _resultFriends;
         
         public ICommand TestCommand { get; }
-
+        public SocialPageVm SocialVm { get; private set; }
         public HomePageVm HomeVm { get; private set; }
         public MainStatPageVm MainVm { get; private set; }
         public LastMatchPageVm LastVm { get; private set; }
@@ -39,6 +40,7 @@ namespace StatControl.Mvvm.ViewModel
         public CarouselPageVm(IPageServiceZero pageService)
         {
             _pageService = pageService;
+            SocialVm = new SocialPageVm(_pageService);
             HomeVm = new HomePageVm(_pageService);
             MainVm = new MainStatPageVm(_pageService);
             LastVm = new LastMatchPageVm(_pageService);
@@ -48,14 +50,14 @@ namespace StatControl.Mvvm.ViewModel
             AchieveVm = new AchievementsPageVm(_pageService);
         }
 
-        internal void Init(SteamUserAchievementsResponse resultUserAchieve, SteamAchievementDataResponse resultAchieveData, SteamUserProfileResponse resultProfile, SteamGameStatsResponse resultStats, Root resultFriends)
+        internal void Init(SteamUserAchievementsResponse resultUserAchieve, SteamAchievementDataResponse resultAchieveData, SteamUserProfileResponse resultProfile, SteamGameStatsResponse resultStats, SteamFriendsResponce resultFriends)
         {
             _resultUserAchieve = resultUserAchieve;
             _resultAchieveData = resultAchieveData;
             _resultProfile = resultProfile;
             _resultStats = resultStats;
             _resultFriends = resultFriends;
-
+            SocialVm.Responce = _resultFriends;
             HomeVm.ResultProfile = _resultProfile;
             MainVm.ResultStats = _resultStats;
             LastVm.ResultStats = _resultStats;

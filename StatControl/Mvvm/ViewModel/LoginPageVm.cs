@@ -51,6 +51,9 @@ namespace StatControl.Mvvm.ViewModel
             var resultAchieveData = await _steamAchievementDataService.GetAchieveInfoAsync();
             Debug.WriteLine("LOGIN_PAGE: Steam Achievements Response Received");
 
+            var resultFriends = await _steamFriendsService.GetFriendsListAsync(_steamProfileIdText);
+            Debug.WriteLine("LOGIN_PAGE: Steam Achievements Response Received");
+
             if (resultUserAchieve.status == 0 & resultAchieveData.status == 0 & resultProfile.status == 0 & resultStats.status == 0 & resultStats.payload.playerstats.stats != null)
             {
                 await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init(resultUserAchieve.payload, resultAchieveData.payload, resultProfile.payload, resultStats.payload, resultFriends.payload));
