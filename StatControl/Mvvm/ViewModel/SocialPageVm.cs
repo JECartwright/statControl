@@ -15,6 +15,7 @@ using Xamarin.Forms;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using StatControl.Mvvm.Model.DisplayModel;
+using StatControl.Mvvm.Model.SteamUserFriends;
 
 namespace StatControl.Mvvm.ViewModel
 {
@@ -22,10 +23,32 @@ namespace StatControl.Mvvm.ViewModel
     {
         public ObservableCollection<SocialFriendsDisplayModel> Friends { get; private set; }
         public ObservableCollection<SocialPointsDisplayModel> PointsUsers { get; private set; }
-
-        public SocialPageVm()  
+        private readonly IPageServiceZero _pageService;
+        private string _displayTest;
+        public string DisplayTest
         {
+            get { return _displayTest; }
+            set
+            {
+                SetProperty(ref _displayTest, value);
+                OnPropertyChanged();
+            }
+        }
+        private SteamFriendsResponce _responce;
+        public SteamFriendsResponce Responce
+        {
+            get { return _responce; }
+            set
+            {
+                SetProperty(ref _responce, value);
+                OnPropertyChanged();
+            }
+        }
 
+        public SocialPageVm(IPageServiceZero pageService)  
+        {
+            _pageService = pageService;
+            DisplayTest = _responce.friendslist.friends[0].steamid.ToString();
         }
 
     }
