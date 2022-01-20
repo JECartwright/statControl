@@ -41,15 +41,21 @@ namespace StatControl.Mvvm.ViewModel
             set
             {
                 SetProperty(ref _responce, value);
+                DisplayTest = _responce.friendslist.friends[0].steamid.ToString();
+
+
+
+
                 OnPropertyChanged();
             }
         }
 
         public SocialPageVm(IPageServiceZero pageService)  
         {
-            _pageService = pageService;
-            DisplayTest = _responce.friendslist.friends[0].steamid.ToString();
+            _pageService = pageService;            
         }
+
+
 
     }
 }

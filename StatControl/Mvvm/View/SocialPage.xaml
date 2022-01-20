@@ -5,7 +5,7 @@
              xmlns:local="clr-namespace:StatControl.Mvvm.ViewModel">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="{binding DisplayTest}"
+            <Label Text="{Binding DisplayTest}"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
         </StackLayout>
