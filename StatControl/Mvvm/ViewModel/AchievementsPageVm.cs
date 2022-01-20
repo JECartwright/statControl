@@ -18,10 +18,9 @@ namespace StatControl.Mvvm.ViewModel
 {
     internal class AchievementsPageVm : MvvmZeroBaseVm
     {
+        private readonly IPageServiceZero _pageService;
         private SteamUserAchievementsResponse _resultUserAchieve;
         private SteamAchievementDataResponse _resultAchieveData;
-
-
 
         public ObservableCollection<AchievementDisplayModel> Achievements { get; private set; }
         private List<AchievementDisplayModel> AchievementsToSort = new List<AchievementDisplayModel>();
@@ -32,6 +31,10 @@ namespace StatControl.Mvvm.ViewModel
             set
             {
                 SetProperty(ref _resultAchieveData, value);
+
+                Achievements.Clear();
+                AchievementsToSort.Clear();
+                CallServer();
             }
         }
 
@@ -48,12 +51,11 @@ namespace StatControl.Mvvm.ViewModel
 
         void CallServer()
         {
-            Debug.WriteLine("started Achievements");
             List<string> achievementNamesList = new List<string>();
             //_resultUserAchieve.playerstats.achievements.Sort();
-            for (int i = 0; i< ResultUserAchieve.playerstats.achievements.Count;i++)
+            for (int i = 0; i< ResultUserAchieve.playerstats.achievements.Count; i++)
             {
-                for (int b = 0; b<ResultAchieveData.game.availableGameStats.achievements.Count;b++)
+                for (int b = 0; b<ResultAchieveData.game.availableGameStats.achievements.Count; b++)
                 {
                     if (ResultUserAchieve.playerstats.achievements[i].apiname == ResultAchieveData.game.availableGameStats.achievements[b].name)
                     {
@@ -110,28 +112,12 @@ namespace StatControl.Mvvm.ViewModel
             {
                 Achievements.Add(tempNotAchieved[w]);
             }
-            Debug.WriteLine("Finished Acvhemenets");
         }
 
-        public AchievementsPageVm()
+        public AchievementsPageVm(IPageServiceZero pageService)
         {
-            Achievements = new ObservableCollection<AchievementDisplayModel>();
-            MessagingCenter.Subscribe<CarouselPageVm, SteamUserAchievementsResponse>(this, "resultUserAchieve", (sender, resultAchieve) =>
-            {
-                Debug.WriteLine("Received UserAchieve Achievement Page");
-                ResultUserAchieve = resultAchieve;
-            });
-            MessagingCenter.Subscribe<CarouselPageVm, SteamAchievementDataResponse>(this, "resultAchieveData", (sender, resultAchieve) =>
-            {
-                Debug.WriteLine("Received AchieveData Achievement Page");
-                ResultAchieveData = resultAchieve;
-                //CallServer();
-
-                Achievements.Clear();
-                AchievementsToSort.Clear();
-                CallServer();
-            });
+            _pageService = pageService;
+            Achievements = new ObservableCollection<AchievementDisplayModel>();           
         }
-
     }
 }
