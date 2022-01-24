@@ -15,6 +15,7 @@ using System.Text;
 using Xamarin.Forms;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
+using StatControl.Services;
 
 namespace StatControl.Mvvm.ViewModel
 {
@@ -50,7 +51,7 @@ namespace StatControl.Mvvm.ViewModel
             AchieveVm = new AchievementsPageVm(_pageService);
         }
 
-        internal void Init(SteamUserAchievementsResponse resultUserAchieve, SteamAchievementDataResponse resultAchieveData, SteamUserProfileResponse resultProfile, SteamGameStatsResponse resultStats, SteamFriendsResponse resultFriends)
+        internal void Init(SteamUserAchievementsResponse resultUserAchieve, SteamAchievementDataResponse resultAchieveData, SteamUserProfileResponse resultProfile, SteamGameStatsService resultStats, SteamFriendsService resultFriends, SteamUserProfileService SendProfileService, SteamGameStatsService SendGameStatsService, SteamUserAchievementsService SendAchivementsService, SteamAchievementService SendAchievementDataService, SteamFriendsService SendFreiendsService)
         {
             _resultUserAchieve = resultUserAchieve;
             _resultAchieveData = resultAchieveData;
@@ -58,6 +59,11 @@ namespace StatControl.Mvvm.ViewModel
             _resultStats = resultStats;
             _resultFriends = resultFriends;
 
+            SocialVm.RecivedProfileService = SendProfileService;
+            SocialVm.RecivedGameStatsService = SendGameStatsService;
+            SocialVm.RecivedAchivementsService = SendAchivementsService;
+            SocialVm.RecivedAchievementDataService = SendAchievementDataService;
+            SocialVm.RecivedFreiendsService = SendFreiendsService;
             SocialVm.Response = _resultFriends;
             HomeVm.ResultProfile = _resultProfile;
             MainVm.ResultStats = _resultStats;

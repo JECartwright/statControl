@@ -54,13 +54,22 @@ namespace StatControl.Mvvm.ViewModel
             var resultFriends = await _steamFriendsService.GetFriendsListAsync(_steamProfileIdText);
             Debug.WriteLine("LOGIN_PAGE: Steam Friends Response Received");
 
-            if (resultUserAchieve.status == 0 & resultAchieveData.status == 0 & resultProfile.status == 0 & resultStats.status == 0 & resultStats.payload.playerstats.stats != null)
+            //Checking to see if the response was successful
+            if (resultUserAchieve.status == 0 & resultAchieveData.status == 0 & resultProfile.status == 0 & resultStats.status == 0)
             {
-                await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init(resultUserAchieve.payload, resultAchieveData.payload, resultProfile.payload, resultStats.payload, resultFriends.payload));
+                //Checking to see if the response contains data
+                if (resultStats.payload.playerstats.stats != null)
+                {
+                    await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init(resultUserAchieve.payload, resultAchieveData.payload, resultProfile.payload, resultStats.payload, resultFriends.payload, _steamUserProfileService, _steamGameStatsService, _steamUserAchievementsService, _steamAchievementDataService, _steamFriendsService));
+                }
+                else
+                {
+                    Debug.WriteLine("Data Returned is null.");
+                }
             }
             else
             {
-                Debug.WriteLine("Error in getting API");
+                Debug.WriteLine("Error in getting API.");
             }
             
 
