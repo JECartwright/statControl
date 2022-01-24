@@ -90,22 +90,26 @@ namespace StatControl.Mvvm.ViewModel
                             toPush.ImageAddress = "Backup Image.jpg";
                         }
                         AchievementsToSort.Add(toPush);
-                        //Debug.WriteLine(ResultUserAchieve.playerstats.achievements[i].apiname);
-                        //Debug.WriteLine(ResultAchieveData.game.availableGameStats.achievements[b].name);
+                        Debug.WriteLine(ResultUserAchieve.playerstats.achievements[i].apiname);
+                        Debug.WriteLine(ResultAchieveData.game.availableGameStats.achievements[b].name);
 
                     }
                 }          
             }
-            
+            Debug.WriteLine("Achievement Model Done");
 
-            //Debug.WriteLine("Achievement Model Done");
+
+
+            //Compare: ResultUserAchieve.playerstats.achievements[i].apiname || To: ResultAchieveData.game.availableGameStats.achievements[b].name
+            //Uses: ResultUserAchieve.playerstats.achievements[i] && ResultAchieveData.game.availableGameStats.achievements[b]
 
             //Sorts achievements by achieved
             List<AchievementDisplayModel> SortedAchievements = AchievementsToSort.OrderByDescending(o=>o.Achieved).ToList();
-            for (int y = 0; y < SortedAchievements.Count; y++)
-            {
-                Achievements.Add(SortedAchievements[y]);
-            }
+
+            //Adds list to observable collection
+            var ob2list = Achievements.ToList();
+            ob2list.AddRange(SortedAchievements);
+            Achievements = new ObservableCollection<AchievementDisplayModel>(ob2list);
         }
 
         public AchievementsPageVm(IPageServiceZero pageService)
