@@ -102,7 +102,7 @@ namespace StatControl.Mvvm.ViewModel
 
                 if (value != null)
                 {
-                    //do thing when user selects
+                    OpenNewUser(value);
                 }
                 SetProperty(ref _selectedProfileFriends, value);
                 OnPropertyChanged();
@@ -117,15 +117,19 @@ namespace StatControl.Mvvm.ViewModel
 
                 if (value != null)
                 {
-                    //do thing when user selects
+                    OpenNewUser(value);
                 }
                 SetProperty(ref _selectedProfilePoints, value);
                 OnPropertyChanged();
             }
         }
 
-        private async void OpenNewUser(string _steamProfileIdText)
+        private async void OpenNewUser(SocialProfileDisplayModel current)
         {
+            await Task.Delay(10);
+            SelectedProfileFriends = null;
+            SelectedProfilePoints = null;
+            string _steamProfileIdText = current.ID;
             var resultUserAchieve = await RecivedAchivementsService.GetUserAchieveAsync(_steamProfileIdText);
             Debug.WriteLine("LOGIN_PAGE: User Achievements Response Received");
 
@@ -158,7 +162,7 @@ namespace StatControl.Mvvm.ViewModel
             {
                 Debug.WriteLine("Error in getting API.");
             }
-
+            OnPropertyChanged();
 
         }
 
