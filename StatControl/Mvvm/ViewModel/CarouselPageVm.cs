@@ -51,7 +51,7 @@ namespace StatControl.Mvvm.ViewModel
             AchieveVm = new AchievementsPageVm(_pageService);
         }
 
-        internal void Init(SteamUserAchievementsResponse resultUserAchieve, SteamAchievementDataResponse resultAchieveData, SteamUserProfileResponse resultProfile, SteamGameStatsService resultStats, SteamFriendsService resultFriends, SteamUserProfileService SendProfileService, SteamGameStatsService SendGameStatsService, SteamUserAchievementsService SendAchivementsService, SteamAchievementService SendAchievementDataService, SteamFriendsService SendFreiendsService)
+        internal void Init(SteamUserAchievementsResponse resultUserAchieve, SteamAchievementDataResponse resultAchieveData, SteamUserProfileResponse resultProfile, SteamGameStatsResponse resultStats, SteamFriendsResponse resultFriends, SteamUserProfileService SendProfileService, SteamGameStatsService SendGameStatsService, SteamUserAchievementsService SendAchivementsService, SteamAchievementService SendAchievementDataService, SteamFriendsService SendFreiendsService)
         {
             _resultUserAchieve = resultUserAchieve;
             _resultAchieveData = resultAchieveData;
