@@ -53,55 +53,42 @@ namespace StatControl.Mvvm.ViewModel
 
         void CallServer()
         {
-            //Goes through all the achievements player has
+            //Goes through all the achievements
             for (int i = 0; i < ResultUserAchieve.playerstats.achievements.Count; i++)
             {
-                //Goes through all the achievements in the game
-                for (int b = 0; b < ResultAchieveData.game.availableGameStats.achievements.Count; b++)
+                AchievementDisplayModel toPush = new AchievementDisplayModel
                 {
-                    //If an achievement name is equal to one of the players achievements
-                    if (ResultUserAchieve.playerstats.achievements[i].apiname == ResultAchieveData.game.availableGameStats.achievements[b].name)
-                    {
-                        AchievementDisplayModel toPush = new AchievementDisplayModel
-                        {
-                            APIName = ResultUserAchieve.playerstats.achievements[i].apiname,
-                            Name = ResultUserAchieve.playerstats.achievements[i].name,
-                            Description = ResultUserAchieve.playerstats.achievements[i].description,
-                            Achieved = ResultUserAchieve.playerstats.achievements[i].achieved
-                        };
+                    APIName = ResultUserAchieve.playerstats.achievements[i].apiname,
+                    Name = ResultUserAchieve.playerstats.achievements[i].name,
+                    Description = ResultUserAchieve.playerstats.achievements[i].description,
+                    Achieved = ResultUserAchieve.playerstats.achievements[i].achieved
+                };
 
-                        //Assigns tick or cross, Colour, and image depending if it is achieved by the player
-                        if (toPush.Achieved == 1)
-                        {
-                            toPush.AchievedText = "✓";
-                            toPush.AchievedColor = new Color(0,255,0);
-                            toPush.ImageAddress = ResultAchieveData.game.availableGameStats.achievements[b].icon;
-                        }
-                        else if (toPush.Achieved == 0)
-                        {
-                            toPush.AchievedText = "✗";
-                            toPush.AchievedColor = new Color(255, 0, 0);
-                            toPush.ImageAddress = ResultAchieveData.game.availableGameStats.achievements[b].icongray;
-                        }
-                        else
-                        {
-                            toPush.AchievedText = "!";
-                            toPush.AchievedColor = new Color(255, 0, 0);
-                            toPush.ImageAddress = "Backup Image.jpg";
-                        }
-                        AchievementsToSort.Add(toPush);
-                        Debug.WriteLine(ResultUserAchieve.playerstats.achievements[i].apiname);
-                        Debug.WriteLine(ResultAchieveData.game.availableGameStats.achievements[b].name);
-
-                    }
-                }          
+                //Assigns tick or cross, Colour, and image depending if it is achieved by the player
+                if (toPush.Achieved == 1)
+                {
+                    toPush.AchievedText = "✓";
+                    toPush.AchievedColor = new Color(0,255,0);
+                    toPush.ImageAddress = ResultAchieveData.game.availableGameStats.achievements[i].icon;
+                }
+                else if (toPush.Achieved == 0)
+                {
+                    toPush.AchievedText = "✗";
+                    toPush.AchievedColor = new Color(255, 0, 0);
+                    toPush.ImageAddress = ResultAchieveData.game.availableGameStats.achievements[i].icongray;
+                }
+                else
+                {
+                    toPush.AchievedText = "!";
+                    toPush.AchievedColor = new Color(255, 0, 0);
+                    toPush.ImageAddress = "Backup Image.jpg";
+                }
+                AchievementsToSort.Add(toPush);
+                //Debug.WriteLine(ResultUserAchieve.playerstats.achievements[i].apiname);
+                //Debug.WriteLine(ResultAchieveData.game.availableGameStats.achievements[i].name);
+       
             }
-            Debug.WriteLine("Achievement Model Done");
-
-
-
-            //Compare: ResultUserAchieve.playerstats.achievements[i].apiname || To: ResultAchieveData.game.availableGameStats.achievements[b].name
-            //Uses: ResultUserAchieve.playerstats.achievements[i] && ResultAchieveData.game.availableGameStats.achievements[b]
+            //Debug.WriteLine("Achievement Model Done");
 
             //Sorts achievements by achieved
             List<AchievementDisplayModel> SortedAchievements = AchievementsToSort.OrderByDescending(o=>o.Achieved).ToList();
