@@ -57,6 +57,8 @@ namespace StatControl.Mvvm.ViewModel
             Debug.WriteLine("LOGIN_PAGE: Steam Achievements Response Received");
             //
 
+            await Task.WhenAll(resultUserAchieve, resultProfile, resultStats, resultAchieveData);
+
             //Checking to see if the response was successful
             if (resultUserAchieve.status == 0 & resultAchieveData.status == 0 & resultProfile.status == 0 & resultStats.status == 0)
             {
@@ -64,7 +66,8 @@ namespace StatControl.Mvvm.ViewModel
                 if (resultStats.payload.playerstats.stats != null)
                 {
                     await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init(resultUserAchieve.payload, resultAchieveData.payload, resultProfile.payload, resultStats.payload));
-                } else
+                }
+                else
                 {
                     Debug.WriteLine("Data Returned is null.");
                 }
