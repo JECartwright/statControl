@@ -23,7 +23,7 @@ namespace StatControl.Mvvm.ViewModel
         private SteamUserAchievementsResponse _resultUserAchieve;
         private SteamAchievementDataResponse _resultAchieveData;
 
-        public ObservableCollection<AchievementDisplayModel> Achievements { get; private set; } //Achivements that get binded to
+        public ObservableCollection<AchievementDisplayModel> Achievements { get; private set; } //Achievements that get binded to
         private List<AchievementDisplayModel> AchievementsToSort = new List<AchievementDisplayModel>();
 
         public SteamAchievementDataResponse ResultAchieveData
@@ -83,12 +83,8 @@ namespace StatControl.Mvvm.ViewModel
                     toPush.AchievedColor = new Color(255, 0, 0);
                     toPush.ImageAddress = "Backup Image.jpg";
                 }
-                AchievementsToSort.Add(toPush);
-                //Debug.WriteLine(ResultUserAchieve.playerstats.achievements[i].apiname);
-                //Debug.WriteLine(ResultAchieveData.game.availableGameStats.achievements[i].name);
-       
+                AchievementsToSort.Add(toPush);      
             }
-            //Debug.WriteLine("Achievement Model Done");
 
             //Sorts achievements by achieved
             List<AchievementDisplayModel> SortedAchievements = AchievementsToSort.OrderByDescending(o=>o.Achieved).ToList();
