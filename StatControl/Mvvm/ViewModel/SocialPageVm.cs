@@ -18,6 +18,7 @@ using StatControl.Mvvm.Model.DisplayModel;
 using StatControl.Mvvm.Model.SteamUserFriends;
 using StatControl.Mvvm.Model.SteamUserProfile;
 using StatControl.Services;
+using Xamarin.Essentials;
 
 namespace StatControl.Mvvm.ViewModel
 {
@@ -151,6 +152,12 @@ namespace StatControl.Mvvm.ViewModel
                 //Checking to see if the response contains data
                 if (resultStats.payload.playerstats.stats != null)
                 {
+                    /*
+                    while (this.Navigation.ModalStack.Count > 0)
+                    {
+                        await this.Navigation.PopModalAsync();
+                    }
+                    */
                     await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init(resultUserAchieve.payload, resultAchieveData.payload, resultProfile.payload, resultStats.payload, resultFriends.payload, RecivedProfileService, RecivedGameStatsService, RecivedAchivementsService, RecivedAchievementDataService, RecivedFreiendsService));
                 }
                 else
@@ -168,7 +175,6 @@ namespace StatControl.Mvvm.ViewModel
 
         private async void DisplayStuff()
         {
-            
             for (int b = 0;b < _response.friendslist.friends.Count; b++)
             {
                 string steamid = _response.friendslist.friends[b].steamid;
