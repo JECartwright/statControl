@@ -12,6 +12,7 @@ using Xamarin.Forms;
 using StatControl.Mvvm.Model.SteamUserProfile;
 using StatControl.Mvvm.Model.SteamUserAchievements;
 using StatControl.Mvvm.Model.SteamGameStats;
+using StatControl.Mvvm.Model.ApplicationAPIData;
 using System.ComponentModel;
 
 namespace StatControl.Mvvm.ViewModel
@@ -192,6 +193,15 @@ namespace StatControl.Mvvm.ViewModel
 
                 OnPropertyChanged();
             }
+        }
+
+        public void DataRefresh()
+        {
+            if (ApplicatationDataHandler.CheckAPI)
+            {
+                ResultStats = ApplicatationDataHandler.resultStats;
+            }
+            OnPropertyChanged();
         }
 
         public MainStatPageVm(IPageServiceZero pageService)

@@ -13,6 +13,7 @@ using StatControl.Mvvm.Model.SteamUserProfile;
 using StatControl.Mvvm.Model.SteamUserAchievements;
 using StatControl.Mvvm.Model.SteamGameStats;
 using System.ComponentModel;
+using StatControl.Mvvm.Model.ApplicationAPIData;
 
 namespace StatControl.Mvvm.ViewModel
 {
@@ -20,6 +21,7 @@ namespace StatControl.Mvvm.ViewModel
     {
         private readonly IPageServiceZero _pageService;
         private SteamUserProfileResponse _resultProfile;
+        private CarouselPageVm daddy;
 
         public ICommand UpdateCommand { get; }
         public SteamUserProfileResponse ResultProfile
@@ -30,6 +32,20 @@ namespace StatControl.Mvvm.ViewModel
                 SetProperty(ref _resultProfile, value);
                 OnPropertyChanged();
             }
+        }
+
+        public void getParent(CarouselPageVm dad)
+        {
+            daddy = dad;
+        }
+
+        public void DataRefresh()
+        {
+            if (ApplicatationDataHandler.CheckAPI)
+            {
+                ResultProfile = ApplicatationDataHandler.resultProfile;
+            }
+            OnPropertyChanged();
         }
 
         public HomePageVm(IPageServiceZero pageService)

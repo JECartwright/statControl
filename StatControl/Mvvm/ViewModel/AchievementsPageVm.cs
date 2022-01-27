@@ -14,6 +14,7 @@ using Xamarin.Forms;
 using System.Diagnostics;
 using System.Linq;
 using StatControl.Mvvm.Model.DisplayModel;
+using StatControl.Mvvm.Model.ApplicationAPIData;
 
 namespace StatControl.Mvvm.ViewModel
 {
@@ -93,6 +94,16 @@ namespace StatControl.Mvvm.ViewModel
             var ob2list = Achievements.ToList();
             ob2list.AddRange(SortedAchievements);
             Achievements = new ObservableCollection<AchievementDisplayModel>(ob2list);
+        }
+
+        public void DataRefresh()
+        {
+            if (ApplicatationDataHandler.CheckAPI)
+            {
+                ResultUserAchieve = ApplicatationDataHandler.resultUserAchieve;
+                ResultAchieveData = ApplicatationDataHandler.resultAchieveData;
+            }
+            OnPropertyChanged();
         }
 
         public AchievementsPageVm(IPageServiceZero pageService)

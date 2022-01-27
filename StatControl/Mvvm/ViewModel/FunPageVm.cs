@@ -8,6 +8,7 @@ using StatControl.Mvvm.Model.SteamUserProfile;
 using StatControl.Mvvm.Model.SteamUserAchievements;
 using StatControl.Mvvm.Model.SteamGameStats;
 using System.ComponentModel;
+using StatControl.Mvvm.Model.ApplicationAPIData;
 
 namespace StatControl.Mvvm.ViewModel
 {
@@ -146,7 +147,14 @@ namespace StatControl.Mvvm.ViewModel
             }
         }
 
-
+        public void DataRefresh()
+        {
+            if (ApplicatationDataHandler.CheckAPI)
+            {
+                ResultStats = ApplicatationDataHandler.resultStats;
+            }
+            OnPropertyChanged();
+        }
 
         public SteamGameStatsResponse ResultStats
         {

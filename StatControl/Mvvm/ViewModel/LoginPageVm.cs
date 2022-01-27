@@ -17,6 +17,7 @@ using StatControl.Mvvm.Model.SteamAchievementData;
 using StatControl.Mvvm.Model.SteamVanityUrl;
 using Xamarin.Essentials;
 using System.Text.RegularExpressions;
+using StatControl.Mvvm.Model.ApplicationAPIData;
 
 namespace StatControl.Mvvm.ViewModel
 {
@@ -43,13 +44,13 @@ namespace StatControl.Mvvm.ViewModel
                 SetProperty(ref _errorMsgText, value);
             }
         }
-        
+
         public string ErrorMsgTextVisible
         {
-            get => _errorMsgText;
+            get => _errorMsgTextVisible;
             set
             {
-                SetProperty(ref _errorMsgText, value);
+                SetProperty(ref _errorMsgTextVisible, value);
             }
         }
 
@@ -61,39 +62,15 @@ namespace StatControl.Mvvm.ViewModel
             set => SetProperty(ref _steamProfileIdText, value);
         }
 
+
         private async Task HomePageCommandExecuteAsync()
         {
             await GetIdTypeAsync(SteamProfileIdText);
-
-            //Getting Data
-            var resultUserAchieve = await _steamUserAchievementsService.GetUserAchieveAsync(SteamProfileIdText);
-            Debug.WriteLine("LOGIN_PAGE: User Achievements Response Received");       
-
-            var resultProfile = await _steamUserProfileService.GetUserSummaryAsync(SteamProfileIdText);
-            Debug.WriteLine("LOGIN_PAGE: User Profile Response Received");
-
-            var resultStats = await _steamGameStatsService.GetUserStatsAsync(SteamProfileIdText);
-            Debug.WriteLine("LOGIN_PAGE: Game Stats Response Received");
-
-            var resultAchieveData = await _steamAchievementDataService.GetAchieveInfoAsync();
-            Debug.WriteLine("LOGIN_PAGE: Steam Achievements Response Received");
-            //
-
-            //Checking to see if the response was successful
-            if (resultUserAchieve.status == 0 & resultAchieveData.status == 0 & resultProfile.status == 0 & resultStats.status == 0)
+            await ApplicatationDataHandler.Update(SteamProfileIdText);
+            if (ApplicatationDataHandler.CheckAPI)
             {
-                //Checking to see if the response contains data
-                if (resultStats.payload.playerstats.stats != null)
-                {
-                    ErrorMsgTextVisible = "False";
-                    await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init(resultUserAchieve.payload, resultAchieveData.payload, resultProfile.payload, resultStats.payload));
-                }
-                else
-                {
-                    ErrorMsgText = "The Data Received From The API Is Null\nPlease Try Again.";
-                    ErrorMsgTextVisible = "True";
-                    Debug.WriteLine("Data Returned is null.");
-                }
+                ApplicatationDataHandler.MainUserID = _steamProfileIdText;
+                await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init());
             }
             else
             {
@@ -109,27 +86,6 @@ namespace StatControl.Mvvm.ViewModel
             string pattern = @"7656119[0-9]{10}";
             Regex r = new Regex(pattern, RegexOptions.IgnoreCase);
             Match m = r.Match(id);
-            var resultFriends = await _steamFriendsService.GetFriendsListAsync(_steamProfileIdText);
-            Debug.WriteLine("LOGIN_PAGE: Steam Friends Response Received");
-
-            //Checking to see if the response was successful
-            if (resultUserAchieve.status == 0 & resultAchieveData.status == 0 & resultProfile.status == 0 & resultStats.status == 0)
-            {
-                //Checking to see if the response contains data
-                if (resultStats.payload.playerstats.stats != null)
-                {
-                    await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init(resultUserAchieve.payload, resultAchieveData.payload, resultProfile.payload, resultStats.payload, resultFriends.payload, _steamUserProfileService, _steamGameStatsService, _steamUserAchievementsService, _steamAchievementDataService, _steamFriendsService));
-                }
-                else
-                {
-                    Debug.WriteLine("Data Returned is null.");
-                }
-            }
-            else
-            {
-                Debug.WriteLine("Error in getting API.");
-            }
-            
 
             if (!m.Success) //if input is not Steam64 convert
             {
@@ -162,7 +118,7 @@ namespace StatControl.Mvvm.ViewModel
             await Application.Current.MainPage.DisplayAlert("Alert", "Swipe left and right to navigate", "OK");
         }
 
-        public LoginPageVm(IPageServiceZero pageService, SteamGameStatsService steamGameStatsService, SteamUserAchievementsService steamUserAchievementsService, SteamUserProfileService steamUserProfileService, SteamAchievementService steamAchievementDataService, SteamFriendsService steamFriendsService)
+        public LoginPageVm(IPageServiceZero pageService, SteamGameStatsService steamGameStatsService, SteamUserAchievementsService steamUserAchievementsService, SteamUserProfileService steamUserProfileService, SteamAchievementService steamAchievementDataService, SteamFriendsService steamFriendsService, SteamVanityUrlService steamVanityUrlService)
         {
             _pageService = pageService;
             _steamGameStatsService = steamGameStatsService;
@@ -170,12 +126,15 @@ namespace StatControl.Mvvm.ViewModel
             _steamUserProfileService = steamUserProfileService;
             _steamAchievementDataService = steamAchievementDataService;
             _steamVanityUrlService = steamVanityUrlService;
-
-            ErrorMsgTextVisible = "False";
-
             _steamFriendsService = steamFriendsService;
+            ApplicatationDataHandler.SetService(steamGameStatsService, steamUserAchievementsService, steamUserProfileService, steamAchievementDataService, steamFriendsService);
+            
+            
+            ErrorMsgTextVisible = "False";            
 
+            //TEMP ID FOR TESTING - REMOVE ON RELEASE
             SteamProfileIdText = "76561198045733101";
+            //
 
             if (IsFirstRun || !HasAgreed)
             {

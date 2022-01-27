@@ -13,6 +13,7 @@ using Xamarin.Essentials;
 using StatControl.Mvvm.Model.DisplayModel;
 using StatControl.Mvvm.Model.SteamGameStats;
 using System.Diagnostics;
+using StatControl.Mvvm.Model.ApplicationAPIData;
 
 
 namespace StatControl.Mvvm.ViewModel
@@ -200,6 +201,15 @@ namespace StatControl.Mvvm.ViewModel
                     ProgressBarSize = 9;
                     break;
             }
+        }
+
+        public void DataRefresh()
+        {
+            if (ApplicatationDataHandler.CheckAPI)
+            {
+                ResultStats = ApplicatationDataHandler.resultStats;
+            }
+            OnPropertyChanged();
         }
 
         public WeaponsSelectPageVm(IPageServiceZero pageService)
