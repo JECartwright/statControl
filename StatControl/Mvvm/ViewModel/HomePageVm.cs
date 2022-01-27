@@ -40,6 +40,7 @@ namespace StatControl.Mvvm.ViewModel
             {
                 ResultProfile = AplicatationDataHandler.resultProfile;
             }
+            OnPropertyChanged();
         }
 
         public HomePageVm(IPageServiceZero pageService)

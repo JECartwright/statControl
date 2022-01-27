@@ -43,7 +43,22 @@ namespace StatControl.Mvvm.ViewModel
             WeaSelectVm = new WeaponsSelectPageVm(_pageService);
             MapVm = new MapPageVm(_pageService);
             FunVm = new FunPageVm(_pageService);
-            AchieveVm = new AchievementsPageVm(_pageService);
+            AchieveVm = new AchievementsPageVm(_pageService); 
+        }
+
+        public void RefreshAll()
+        {
+            FunVm.DataRefresh();
+            HomeVm.DataRefresh();//Not Sure
+            MainVm.DataRefresh();
+            LastVm.DataRefresh();
+            WeaSelectVm.DataRefresh();
+            MapVm.DataRefresh();
+            AchieveVm.DataRefresh();
+            WeaSelectVm.WeaponsDisplay.Clear();
+            WeaSelectVm.onStarted();
+            WeaSelectVm.platformHelper();
+            OnPropertyChanged();
         }
 
         internal void Init()
@@ -54,6 +69,7 @@ namespace StatControl.Mvvm.ViewModel
             LastVm.DataRefresh();
             WeaSelectVm.DataRefresh();
             SocialVm.DataRefresh();
+            SocialVm.getParent(this);
             MapVm.DataRefresh();
             AchieveVm.DataRefresh();
             WeaSelectVm.WeaponsDisplay.Clear();

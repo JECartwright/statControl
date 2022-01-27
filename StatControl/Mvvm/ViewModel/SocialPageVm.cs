@@ -10,8 +10,10 @@ using FunctionZero.MvvmZero;
 using System.Windows.Input;
 using System.Threading.Tasks;
 using StatControl.Services;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Xamarin.Forms;
+using Xamarin.Forms.Core;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using StatControl.Mvvm.Model.DisplayModel;
@@ -86,9 +88,21 @@ namespace StatControl.Mvvm.ViewModel
             }
         }
 
+        private CarouselPageVm daddy;
+
         private async void OpenNewUser(SocialProfileDisplayModel current)
         {
-            
+            await AplicatationDataHandler.Update(current.ID);
+            if (AplicatationDataHandler.CheckAPI)
+            {
+                daddy.RefreshAll();                
+            }
+            else
+            {
+                await AplicatationDataHandler.ReloadMain();
+            }
+            OnPropertyChanged();
+
         }
 
         private async void DisplayStuff()
@@ -141,13 +155,19 @@ namespace StatControl.Mvvm.ViewModel
                 RecivedProfileService = AplicatationDataHandler.GetServiceForSocial();
                 Response = AplicatationDataHandler.resultFriends;                
             }
+            OnPropertyChanged();
+        }
+
+        public void getParent(CarouselPageVm dad)
+        {
+            daddy = dad;
         }
 
         public SocialPageVm(IPageServiceZero pageService)  
         {
             Friends = new ObservableCollection<SocialProfileDisplayModel>();
             Points = new ObservableCollection<SocialProfileDisplayModel>();
-            _pageService = pageService;            
+            _pageService = pageService;
         }
 
 
