@@ -1,118 +1,135 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Text;
+using StatControl.Mvvm.View;
+using FunctionZero.CommandZero;
 using FunctionZero.MvvmZero;
-using StatControl.Mvvm.Model.ApplicationAPIData;
-using StatControl.Mvvm.Model.DisplayModel;
-using StatControl.Mvvm.Model.SteamAchievementData;
+using System.Windows.Input;
+using System.Threading.Tasks;
 using StatControl.Mvvm.Model.SteamUserAchievements;
+using StatControl.Mvvm.Model.SteamAchievementData;
 using Xamarin.Forms;
+using System.Diagnostics;
+using StatControl.Mvvm.Model.DisplayModel;
+using StatControl.Mvvm.Model.ApplicationAPIData;
+
 
 namespace StatControl.Mvvm.ViewModel
 {
     internal class AchievementsPageVm : MvvmZeroBaseVm
     {
         private readonly IPageServiceZero _pageService;
-
-        private ObservableCollection<AchievementDisplayModel> _achievements;
-
-        private ConcurrentBag<AchievementDisplayModel> _achievementsToSort = new ConcurrentBag<AchievementDisplayModel>();
-        private SteamAchievementDataResponse _resultAchieveData;
         private SteamUserAchievementsResponse _resultUserAchieve;
+        private SteamAchievementDataResponse _resultAchieveData;
 
-        public AchievementsPageVm(IPageServiceZero pageService)
-        {
-            _pageService = pageService;
-            Achievements = new ObservableCollection<AchievementDisplayModel>();
-        }
+        public ObservableCollection<AchievementDisplayModel> Achievements { get; private set; }
+        private List<AchievementDisplayModel> AchievementsToSort = new List<AchievementDisplayModel>();
 
-        public ObservableCollection<AchievementDisplayModel> Achievements
+        public SteamAchievementDataResponse ResultAchieveData
         {
-            get => _achievements;
-            set => SetProperty(ref _achievements, value);
-        }
-
-        private SteamAchievementDataResponse ResultAchieveData
-        {
-            get => _resultAchieveData;
+            get { return _resultAchieveData; }
             set
             {
                 SetProperty(ref _resultAchieveData, value);
 
                 Achievements.Clear();
+                AchievementsToSort.Clear();
                 CallServer();
-                OnPropertyChanged();
             }
         }
 
-        private SteamUserAchievementsResponse ResultUserAchieve
+        public SteamUserAchievementsResponse ResultUserAchieve
         {
-            get => _resultUserAchieve;
+            get { return _resultUserAchieve; }
             set
             {
+
                 SetProperty(ref _resultUserAchieve, value);
-                OnPropertyChanged();
             }
         }
 
 
-        private void CallServer()
+        void CallServer()
         {
-            _achievementsToSort = new ConcurrentBag<AchievementDisplayModel>();
-            //Goes through all the achievements
-            Parallel.For(0, ResultUserAchieve.playerstats.achievements.Count, i =>
+            List<string> achievementNamesList = new List<string>();
+            //_resultUserAchieve.playerstats.achievements.Sort();
+            for (int i = 0; i< ResultUserAchieve.playerstats.achievements.Count; i++)
             {
-                var toPush = new AchievementDisplayModel
+                for (int b = 0; b<ResultAchieveData.game.availableGameStats.achievements.Count; b++)
                 {
-                    APIName = ResultUserAchieve.playerstats.achievements[i].apiname,
-                    Name = ResultUserAchieve.playerstats.achievements[i].name,
-                    Description = ResultUserAchieve.playerstats.achievements[i].description,
-                    Achieved = ResultUserAchieve.playerstats.achievements[i].achieved
-                };
-
-                switch (toPush.Achieved)
+                    if (ResultUserAchieve.playerstats.achievements[i].apiname == ResultAchieveData.game.availableGameStats.achievements[b].name)
+                    {
+                        AchievementDisplayModel toPush = new AchievementDisplayModel();
+                        toPush.APIName = ResultUserAchieve.playerstats.achievements[i].apiname;
+                        toPush.Name = ResultUserAchieve.playerstats.achievements[i].name;
+                        achievementNamesList.Add(ResultUserAchieve.playerstats.achievements[i].name);
+                        toPush.Description = ResultUserAchieve.playerstats.achievements[i].description;
+                        toPush.Achieved = ResultUserAchieve.playerstats.achievements[i].achieved;
+                        if (toPush.Achieved == 1)
+                        {
+                            toPush.AchievedText = "✓";
+                            toPush.AchievedColor = new Color(0,255,0);
+                            toPush.ImageAddress = ResultAchieveData.game.availableGameStats.achievements[b].icon;
+                        }
+                        else if (toPush.Achieved == 0)
+                        {
+                            toPush.AchievedText = "✗";
+                            toPush.AchievedColor = new Color(255, 0, 0);
+                            toPush.ImageAddress = ResultAchieveData.game.availableGameStats.achievements[b].icongray;
+                        }
+                        else
+                        {
+                            toPush.AchievedText = "!";
+                            toPush.AchievedColor = new Color(255, 0, 0);
+                            toPush.ImageAddress = "Backup Image.jpg";
+                        }
+                        AchievementsToSort.Add(toPush);
+                    }
+                }          
+            }
+            List<AchievementDisplayModel> tempAchieved = new List<AchievementDisplayModel>();
+            List<AchievementDisplayModel> tempNotAchieved = new List<AchievementDisplayModel>();
+            achievementNamesList.Sort();
+            for (int z = 0; z< achievementNamesList.Count; z++)
+            {         
+                for (int x = 0; x< AchievementsToSort.Count; x++)
                 {
-                    //Assigns tick or cross, Colour, and image depending if it is achieved by the player
-                    case 1:
-                        toPush.AchievedText = "✓";
-                        toPush.AchievedColor = new Color(0, 255, 0);
-                        toPush.ImageAddress = ResultAchieveData.game.availableGameStats.achievements[i].icon;
-                        break;
-                    case 0:
-                        toPush.AchievedText = "✗";
-                        toPush.AchievedColor = new Color(255, 0, 0);
-                        toPush.ImageAddress = ResultAchieveData.game.availableGameStats.achievements[i].icongray;
-                        break;
-                    default:
-                        toPush.AchievedText = "!";
-                        toPush.AchievedColor = new Color(255, 0, 0);
-                        toPush.ImageAddress = "Backup Image.jpg";
-                        break;
-                }
-
-                _achievementsToSort.Add(toPush);
-            });
-
-            //Sorts achievements by achieved
-            var sortedAchievements = _achievementsToSort.OrderByDescending(o => o.Achieved).ToList();
-
-            //Adds list to observable collection
-            var ob2List = Achievements.ToList();
-            ob2List.AddRange(sortedAchievements);
-            Achievements = new ObservableCollection<AchievementDisplayModel>(ob2List);
+                    if (AchievementsToSort[x].Name == achievementNamesList[z] && AchievementsToSort[x].Achieved == 0)
+                    {
+                        tempNotAchieved.Add(AchievementsToSort[x]);
+                    }
+                    else if (AchievementsToSort[x].Name == achievementNamesList[z] && AchievementsToSort[x].Achieved == 1)
+                    {
+                        tempAchieved.Add(AchievementsToSort[x]);
+                    }
+                }                
+            }
+            for (int y = 0; y < tempAchieved.Count; y++)
+            {
+                Achievements.Add(tempAchieved[y]);
+            }
+            for (int w = 0; w < tempNotAchieved.Count; w++)
+            {
+                Achievements.Add(tempNotAchieved[w]);
+            }
         }
 
         public void DataRefresh()
         {
-            if (ApplicatationDataHandler.CheckAPI)
+            if (AplicatationDataHandler.CheckAPI)
             {
-                ResultUserAchieve = ApplicatationDataHandler.ResultUserAchieve;
-                ResultAchieveData = ApplicatationDataHandler.ResultAchieveData;
+                
+                ResultUserAchieve = AplicatationDataHandler.resultUserAchieve;
+                ResultAchieveData = AplicatationDataHandler.resultAchieveData;
             }
+        }
 
-            OnPropertyChanged();
+        public AchievementsPageVm(IPageServiceZero pageService)
+        {
+            _pageService = pageService;
+            Achievements = new ObservableCollection<AchievementDisplayModel>();           
         }
     }
 }

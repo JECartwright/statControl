@@ -1,7 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using StatControl.Mvvm.View;
+using FunctionZero.CommandZero;
 using FunctionZero.MvvmZero;
-using StatControl.Mvvm.Model.SteamGameStats;
+using System.Windows.Input;
+using System.Threading.Tasks;
+using StatControl.Services;
+using System.Diagnostics;
+using Xamarin.Forms;
+using StatControl.Mvvm.Model.SteamUserProfile;
+using StatControl.Mvvm.Model.SteamUserAchievements;
 using StatControl.Mvvm.Model.ApplicationAPIData;
+
+using StatControl.Mvvm.Model.SteamGameStats;
+using System.ComponentModel;
 
 namespace StatControl.Mvvm.ViewModel
 {
@@ -29,82 +42,130 @@ namespace StatControl.Mvvm.ViewModel
         public string RoundsWon
         {
             get => _roundsWon; 
-            set => SetProperty(ref _roundsWon, value);
+            set
+            {
+                SetProperty(ref _roundsWon, value);
+            }
         }
 
         public string MVP { 
             get => _mVP; 
-            set => SetProperty(ref _mVP, value);
+            set
+            {
+                SetProperty(ref _mVP, value);
+            } 
         }
 
         public string MoneyEarned { 
             get => _moneyEarned; 
-            set => SetProperty(ref _moneyEarned, value);
+            set
+            {
+                SetProperty(ref _moneyEarned, value);
+            } 
         }
 
         public string BombsPlanted { 
             get => _bombsPlanted;
-            set => SetProperty(ref _bombsPlanted, value);
+            set
+            {
+                SetProperty(ref _bombsPlanted, value);
+            } 
         }
 
         public string BombsDefused { 
             get => _bombsDefused; 
-            set => SetProperty(ref _bombsDefused, value);
+            set
+            {
+                SetProperty(ref _bombsDefused, value);
+            } 
         }
 
         public string WeaponsDonated { 
             get => _weaponsDonated; 
-            set => SetProperty(ref _weaponsDonated, value);
+            set
+            {
+                SetProperty(ref _weaponsDonated, value);
+            } 
         }
 
         public string Damage { 
             get => _damage; 
-            set => SetProperty(ref _damage, value);
+            set
+            {
+                SetProperty(ref _damage, value);
+            } 
         }
 
         public string Headshots { 
             get => _headshots; 
-            set => SetProperty(ref _headshots, value);
+            set
+            {
+                SetProperty(ref _headshots, value);
+            } 
         }
 
         public string Shots { 
             get => _shots; 
-            set => SetProperty(ref _shots, value);
+            set
+            {
+                SetProperty(ref _shots, value);
+            } 
         }
 
         public string Kills { 
             get => _kills; 
-            set => SetProperty(ref _kills, value);
+            set
+            {
+                SetProperty(ref _kills, value);
+            } 
         }
 
         public string Hits { 
             get => _hits; 
-            set => SetProperty(ref _hits, value);
+            set
+            {
+                SetProperty(ref _hits, value);
+            } 
         }
 
         public string Accuracy { 
             get => _accuracy; 
-            set => SetProperty(ref _accuracy, value);
+            set
+            {
+                SetProperty(ref _accuracy, value);
+            } 
         }
 
         public string MatchesPlayed { 
             get => _matchesPlayed; 
-            set => SetProperty(ref _matchesPlayed, value);
+            set
+            {
+                SetProperty(ref _matchesPlayed, value);
+            } 
         }
 
         public string MatchesWon { 
             get => _matchesWon; 
-            set => SetProperty(ref _matchesWon, value);
+            set
+            {
+                SetProperty(ref _matchesWon, value);
+            } 
         }
 
         public string MatchesWinRate { 
             get => _matchesWinRate; 
-            set => SetProperty(ref _matchesWinRate, value);
+            set
+            {
+                SetProperty(ref _matchesWinRate, value);
+            } 
         }
 
         public string ContributionScore { 
             get => _contributionScore; 
-            set => SetProperty(ref _contributionScore, value);
+            set
+            {
+                SetProperty(ref _contributionScore, value);
+            } 
         }
 
         public SteamGameStatsResponse ResultStats
@@ -125,18 +186,10 @@ namespace StatControl.Mvvm.ViewModel
                 Shots = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_shots_fired"))?.value.ToString() ?? "0";
                 Kills = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_kills"))?.value.ToString() ?? "0";
                 Hits = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_shots_hit"))?.value.ToString() ?? "0";
-                Accuracy = Math
-                    .Round(
-                        (double) _resultStats.playerstats.stats.Find(x => x.name.Equals("total_shots_hit"))?.value /
-                        (double) _resultStats.playerstats.stats.Find(x => x.name.Equals("total_shots_fired"))?.value *
-                        100, 2).ToString() ?? "0";
+                Accuracy = Math.Round((double)_resultStats.playerstats.stats.Find(x => x.name.Equals("total_shots_hit"))?.value / (double)_resultStats.playerstats.stats.Find(x => x.name.Equals("total_shots_fired"))?.value * 100, 2).ToString() ?? "0";
                 MatchesPlayed = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_matches_played"))?.value.ToString() ?? "0";
                 MatchesWon = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_matches_won"))?.value.ToString() ?? "0";
-                MatchesWinRate = Math
-                    .Round(
-                        (double) _resultStats.playerstats.stats.Find(x => x.name.Equals("total_matches_won"))?.value /
-                        (double) _resultStats.playerstats.stats.Find(x => x.name.Equals("total_matches_played"))
-                            ?.value * 100, 2).ToString() ?? "0";
+                MatchesWinRate = Math.Round((double)_resultStats.playerstats.stats.Find(x => x.name.Equals("total_matches_won"))?.value / (double)_resultStats.playerstats.stats.Find(x => x.name.Equals("total_matches_played"))?.value * 100, 2).ToString() ?? "0";
                 ContributionScore = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_contribution_score"))?.value.ToString() ?? "0";
 
                 OnPropertyChanged();
@@ -145,11 +198,10 @@ namespace StatControl.Mvvm.ViewModel
 
         public void DataRefresh()
         {
-            if (ApplicatationDataHandler.CheckAPI)
+            if (AplicatationDataHandler.CheckAPI)
             {
-                ResultStats = ApplicatationDataHandler.ResultStats;
+                ResultStats = AplicatationDataHandler.resultStats;
             }
-            OnPropertyChanged();
         }
 
         public MainStatPageVm(IPageServiceZero pageService)

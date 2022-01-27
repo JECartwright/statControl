@@ -1,5 +1,13 @@
 ﻿using FunctionZero.MvvmZero;
+using System.Windows.Input;
+using System.Threading.Tasks;
+using StatControl.Services;
+using System.Diagnostics;
+using Xamarin.Forms;
+using StatControl.Mvvm.Model.SteamUserProfile;
+using StatControl.Mvvm.Model.SteamUserAchievements;
 using StatControl.Mvvm.Model.SteamGameStats;
+using System.ComponentModel;
 using StatControl.Mvvm.Model.ApplicationAPIData;
 using System;
 using System.Collections.Generic;
@@ -118,8 +126,7 @@ namespace StatControl.Mvvm.ViewModel
             {
                 SetProperty(ref _resultStats, value);
 
-                TextMatchResults =
-                    $"{_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_wins"))?.value} / {(_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_rounds"))?.value - _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_wins"))?.value)}" ?? "0";
+                TextMatchResults = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_wins"))?.value.ToString() + " / " + (_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_rounds"))?.value - _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_wins"))?.value).ToString() ?? "0";
                 TextMVP = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_mvps"))?.value.ToString() ?? "0";
                 TextKills = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_kills"))?.value.ToString() ?? "0";
                 TextDeaths =  _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_deaths"))?.value.ToString() ?? "0";
@@ -139,14 +146,10 @@ namespace StatControl.Mvvm.ViewModel
                 //Favourite Weapon
                 FavWeaponID = _favWeaponDictionary[_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_id")).value];
 
-                TextFavShots =
-                    $"Shots: {_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_shots"))?.value}" ?? "0";
-                TextFavHits =
-                    $"Hits: {_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_hits"))?.value}" ?? "0";
-                TextFavKills =
-                    $"Kills: {_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_kills"))?.value}" ?? "0";
-                TextFavAccuracy =
-                    $"Accuracy: {Math.Round((double) _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_hits"))?.value / (double) _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_shots"))?.value * 100, 2)}%";
+                TextFavShots = "Shots: " + _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_shots"))?.value.ToString() ?? "0";
+                TextFavHits = "Hits: " + _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_hits"))?.value.ToString() ?? "0";
+                TextFavKills = "Kills: " + _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_kills"))?.value.ToString() ?? "0";
+                TextFavAccuracy = "Accuracy: " + Math.Round((double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_hits"))?.value / (double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_shots"))?.value * 100, 2).ToString() + "%";
 
 
                 OnPropertyChanged();
@@ -155,11 +158,10 @@ namespace StatControl.Mvvm.ViewModel
 
         public void DataRefresh()
         {
-            if (ApplicatationDataHandler.CheckAPI)
+            if (AplicatationDataHandler.CheckAPI)
             {
-                ResultStats = ApplicatationDataHandler.ResultStats;
+                ResultStats = AplicatationDataHandler.resultStats;
             }
-            OnPropertyChanged();
         }
 
         public LastMatchPageVm(IPageServiceZero pageService)

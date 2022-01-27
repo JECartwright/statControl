@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Text;
 using StatControl.Mvvm.View;
+using FunctionZero.CommandZero;
 using FunctionZero.MvvmZero;
+using System.Windows.Input;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Essentials;
@@ -49,13 +53,19 @@ namespace StatControl.Mvvm.ViewModel
 
         public SteamGameStatsResponse ResultStats
         {
-            get => _resultGameStats;
-            set => SetProperty(ref _resultGameStats, value);
+            get { return _resultGameStats; }
+            set
+            {
+                SetProperty(ref _resultGameStats, value);
+            }
         }
         public int ProgressBarSize
         {
             get => _progressBarSize;
-            set => SetProperty(ref _progressBarSize, value);
+            set
+            {
+                SetProperty(ref _progressBarSize, value);
+            }
         }
         //for push
         private readonly Dictionary<String, String> _favWeaponDictionary = new Dictionary<String, String>()
@@ -94,9 +104,9 @@ namespace StatControl.Mvvm.ViewModel
                 { "hegrenade", "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/weapons/base_weapons/weapon_hegrenade.7b344756d5dbdda4fd2e583a227a670599889f59.png" }
             };
 
-        public void OnStarted()
+        public void onStarted()
         {
-            List<WeaponSelectDisplayModel> weapons = new List<WeaponSelectDisplayModel>
+            List<WeaponSelectDisplayModel> Weapons = new List<WeaponSelectDisplayModel>
             {
                 new WeaponSelectDisplayModel("deagle", "Deagle/R8"),
                 new WeaponSelectDisplayModel("elite", "Dual Elites"),
@@ -134,58 +144,55 @@ namespace StatControl.Mvvm.ViewModel
 
             for (int i = 0;i< ResultStats.playerstats.stats.Count; i++)
             {
-                for (int b = 0; b < weapons.Count;b++)
+                for (int b = 0; b < Weapons.Count;b++)
                 {
-                    if (ResultStats.playerstats.stats[i].name == $"total_kills_{weapons[b].APIName}")
+                    if (ResultStats.playerstats.stats[i].name == "total_kills_" + Weapons[b].APIName)
                     {
-                        weapons[b].Kills = ResultStats.playerstats.stats[i].value;
+                        Weapons[b].Kills = ResultStats.playerstats.stats[i].value;
                     }
-                    else if (ResultStats.playerstats.stats[i].name == $"total_shots_{weapons[b].APIName}")
+                    else if (ResultStats.playerstats.stats[i].name == "total_shots_" + Weapons[b].APIName)
                     {
-                        weapons[b].shots = ResultStats.playerstats.stats[i].value;
+                        Weapons[b].shots = ResultStats.playerstats.stats[i].value;
                     }
-                    else if (ResultStats.playerstats.stats[i].name == $"total_hits_{weapons[b].APIName}")
+                    else if (ResultStats.playerstats.stats[i].name == "total_hits_" + Weapons[b].APIName)
                     {
-                        weapons[b].hits = ResultStats.playerstats.stats[i].value;
+                        Weapons[b].hits = ResultStats.playerstats.stats[i].value;
                     }
                 }
             }
-            for (int c = 0;c<weapons.Count;c++)
+            for (int c = 0;c<Weapons.Count;c++)
             {
-                weapons[c].WeaponImage = _favWeaponDictionary[weapons[c].APIName];
-                weapons[c].setAccuracy();
-                WeaponsDisplay.Add(weapons[c]);                
+                Weapons[c].WeaponImage = _favWeaponDictionary[Weapons[c].APIName];
+                Weapons[c].setAccuracy();
+                WeaponsDisplay.Add(Weapons[c]);                
             }
             Debug.WriteLine("Finished Setting Up Weapon Data");
             
         }
 
-        public void PlatformHelper()
+        public void platformHelper()
         {
             switch (Device.RuntimePlatform)
             {
                 case Device.Android:                    
-                    var screen = DeviceDisplay.MainDisplayInfo;
-                    var x = (int)screen.Width;
-                    
-                    // if (x == 1080)
-                    // {
-                    //     ProgressBarSize = 24;
-                    // }
-                    // else if (x == 1440)
-                    // {
-                    //     ProgressBarSize = 30;
-                    // }
-                    // else if (x == 720)
-                    // {
-                    //     ProgressBarSize = 18;
-                    // }
-                    // else
-                    // {
-                    //     ProgressBarSize = 24;
-                    // }
-                    ProgressBarSize = (int)Math.Floor(0.0166666666666666667 * x + 6);
-                    
+                    var Screen = DeviceDisplay.MainDisplayInfo;
+                    var X = Screen.Width;
+                    if (X == 1080)
+                    {
+                        ProgressBarSize = 24;
+                    }
+                    else if (X == 1440)
+                    {
+                        ProgressBarSize = 30;
+                    }
+                    else if (X == 720)
+                    {
+                        ProgressBarSize = 18;
+                    }
+                    else
+                    {
+                        ProgressBarSize = 24;
+                    }
                     break;
                 case Device.UWP:
                     ProgressBarSize = 9;
@@ -198,11 +205,10 @@ namespace StatControl.Mvvm.ViewModel
 
         public void DataRefresh()
         {
-            if (ApplicatationDataHandler.CheckAPI)
+            if (AplicatationDataHandler.CheckAPI)
             {
-                ResultStats = ApplicatationDataHandler.ResultStats;
+                ResultStats = AplicatationDataHandler.resultStats;
             }
-            OnPropertyChanged();
         }
 
         public WeaponsSelectPageVm(IPageServiceZero pageService)

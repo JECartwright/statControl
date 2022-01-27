@@ -1,4 +1,8 @@
-﻿using StatControl.Mvvm.View;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Text;
+using StatControl.Mvvm.View;
 using FunctionZero.CommandZero;
 using FunctionZero.MvvmZero;
 using System.Windows.Input;
@@ -6,22 +10,18 @@ using System.Threading.Tasks;
 using StatControl.Services;
 using System.Diagnostics;
 using Xamarin.Forms;
-using Xamarin.Essentials;
-using System.Text.RegularExpressions;
+using StatControl.Mvvm.Model.SteamUserProfile;
+using StatControl.Mvvm.Model.SteamUserAchievements;
+using StatControl.Mvvm.Model.SteamGameStats;
+using StatControl.Mvvm.Model.SteamAchievementData;
 using StatControl.Mvvm.Model.ApplicationAPIData;
+using Xamarin.Essentials;
 
 namespace StatControl.Mvvm.ViewModel
 {
     internal class LoginPageVm : MvvmZeroBaseVm
     {
         private string _steamProfileIdText;
-        
-        private readonly SteamGameStatsService _steamGameStatsService;
-        private readonly SteamUserAchievementsService _steamUserAchievementsService;
-        private readonly SteamUserProfileService _steamUserProfileService;
-        private readonly SteamAchievementService _steamAchievementDataService;
-        private readonly SteamVanityUrlService _steamVanityUrlService;
-        private readonly SteamFriendsService _steamFriendsService;
         private readonly IPageServiceZero _pageService;
 
         public ICommand HomePageCommand { get; }
@@ -32,34 +32,13 @@ namespace StatControl.Mvvm.ViewModel
             set => SetProperty(ref _steamProfileIdText, value);
         }
 
-
         private async Task HomePageCommandExecuteAsync()
         {
-            await GetIdTypeAsync(SteamProfileIdText);
-            await ApplicatationDataHandler.Update(SteamProfileIdText);
-            if (ApplicatationDataHandler.CheckAPI)
+            await AplicatationDataHandler.Update(SteamProfileIdText);
+            if (AplicatationDataHandler.CheckAPI)
             {
-                ApplicatationDataHandler.MainUserId = _steamProfileIdText;
                 await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init());
-            }
-            else
-            {
-                await Application.Current.MainPage.DisplayAlert("Alert", "Error In Getting Selected User's Data.\nTheir Profile May Be Private.", "OK");
-            }
-        }
-
-        //Check to see what type the steam ID is
-        private async Task GetIdTypeAsync(string id)
-        {
-            const string pattern = @"7656119[0-9]{10}";
-            var r = new Regex(pattern, RegexOptions.IgnoreCase);
-            var m = r.Match(id);
-
-            if (!m.Success) //if input is not Steam64 convert
-            {
-                var resultVantityUrl = await _steamVanityUrlService.GetVanityUrlSummaryAsync(id);
-                SteamProfileIdText = resultVantityUrl.payload.response.steamid;
-            }
+            }             
         }
 
         public string privatepolicy = "";
@@ -86,26 +65,18 @@ namespace StatControl.Mvvm.ViewModel
             await Application.Current.MainPage.DisplayAlert("Alert", "Swipe left and right to navigate", "OK");
         }
 
-        public LoginPageVm(IPageServiceZero pageService, SteamGameStatsService steamGameStatsService, SteamUserAchievementsService steamUserAchievementsService, SteamUserProfileService steamUserProfileService, SteamAchievementService steamAchievementDataService, SteamFriendsService steamFriendsService, SteamVanityUrlService steamVanityUrlService)
+        public LoginPageVm(IPageServiceZero pageService, SteamGameStatsService steamGameStatsService, SteamUserAchievementsService steamUserAchievementsService, SteamUserProfileService steamUserProfileService, SteamAchievementService steamAchievementDataService, SteamFriendsService steamFriendsService)
         {
             _pageService = pageService;
-            _steamGameStatsService = steamGameStatsService;
-            _steamUserAchievementsService = steamUserAchievementsService;
-            _steamUserProfileService = steamUserProfileService;
-            _steamAchievementDataService = steamAchievementDataService;
-            _steamVanityUrlService = steamVanityUrlService;
-            _steamFriendsService = steamFriendsService;
-            ApplicatationDataHandler.SetService(steamGameStatsService, steamUserAchievementsService, steamUserProfileService, steamAchievementDataService, steamFriendsService);
-
-            //TODO: TEMP ID FOR TESTING - REMOVE ON RELEASE
             SteamProfileIdText = "76561198045733101";
-            //
 
             if (IsFirstRun || !HasAgreed)
             {
                 IsFirstRun = false;
                 DisplayTerms();                
             }
+
+            AplicatationDataHandler.SetService(steamGameStatsService,steamUserAchievementsService,steamUserProfileService,steamAchievementDataService,steamFriendsService);
 
             HomePageCommand = new CommandBuilder().SetExecuteAsync(HomePageCommandExecuteAsync).SetName("Search").Build();
         }
