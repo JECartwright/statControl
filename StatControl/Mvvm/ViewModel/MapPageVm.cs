@@ -57,6 +57,7 @@ namespace StatControl.Mvvm.ViewModel
             {
                 ResultStats = AplicatationDataHandler.resultStats;
             }
+            OnPropertyChanged();
         }
 
         public MapPageVm(IPageServiceZero pageService)

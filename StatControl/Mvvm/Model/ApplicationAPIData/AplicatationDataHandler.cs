@@ -15,6 +15,7 @@ namespace StatControl.Mvvm.Model.ApplicationAPIData
 {
     static internal class AplicatationDataHandler
     {
+        public static string MainUserID;
         private static SteamGameStatsService _steamGameStatsService;
         private static SteamUserAchievementsService _steamUserAchievementsService;
         private static SteamUserProfileService _steamUserProfileService;
@@ -25,6 +26,12 @@ namespace StatControl.Mvvm.Model.ApplicationAPIData
         public static SteamGameStatsResponse resultStats;
         public static SteamAchievementDataResponse resultAchieveData;
         public static SteamFriendsResponse resultFriends;
+
+        public static async Task ReloadMain()
+        {
+            await Update(MainUserID);
+        }
+
 
         /// <summary>
         /// Update The API Data Can Be Used To Load New Users Data

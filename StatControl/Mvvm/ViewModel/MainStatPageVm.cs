@@ -202,6 +202,7 @@ namespace StatControl.Mvvm.ViewModel
             {
                 ResultStats = AplicatationDataHandler.resultStats;
             }
+            OnPropertyChanged();
         }
 
         public MainStatPageVm(IPageServiceZero pageService)

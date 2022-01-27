@@ -37,6 +37,7 @@ namespace StatControl.Mvvm.ViewModel
             await AplicatationDataHandler.Update(SteamProfileIdText);
             if (AplicatationDataHandler.CheckAPI)
             {
+                AplicatationDataHandler.MainUserID = _steamProfileIdText;
                 await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init());
             }             
         }

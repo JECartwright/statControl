@@ -162,6 +162,7 @@ namespace StatControl.Mvvm.ViewModel
             {
                 ResultStats = AplicatationDataHandler.resultStats;
             }
+            OnPropertyChanged();
         }
 
         public LastMatchPageVm(IPageServiceZero pageService)

@@ -124,6 +124,7 @@ namespace StatControl.Mvvm.ViewModel
                 ResultUserAchieve = AplicatationDataHandler.resultUserAchieve;
                 ResultAchieveData = AplicatationDataHandler.resultAchieveData;
             }
+            OnPropertyChanged();
         }
 
         public AchievementsPageVm(IPageServiceZero pageService)
