@@ -20,7 +20,6 @@ namespace StatControl.Services
         public async Task<(ResultStatus status, SteamUserProfileResponse payload, string rawResponse)> GetUserSummaryAsync(string id)
         {
             return await _restService.GetAsync<SteamUserProfileResponse>($"{_apiPath}?key={_apiKey}&steamids={id}");
-
         }
     }
 }

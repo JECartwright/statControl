@@ -25,6 +25,8 @@ namespace StatControl.Mvvm.ViewModel
         SteamGameStatsResponse _resultStats;
         SteamAchievementDataResponse _resultAchieveData;
         
+        public string UserTitle { get; private set; }
+
         public ICommand TestCommand { get; }
 
         public HomePageVm HomeVm { get; private set; }
@@ -53,6 +55,8 @@ namespace StatControl.Mvvm.ViewModel
             _resultAchieveData = resultAchieveData;
             _resultProfile = resultProfile;
             _resultStats = resultStats;
+
+            UserTitle = $"Viewing: {_resultProfile.response.players[0].personaname}";
 
             HomeVm.ResultProfile = _resultProfile;
             MainVm.ResultStats = _resultStats;

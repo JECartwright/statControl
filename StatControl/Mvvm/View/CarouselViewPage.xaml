@@ -4,14 +4,17 @@
               xmlns:v="clr-namespace:StatControl.Mvvm.View"
               xmlns:vm="clr-namespace:StatControl.Mvvm.ViewModel"
               x:Class="StatControl.Mvvm.View.CarouselViewPage"
-              x:DataType="vm:CarouselPageVm">
+              x:DataType="vm:CarouselPageVm"
+              Title="{Binding UserTitle}">
 
-    <v:HomePage v:BindingContext="{Binding HomeVm}"/>
-    <v:MainStatPage v:BindingContext="{Binding MainVm}"/>
-    <v:LastMatchPage v:BindingContext="{Binding LastVm}"/>
-    <v:WeaponsSelectPage v:BindingContext="{Binding WeaSelectVm}"/>
-    <v:MapPage v:BindingContext="{Binding MapVm}"/>
-    <v:FunPage v:BindingContext="{Binding FunVm}"/>
-    <v:AchievementsPage v:BindingContext="{Binding AchieveVm}"/>
 
+    <CarouselPage.Children>
+        <v:HomePage v:BindingContext="{Binding HomeVm}"/>
+        <v:MainStatPage v:BindingContext="{Binding MainVm}"/>
+        <v:LastMatchPage v:BindingContext="{Binding LastVm}"/>
+        <v:WeaponsSelectPage v:BindingContext="{Binding WeaSelectVm}"/>
+        <v:MapPage v:BindingContext="{Binding MapVm}"/>
+        <v:FunPage v:BindingContext="{Binding FunVm}"/>
+        <v:AchievementsPage v:BindingContext="{Binding AchieveVm}"/>
+    </CarouselPage.Children>
 </CarouselPage>
