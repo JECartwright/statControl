@@ -29,6 +29,7 @@ namespace StatControl.Mvvm.ViewModel
         private readonly SteamUserProfileService _steamUserProfileService;
         private readonly SteamAchievementService _steamAchievementDataService;
         private readonly SteamVanityUrlService _steamVanityUrlService;
+        private readonly SteamFriendsService _steamFriendsService;
         private readonly IPageServiceZero _pageService;
 
         private string _errorMsgText;
@@ -108,6 +109,27 @@ namespace StatControl.Mvvm.ViewModel
             string pattern = @"7656119[0-9]{10}";
             Regex r = new Regex(pattern, RegexOptions.IgnoreCase);
             Match m = r.Match(id);
+            var resultFriends = await _steamFriendsService.GetFriendsListAsync(_steamProfileIdText);
+            Debug.WriteLine("LOGIN_PAGE: Steam Friends Response Received");
+
+            //Checking to see if the response was successful
+            if (resultUserAchieve.status == 0 & resultAchieveData.status == 0 & resultProfile.status == 0 & resultStats.status == 0)
+            {
+                //Checking to see if the response contains data
+                if (resultStats.payload.playerstats.stats != null)
+                {
+                    await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init(resultUserAchieve.payload, resultAchieveData.payload, resultProfile.payload, resultStats.payload, resultFriends.payload, _steamUserProfileService, _steamGameStatsService, _steamUserAchievementsService, _steamAchievementDataService, _steamFriendsService));
+                }
+                else
+                {
+                    Debug.WriteLine("Data Returned is null.");
+                }
+            }
+            else
+            {
+                Debug.WriteLine("Error in getting API.");
+            }
+            
 
             if (!m.Success) //if input is not Steam64 convert
             {
@@ -140,7 +162,7 @@ namespace StatControl.Mvvm.ViewModel
             await Application.Current.MainPage.DisplayAlert("Alert", "Swipe left and right to navigate", "OK");
         }
 
-        public LoginPageVm(IPageServiceZero pageService, SteamGameStatsService steamGameStatsService, SteamUserAchievementsService steamUserAchievementsService, SteamUserProfileService steamUserProfileService, SteamAchievementService steamAchievementDataService, SteamVanityUrlService steamVanityUrlService)
+        public LoginPageVm(IPageServiceZero pageService, SteamGameStatsService steamGameStatsService, SteamUserAchievementsService steamUserAchievementsService, SteamUserProfileService steamUserProfileService, SteamAchievementService steamAchievementDataService, SteamFriendsService steamFriendsService)
         {
             _pageService = pageService;
             _steamGameStatsService = steamGameStatsService;
@@ -150,6 +172,8 @@ namespace StatControl.Mvvm.ViewModel
             _steamVanityUrlService = steamVanityUrlService;
 
             ErrorMsgTextVisible = "False";
+
+            _steamFriendsService = steamFriendsService;
 
             SteamProfileIdText = "76561198045733101";
 

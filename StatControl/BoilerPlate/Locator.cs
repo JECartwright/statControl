@@ -52,6 +52,7 @@ namespace StatControl.BoilerPlate
 			_IoCC.Register<MainStatPage>(Lifestyle.Singleton);
 			_IoCC.Register<MapPage>(Lifestyle.Singleton);
 			_IoCC.Register<WeaponsSelectPage>(Lifestyle.Singleton);
+			_IoCC.Register<SocialPage>(Lifestyle.Singleton);
 
 
 
@@ -66,6 +67,7 @@ namespace StatControl.BoilerPlate
 			_IoCC.Register<MainStatPageVm>(Lifestyle.Singleton);
 			_IoCC.Register<MapPageVm>(Lifestyle.Singleton);
 			_IoCC.Register<WeaponsSelectPageVm>(Lifestyle.Singleton);
+			_IoCC.Register<SocialPageVm>(Lifestyle.Singleton);
 
 
 			// Tell the IoC container about our Services.
@@ -73,6 +75,7 @@ namespace StatControl.BoilerPlate
 			_IoCC.Register<SteamUserProfileService>(GetSteamUserProfileService, Lifestyle.Singleton);
 			_IoCC.Register<SteamUserAchievementsService>(GetSteamUserAchievementsService, Lifestyle.Singleton);
 			_IoCC.Register<SteamAchievementService>(GetSteamAchievementsService, Lifestyle.Singleton);
+			_IoCC.Register<SteamFriendsService>(GetSteamFriendsService, Lifestyle.Singleton);
 			_IoCC.Register<SteamVanityUrlService>(GetSteamVanityUrlService, Lifestyle.Singleton);
 			_IoCC.Register<IRestService>(GetRestService, Lifestyle.Singleton);
 
@@ -125,6 +128,7 @@ namespace StatControl.BoilerPlate
 		{
 			return new SteamUserAchievementsService(_IoCC.GetInstance<IRestService>(), ApiConstants.SteamUserAchievementsEndpoint, ApiConstants.SteamApiKey);
 		}
+
 		private SteamAchievementService GetSteamAchievementsService()
 		{
 			return new SteamAchievementService(_IoCC.GetInstance<IRestService>(), ApiConstants.SteamAchieveEndpoint, ApiConstants.SteamApiKey);
@@ -132,6 +136,11 @@ namespace StatControl.BoilerPlate
 		private SteamVanityUrlService GetSteamVanityUrlService()
 		{
 			return new SteamVanityUrlService(_IoCC.GetInstance<IRestService>(), ApiConstants.SteamVanityUrlEndpoint, ApiConstants.SteamApiKey);
+		}
+
+		private SteamFriendsService GetSteamFriendsService()
+		{
+			return new SteamFriendsService(_IoCC.GetInstance<IRestService>(), ApiConstants.SteamFriendsEndpoint, ApiConstants.SteamApiKey);
 		}
 
 	}

@@ -2,6 +2,7 @@
 using StatControl.Mvvm.Model.SteamUserAchievements;
 using StatControl.Mvvm.Model.SteamUserProfile;
 using StatControl.Mvvm.Model.SteamAchievementData;
+using StatControl.Mvvm.Model.SteamUserFriends;
 using StatControl.Mvvm.View;
 using FunctionZero.CommandZero;
 using FunctionZero.MvvmZero;
@@ -14,6 +15,7 @@ using System.Text;
 using Xamarin.Forms;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
+using StatControl.Services;
 
 namespace StatControl.Mvvm.ViewModel
 {
@@ -24,11 +26,12 @@ namespace StatControl.Mvvm.ViewModel
         SteamUserProfileResponse _resultProfile;
         SteamGameStatsResponse _resultStats;
         SteamAchievementDataResponse _resultAchieveData;
+        SteamFriendsResponse _resultFriends;
         
         public string UserTitle { get; private set; }
 
         public ICommand TestCommand { get; }
-
+        public SocialPageVm SocialVm { get; private set; }
         public HomePageVm HomeVm { get; private set; }
         public MainStatPageVm MainVm { get; private set; }
         public LastMatchPageVm LastVm { get; private set; }
@@ -40,6 +43,7 @@ namespace StatControl.Mvvm.ViewModel
         public CarouselPageVm(IPageServiceZero pageService)
         {
             _pageService = pageService;
+            SocialVm = new SocialPageVm(_pageService);
             HomeVm = new HomePageVm(_pageService);
             MainVm = new MainStatPageVm(_pageService);
             LastVm = new LastMatchPageVm(_pageService);
@@ -49,15 +53,22 @@ namespace StatControl.Mvvm.ViewModel
             AchieveVm = new AchievementsPageVm(_pageService);
         }
 
-        internal void Init(SteamUserAchievementsResponse resultUserAchieve, SteamAchievementDataResponse resultAchieveData, SteamUserProfileResponse resultProfile, SteamGameStatsResponse resultStats)
+        internal void Init(SteamUserAchievementsResponse resultUserAchieve, SteamAchievementDataResponse resultAchieveData, SteamUserProfileResponse resultProfile, SteamGameStatsResponse resultStats, SteamFriendsResponse resultFriends, SteamUserProfileService SendProfileService, SteamGameStatsService SendGameStatsService, SteamUserAchievementsService SendAchivementsService, SteamAchievementService SendAchievementDataService, SteamFriendsService SendFreiendsService)
         {
             _resultUserAchieve = resultUserAchieve;
             _resultAchieveData = resultAchieveData;
             _resultProfile = resultProfile;
             _resultStats = resultStats;
+            _resultFriends = resultFriends;
 
             UserTitle = $"Viewing: {_resultProfile.response.players[0].personaname}";
 
+            SocialVm.RecivedProfileService = SendProfileService;
+            SocialVm.RecivedGameStatsService = SendGameStatsService;
+            SocialVm.RecivedAchivementsService = SendAchivementsService;
+            SocialVm.RecivedAchievementDataService = SendAchievementDataService;
+            SocialVm.RecivedFreiendsService = SendFreiendsService;
+            SocialVm.Response = _resultFriends;
             HomeVm.ResultProfile = _resultProfile;
             MainVm.ResultStats = _resultStats;
             LastVm.ResultStats = _resultStats;

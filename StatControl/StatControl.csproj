@@ -34,6 +34,9 @@
     <Compile Update="Mvvm\View\CarouselViewPage.xaml.cs">
       <DependentUpon>CarouselViewPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Mvvm\View\SocialPage.xaml.cs">
+      <DependentUpon>SocialPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Mvvm\View\WeaponsSelectPage.xaml.cs">
       <DependentUpon>WeaponsSelectPage.xaml</DependentUpon>
     </Compile>
@@ -50,6 +53,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Mvvm\View\IndividualWeaponPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Mvvm\View\SocialPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Mvvm\View\WeaponsSelectPage.xaml">

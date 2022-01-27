@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:StatControl.Controls"
+             x:Class="StatControl.Mvvm.View.SocialPage"
+             xmlns:local="clr-namespace:StatControl.Mvvm.ViewModel"
+             xmlns:model="clr-namespace:StatControl.Mvvm.Model.DisplayModel">
+    <ContentPage.Content>
+        <StackLayout Spacing="5">
+            <Frame HeightRequest="50" Padding="0">
+                <Label Text="Social" FontSize="Large" VerticalOptions="Center" HorizontalOptions="CenterAndExpand"/>
+            </Frame>
+            <Frame Padding="0" HeightRequest="220">
+                <StackLayout HeightRequest="50" Padding="0" Spacing="0">
+                    <Label Text="Search" FontSize="Large" VerticalOptions="Start" HorizontalOptions="CenterAndExpand"/>
+                    <Entry Placeholder="Search ID"/>
+                </StackLayout>
+            </Frame>
+            <Frame>
+                <StackLayout Spacing="0">
+                    <Label Text="Friends" FontSize="Large" VerticalOptions="Center" HorizontalOptions="CenterAndExpand"/>
+                    <CollectionView
+                    Margin="0,20,0,0" 
+                        x:DataType="local:SocialPageVm"
+                        ItemsSource="{Binding Friends}"
+                        ItemsLayout="VerticalGrid, 4"
+                        SelectionMode="Single" 
+                        VerticalScrollBarVisibility="Always" 
+                        SelectedItem="{Binding SelectedProfileFriends, Mode=TwoWay}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:SocialProfileDisplayModel">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="60"/>
+                                        <RowDefinition Height="17"/>
+                                        <RowDefinition Height="17"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Ellipse Stroke="Transparent" Fill="#5C7E10" StrokeThickness="10" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Start" WidthRequest="60" HeightRequest="60"/>
+                                    <Image Source="{Binding ProfilePicture}"
+                                    WidthRequest="40"
+                                    HeightRequest="40"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Start"
+                                    TranslationY="10"
+                                    Grid.Column="0"
+                                    Grid.Row="0">
+                                        <Image.Clip>
+                                            <EllipseGeometry
+                                    Center="20,20"
+                                    RadiusX="20"
+                                    RadiusY="20"/>
+                                        </Image.Clip>
+                                    </Image>
+                                    <Label Text="{Binding Name}" Grid.Row="1" Grid.Column="0" FontSize="Micro" HorizontalOptions="Center" VerticalOptions="Start"/>
+                                    <Label Text="{Binding Score}" Grid.Row="2" Grid.Column="0" FontSize="Micro" HorizontalOptions="Center" VerticalOptions="Start"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>                            
+            </Frame>            
+            <Frame>
+                <StackLayout Spacing="0">
+                    <Label Text="Users Near Your Score" FontSize="Large" VerticalOptions="Center" HorizontalOptions="CenterAndExpand"/>
+                    <CollectionView
+                    Margin="0,20,0,0" 
+                        x:DataType="local:SocialPageVm"
+                        ItemsSource="{Binding Points}"
+                        ItemsLayout="VerticalGrid, 4"
+                        SelectionMode="Single" 
+                        VerticalScrollBarVisibility="Always" 
+                        SelectedItem="{Binding SelectedProfilePoints, Mode=TwoWay}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:SocialProfileDisplayModel">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="60"/>
+                                        <RowDefinition Height="17"/>
+                                        <RowDefinition Height="17"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Ellipse Stroke="Transparent" Fill="#5C7E10" StrokeThickness="10" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Start" WidthRequest="60" HeightRequest="60"/>
+                                    <Image Source="{Binding ProfilePicture}"
+                                    WidthRequest="40"
+                                    HeightRequest="40"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Start"
+                                    TranslationY="10"
+                                    Grid.Column="0"
+                                    Grid.Row="0">
+                                        <Image.Clip>
+                                            <EllipseGeometry
+                                    Center="20,20"
+                                    RadiusX="20"
+                                    RadiusY="20"/>
+                                        </Image.Clip>
+                                    </Image>
+                                    <Label Text="{Binding Name}" Grid.Row="1" Grid.Column="0" FontSize="Micro" HorizontalOptions="Center" VerticalOptions="Start"/>
+                                    <Label Text="{Binding Score}" Grid.Row="2" Grid.Column="0" FontSize="Micro" HorizontalOptions="Center" VerticalOptions="Start"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+                
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
