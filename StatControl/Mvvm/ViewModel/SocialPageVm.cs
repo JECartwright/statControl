@@ -17,6 +17,7 @@ using System.Collections.ObjectModel;
 using StatControl.Mvvm.Model.DisplayModel;
 using StatControl.Mvvm.Model.SteamUserFriends;
 using StatControl.Mvvm.Model.SteamUserProfile;
+using StatControl.Mvvm.Model.ApplicationAPIData;
 using StatControl.Services;
 using Xamarin.Essentials;
 
@@ -54,46 +55,6 @@ namespace StatControl.Mvvm.ViewModel
             }
         }
 
-        private SteamGameStatsService _recivedGameStatsService;
-        public SteamGameStatsService RecivedGameStatsService
-        {
-            get { return _recivedGameStatsService; }
-            set
-            {
-                SetProperty(ref _recivedGameStatsService, value);
-            }
-        }
-
-        private SteamUserAchievementsService _recivedAchivementsService;
-        public SteamUserAchievementsService RecivedAchivementsService
-        {
-            get { return _recivedAchivementsService; }
-            set
-            {
-                SetProperty(ref _recivedAchivementsService, value);
-            }
-        }
-
-        private SteamAchievementService _recivedAchievementDataService;
-        public SteamAchievementService RecivedAchievementDataService
-        {
-            get { return _recivedAchievementDataService; }
-            set
-            {
-                SetProperty(ref _recivedAchievementDataService, value);
-            }
-        }
-
-        private SteamFriendsService _recivedFreiendsService;
-        public SteamFriendsService RecivedFreiendsService
-        {
-            get { return _recivedFreiendsService; }
-            set
-            {
-                SetProperty(ref _recivedFreiendsService, value);
-            }
-        }
-
         SocialProfileDisplayModel _selectedProfileFriends;
         public SocialProfileDisplayModel SelectedProfileFriends
         {
@@ -127,50 +88,7 @@ namespace StatControl.Mvvm.ViewModel
 
         private async void OpenNewUser(SocialProfileDisplayModel current)
         {
-            await Task.Delay(10);
-            SelectedProfileFriends = null;
-            SelectedProfilePoints = null;
-            string _steamProfileIdText = current.ID;
-            var resultUserAchieve = await RecivedAchivementsService.GetUserAchieveAsync(_steamProfileIdText);
-            Debug.WriteLine("LOGIN_PAGE: User Achievements Response Received");
-
-            var resultProfile = await RecivedProfileService.GetUserSummaryAsync(_steamProfileIdText);
-            Debug.WriteLine("LOGIN_PAGE: User Profile Response Received");
-
-            var resultStats = await RecivedGameStatsService.GetUserStatsAsync(_steamProfileIdText);
-            Debug.WriteLine("LOGIN_PAGE: Game Stats Response Received");
-
-            var resultAchieveData = await RecivedAchievementDataService.GetAchieveInfoAsync();
-            Debug.WriteLine("LOGIN_PAGE: Steam Achievements Response Received");
-
-            var resultFriends = await RecivedFreiendsService.GetFriendsListAsync(_steamProfileIdText);
-            Debug.WriteLine("LOGIN_PAGE: Steam Friends Response Received");
-
-            //Checking to see if the response was successful
-            if (resultUserAchieve.status == 0 & resultAchieveData.status == 0 & resultProfile.status == 0 & resultStats.status == 0)
-            {
-                //Checking to see if the response contains data
-                if (resultStats.payload.playerstats.stats != null)
-                {
-                    /*
-                    while (this.Navigation.ModalStack.Count > 0)
-                    {
-                        await this.Navigation.PopModalAsync();
-                    }
-                    */
-                    await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init(resultUserAchieve.payload, resultAchieveData.payload, resultProfile.payload, resultStats.payload, resultFriends.payload, RecivedProfileService, RecivedGameStatsService, RecivedAchivementsService, RecivedAchievementDataService, RecivedFreiendsService));
-                }
-                else
-                {
-                    Debug.WriteLine("Data Returned is null.");
-                }
-            }
-            else
-            {
-                Debug.WriteLine("Error in getting API.");
-            }
-            OnPropertyChanged();
-
+            
         }
 
         private async void DisplayStuff()
@@ -214,6 +132,15 @@ namespace StatControl.Mvvm.ViewModel
             }
             OnPropertyChanged();
             Debug.WriteLine("Finished Adding Users To Social Pannel");
+        }
+
+        public void DataRefresh()
+        {
+            if (AplicatationDataHandler.CheckAPI)
+            {
+                RecivedProfileService = AplicatationDataHandler.GetServiceForSocial();
+                Response = AplicatationDataHandler.resultFriends;                
+            }
         }
 
         public SocialPageVm(IPageServiceZero pageService)  

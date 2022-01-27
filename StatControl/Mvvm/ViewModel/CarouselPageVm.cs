@@ -22,11 +22,6 @@ namespace StatControl.Mvvm.ViewModel
     internal class CarouselPageVm : CarouselPage
     {
         private readonly IPageServiceZero _pageService;
-        SteamUserAchievementsResponse _resultUserAchieve;
-        SteamUserProfileResponse _resultProfile;
-        SteamGameStatsResponse _resultStats;
-        SteamAchievementDataResponse _resultAchieveData;
-        SteamFriendsResponse _resultFriends;
         
         public ICommand TestCommand { get; }
         public SocialPageVm SocialVm { get; private set; }
@@ -51,34 +46,19 @@ namespace StatControl.Mvvm.ViewModel
             AchieveVm = new AchievementsPageVm(_pageService);
         }
 
-        internal void Init(SteamUserAchievementsResponse resultUserAchieve, SteamAchievementDataResponse resultAchieveData, SteamUserProfileResponse resultProfile, SteamGameStatsResponse resultStats, SteamFriendsResponse resultFriends, SteamUserProfileService SendProfileService, SteamGameStatsService SendGameStatsService, SteamUserAchievementsService SendAchivementsService, SteamAchievementService SendAchievementDataService, SteamFriendsService SendFreiendsService)
+        internal void Init()
         {
-            _resultUserAchieve = resultUserAchieve;
-            _resultAchieveData = resultAchieveData;
-            _resultProfile = resultProfile;
-            _resultStats = resultStats;
-            _resultFriends = resultFriends;
-
-            SocialVm.RecivedProfileService = SendProfileService;
-            SocialVm.RecivedGameStatsService = SendGameStatsService;
-            SocialVm.RecivedAchivementsService = SendAchivementsService;
-            SocialVm.RecivedAchievementDataService = SendAchievementDataService;
-            SocialVm.RecivedFreiendsService = SendFreiendsService;
-            SocialVm.Response = _resultFriends;
-            HomeVm.ResultProfile = _resultProfile;
-            MainVm.ResultStats = _resultStats;
-            LastVm.ResultStats = _resultStats;
-            WeaSelectVm.ResultStats = _resultStats;
-            MapVm.ResultStats = _resultStats;
-            FunVm.ResultStats = _resultStats;
-
-            AchieveVm.ResultUserAchieve = _resultUserAchieve;
-            AchieveVm.ResultAchieveData = _resultAchieveData;
-
+            FunVm.DataRefresh();
+            HomeVm.DataRefresh();
+            MainVm.DataRefresh();
+            LastVm.DataRefresh();
+            WeaSelectVm.DataRefresh();
+            SocialVm.DataRefresh();
+            MapVm.DataRefresh();
+            AchieveVm.DataRefresh();
             WeaSelectVm.WeaponsDisplay.Clear();
             WeaSelectVm.onStarted();
             WeaSelectVm.platformHelper();
-
             OnPropertyChanged();
         }
     }

@@ -13,6 +13,8 @@ using StatControl.Mvvm.Model.SteamAchievementData;
 using Xamarin.Forms;
 using System.Diagnostics;
 using StatControl.Mvvm.Model.DisplayModel;
+using StatControl.Mvvm.Model.ApplicationAPIData;
+
 
 namespace StatControl.Mvvm.ViewModel
 {
@@ -111,6 +113,16 @@ namespace StatControl.Mvvm.ViewModel
             for (int w = 0; w < tempNotAchieved.Count; w++)
             {
                 Achievements.Add(tempNotAchieved[w]);
+            }
+        }
+
+        public void DataRefresh()
+        {
+            if (AplicatationDataHandler.CheckAPI)
+            {
+                
+                ResultUserAchieve = AplicatationDataHandler.resultUserAchieve;
+                ResultAchieveData = AplicatationDataHandler.resultAchieveData;
             }
         }
 

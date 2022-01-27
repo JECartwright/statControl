@@ -12,6 +12,8 @@ using Xamarin.Forms;
 using StatControl.Mvvm.Model.SteamUserProfile;
 using StatControl.Mvvm.Model.SteamUserAchievements;
 using StatControl.Mvvm.Model.SteamGameStats;
+using StatControl.Mvvm.Model.ApplicationAPIData;
+
 using System.ComponentModel;
 
 namespace StatControl.Mvvm.ViewModel
@@ -29,6 +31,14 @@ namespace StatControl.Mvvm.ViewModel
             {
                 SetProperty(ref _resultProfile, value);
                 OnPropertyChanged();
+            }
+        }
+
+        public void DataRefresh()
+        {
+            if (AplicatationDataHandler.CheckAPI)
+            {
+                ResultProfile = AplicatationDataHandler.resultProfile;
             }
         }
 

@@ -14,6 +14,7 @@ using StatControl.Mvvm.Model.SteamUserProfile;
 using StatControl.Mvvm.Model.SteamUserAchievements;
 using StatControl.Mvvm.Model.SteamGameStats;
 using StatControl.Mvvm.Model.SteamAchievementData;
+using StatControl.Mvvm.Model.ApplicationAPIData;
 using Xamarin.Essentials;
 
 namespace StatControl.Mvvm.ViewModel
@@ -21,11 +22,6 @@ namespace StatControl.Mvvm.ViewModel
     internal class LoginPageVm : MvvmZeroBaseVm
     {
         private string _steamProfileIdText;
-        private readonly SteamGameStatsService _steamGameStatsService;
-        private readonly SteamUserAchievementsService _steamUserAchievementsService;
-        private readonly SteamUserProfileService _steamUserProfileService;
-        private readonly SteamAchievementService _steamAchievementDataService;
-        private readonly SteamFriendsService _steamFriendsService;
         private readonly IPageServiceZero _pageService;
 
         public ICommand HomePageCommand { get; }
@@ -38,41 +34,11 @@ namespace StatControl.Mvvm.ViewModel
 
         private async Task HomePageCommandExecuteAsync()
         {
-
-            var resultUserAchieve = await _steamUserAchievementsService.GetUserAchieveAsync(_steamProfileIdText);
-            Debug.WriteLine("LOGIN_PAGE: User Achievements Response Received");
-
-            var resultProfile = await _steamUserProfileService.GetUserSummaryAsync(_steamProfileIdText);
-            Debug.WriteLine("LOGIN_PAGE: User Profile Response Received");
-
-            var resultStats = await _steamGameStatsService.GetUserStatsAsync(_steamProfileIdText);
-            Debug.WriteLine("LOGIN_PAGE: Game Stats Response Received");
-
-            var resultAchieveData = await _steamAchievementDataService.GetAchieveInfoAsync();
-            Debug.WriteLine("LOGIN_PAGE: Steam Achievements Response Received");
-
-            var resultFriends = await _steamFriendsService.GetFriendsListAsync(_steamProfileIdText);
-            Debug.WriteLine("LOGIN_PAGE: Steam Friends Response Received");
-
-            //Checking to see if the response was successful
-            if (resultUserAchieve.status == 0 & resultAchieveData.status == 0 & resultProfile.status == 0 & resultStats.status == 0)
+            await AplicatationDataHandler.Update(SteamProfileIdText);
+            if (AplicatationDataHandler.CheckAPI)
             {
-                //Checking to see if the response contains data
-                if (resultStats.payload.playerstats.stats != null)
-                {
-                    await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init(resultUserAchieve.payload, resultAchieveData.payload, resultProfile.payload, resultStats.payload, resultFriends.payload, _steamUserProfileService, _steamGameStatsService, _steamUserAchievementsService, _steamAchievementDataService, _steamFriendsService));
-                }
-                else
-                {
-                    Debug.WriteLine("Data Returned is null.");
-                }
-            }
-            else
-            {
-                Debug.WriteLine("Error in getting API.");
-            }
-            
-
+                await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init());
+            }             
         }
 
         public string privatepolicy = "";
@@ -102,12 +68,6 @@ namespace StatControl.Mvvm.ViewModel
         public LoginPageVm(IPageServiceZero pageService, SteamGameStatsService steamGameStatsService, SteamUserAchievementsService steamUserAchievementsService, SteamUserProfileService steamUserProfileService, SteamAchievementService steamAchievementDataService, SteamFriendsService steamFriendsService)
         {
             _pageService = pageService;
-            _steamGameStatsService = steamGameStatsService;
-            _steamUserAchievementsService = steamUserAchievementsService;
-            _steamUserProfileService = steamUserProfileService;
-            _steamAchievementDataService = steamAchievementDataService;
-            _steamFriendsService = steamFriendsService;
-
             SteamProfileIdText = "76561198045733101";
 
             if (IsFirstRun || !HasAgreed)
@@ -115,6 +75,8 @@ namespace StatControl.Mvvm.ViewModel
                 IsFirstRun = false;
                 DisplayTerms();                
             }
+
+            AplicatationDataHandler.SetService(steamGameStatsService,steamUserAchievementsService,steamUserProfileService,steamAchievementDataService,steamFriendsService);
 
             HomePageCommand = new CommandBuilder().SetExecuteAsync(HomePageCommandExecuteAsync).SetName("Search").Build();
         }

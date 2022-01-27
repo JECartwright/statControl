@@ -13,6 +13,7 @@ using Xamarin.Essentials;
 using StatControl.Mvvm.Model.DisplayModel;
 using StatControl.Mvvm.Model.SteamGameStats;
 using System.Diagnostics;
+using StatControl.Mvvm.Model.ApplicationAPIData;
 
 
 namespace StatControl.Mvvm.ViewModel
@@ -199,6 +200,14 @@ namespace StatControl.Mvvm.ViewModel
                 default:
                     ProgressBarSize = 9;
                     break;
+            }
+        }
+
+        public void DataRefresh()
+        {
+            if (AplicatationDataHandler.CheckAPI)
+            {
+                ResultStats = AplicatationDataHandler.resultStats;
             }
         }
 

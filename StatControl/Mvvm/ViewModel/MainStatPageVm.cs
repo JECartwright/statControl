@@ -11,6 +11,8 @@ using System.Diagnostics;
 using Xamarin.Forms;
 using StatControl.Mvvm.Model.SteamUserProfile;
 using StatControl.Mvvm.Model.SteamUserAchievements;
+using StatControl.Mvvm.Model.ApplicationAPIData;
+
 using StatControl.Mvvm.Model.SteamGameStats;
 using System.ComponentModel;
 
@@ -191,6 +193,14 @@ namespace StatControl.Mvvm.ViewModel
                 ContributionScore = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_contribution_score"))?.value.ToString() ?? "0";
 
                 OnPropertyChanged();
+            }
+        }
+
+        public void DataRefresh()
+        {
+            if (AplicatationDataHandler.CheckAPI)
+            {
+                ResultStats = AplicatationDataHandler.resultStats;
             }
         }
 

@@ -15,6 +15,8 @@ using StatControl.Mvvm.Model.SteamGameStats;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using StatControl.Mvvm.Model.DisplayModel;
+using StatControl.Mvvm.Model.ApplicationAPIData;
+
 
 
 namespace StatControl.Mvvm.ViewModel
@@ -49,6 +51,13 @@ namespace StatControl.Mvvm.ViewModel
             }
         }
 
+        public void DataRefresh()
+        {
+            if (AplicatationDataHandler.CheckAPI)
+            {
+                ResultStats = AplicatationDataHandler.resultStats;
+            }
+        }
 
         public MapPageVm(IPageServiceZero pageService)
         {
