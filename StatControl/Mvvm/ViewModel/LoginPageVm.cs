@@ -137,6 +137,7 @@ namespace StatControl.Mvvm.ViewModel
             {
                 HasAgreed = true;
             }
+            await Application.Current.MainPage.DisplayAlert("Alert", "Swipe left and right to navigate", "OK");
         }
 
         public LoginPageVm(IPageServiceZero pageService, SteamGameStatsService steamGameStatsService, SteamUserAchievementsService steamUserAchievementsService, SteamUserProfileService steamUserProfileService, SteamAchievementService steamAchievementDataService, SteamVanityUrlService steamVanityUrlService)
