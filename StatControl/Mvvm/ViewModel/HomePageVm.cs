@@ -22,7 +22,7 @@ namespace StatControl.Mvvm.ViewModel
     {
         private readonly IPageServiceZero _pageService;
         private SteamUserProfileResponse _resultProfile;
-
+        private CarouselPageVm daddy;
         public ICommand UpdateCommand { get; }
         public SteamUserProfileResponse ResultProfile
         {
@@ -33,6 +33,24 @@ namespace StatControl.Mvvm.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        /*
+         * ADD THIS FUNCTION ON BUTTON PRESS TO LOAD ORIGIONAL USER
+         * 
+        private async void ReloadUser()
+        {
+            await AplicatationDataHandler.ReloadMain();
+            daddy.RefreshAll(); 
+            OnPropertyChanged();
+        }
+        */
+
+        public void getParent(CarouselPageVm dad)
+        {
+            daddy = dad;
+        }
+
+        
 
         public void DataRefresh()
         {
