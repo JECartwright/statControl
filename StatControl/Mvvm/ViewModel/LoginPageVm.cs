@@ -31,6 +31,27 @@ namespace StatControl.Mvvm.ViewModel
         private readonly SteamVanityUrlService _steamVanityUrlService;
         private readonly IPageServiceZero _pageService;
 
+        private string _errorMsgText;
+        private string _errorMsgTextVisible;
+
+        public string ErrorMsgText
+        {
+            get => _errorMsgText;
+            set
+            {
+                SetProperty(ref _errorMsgText, value);
+            }
+        }
+        
+        public string ErrorMsgTextVisible
+        {
+            get => _errorMsgText;
+            set
+            {
+                SetProperty(ref _errorMsgText, value);
+            }
+        }
+
         public ICommand HomePageCommand { get; }
 
         public string SteamProfileIdText
@@ -57,23 +78,26 @@ namespace StatControl.Mvvm.ViewModel
             Debug.WriteLine("LOGIN_PAGE: Steam Achievements Response Received");
             //
 
-            await Task.WhenAll(resultUserAchieve, resultProfile, resultStats, resultAchieveData);
-
             //Checking to see if the response was successful
             if (resultUserAchieve.status == 0 & resultAchieveData.status == 0 & resultProfile.status == 0 & resultStats.status == 0)
             {
                 //Checking to see if the response contains data
                 if (resultStats.payload.playerstats.stats != null)
                 {
+                    ErrorMsgTextVisible = "False";
                     await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init(resultUserAchieve.payload, resultAchieveData.payload, resultProfile.payload, resultStats.payload));
                 }
                 else
                 {
+                    ErrorMsgText = "The Data Received From The API Is Null\nPlease Try Again.";
+                    ErrorMsgTextVisible = "True";
                     Debug.WriteLine("Data Returned is null.");
                 }
             }
             else
             {
+                ErrorMsgText = "Error In Trying To Retrieve Data From The API\nPlease Try Again.";
+                ErrorMsgTextVisible = "True";
                 Debug.WriteLine("Error in getting API.");
             }
         }
@@ -123,6 +147,9 @@ namespace StatControl.Mvvm.ViewModel
             _steamUserProfileService = steamUserProfileService;
             _steamAchievementDataService = steamAchievementDataService;
             _steamVanityUrlService = steamVanityUrlService;
+
+            ErrorMsgTextVisible = "False";
+
             SteamProfileIdText = "76561198045733101";
 
             if (IsFirstRun || !HasAgreed)
