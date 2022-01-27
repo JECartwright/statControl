@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using StatControl.Services;
-using StatControl.Services;
 using StatControl.Mvvm.Model.SteamUserProfile;
 using StatControl.Mvvm.Model.SteamUserAchievements;
 using StatControl.Mvvm.Model.SteamGameStats;
@@ -12,7 +11,7 @@ using System.Diagnostics;
 
 namespace StatControl.Mvvm.Model.ApplicationAPIData
 {
-    static internal class AplicatationDataHandler
+    static internal class ApplicatationDataHandler
     {
         private static readonly SteamGameStatsService _steamGameStatsService;
         private static readonly SteamUserAchievementsService _steamUserAchievementsService;
