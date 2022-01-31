@@ -34,7 +34,7 @@ namespace StatControl.Mvvm.ViewModel
             }
         }
 
-        public void getParent(CarouselPageVm dad)
+        public void GetParent(CarouselPageVm dad)
         {
             daddy = dad;
         }

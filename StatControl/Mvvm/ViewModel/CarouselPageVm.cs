@@ -70,8 +70,8 @@ namespace StatControl.Mvvm.ViewModel
             MapVm.DataRefresh();
             AchieveVm.DataRefresh();
             WeaSelectVm.WeaponsDisplay.Clear();
-            WeaSelectVm.onStarted();
-            WeaSelectVm.platformHelper();
+            WeaSelectVm.OnStarted();
+            WeaSelectVm.PlatformHelper();
 
             UserTitle = $"Viewing: {ApplicatationDataHandler.resultProfile.response.players[0].personaname}";
 
@@ -84,17 +84,17 @@ namespace StatControl.Mvvm.ViewModel
 
             FunVm.DataRefresh();
             HomeVm.DataRefresh();
-            HomeVm.getParent(this);
+            HomeVm.GetParent(this);
             MainVm.DataRefresh();
             LastVm.DataRefresh();
             WeaSelectVm.DataRefresh();
             SocialVm.DataRefresh();
-            SocialVm.getParent(this);
+            SocialVm.GetParent(this);
             MapVm.DataRefresh();
             AchieveVm.DataRefresh();
             WeaSelectVm.WeaponsDisplay.Clear();
-            WeaSelectVm.onStarted();
-            WeaSelectVm.platformHelper();
+            WeaSelectVm.OnStarted();
+            WeaSelectVm.PlatformHelper();
 
             UserTitle = $"Viewing: {ApplicatationDataHandler.resultProfile.response.players[0].personaname}";
 
