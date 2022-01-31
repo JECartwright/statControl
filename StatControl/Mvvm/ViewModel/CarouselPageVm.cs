@@ -17,13 +17,14 @@ using System.Diagnostics;
 using System.Collections.ObjectModel;
 using StatControl.Services;
 using StatControl.Mvvm.Model.ApplicationAPIData;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace StatControl.Mvvm.ViewModel
 {
-    internal class CarouselPageVm : CarouselPage
+    internal class CarouselPageVm : CarouselPage, INotifyPropertyChanged
     {
         private readonly IPageServiceZero _pageService;
-        public string UserTitle { get; private set; }
         public ICommand TestCommand { get; }
         public SocialPageVm SocialVm { get; private set; }
         public HomePageVm HomeVm { get; private set; }
@@ -33,6 +34,16 @@ namespace StatControl.Mvvm.ViewModel
         public MapPageVm MapVm { get; private set; }
         public FunPageVm FunVm { get; private set; }
         public AchievementsPageVm AchieveVm { get; private set; }
+
+        private string _userTitle;
+        public string UserTitle
+        {
+            get => _userTitle;
+            set
+            {
+                SetProperty(ref _userTitle, value);
+            }
+        }
 
         public CarouselPageVm(IPageServiceZero pageService)
         {
@@ -49,7 +60,7 @@ namespace StatControl.Mvvm.ViewModel
 
         public void RefreshAll()
         {
-            UserTitle = $"Viewing: {ApplicatationDataHandler.resultProfile.response.players[0].personaname}";
+            
 
             FunVm.DataRefresh();
             HomeVm.DataRefresh();//Not Sure
@@ -61,12 +72,15 @@ namespace StatControl.Mvvm.ViewModel
             WeaSelectVm.WeaponsDisplay.Clear();
             WeaSelectVm.onStarted();
             WeaSelectVm.platformHelper();
+
+            UserTitle = $"Viewing: {ApplicatationDataHandler.resultProfile.response.players[0].personaname}";
+
             OnPropertyChanged();
         }
 
         internal void Init()
         {
-            UserTitle = $"Viewing: {ApplicatationDataHandler.resultProfile.response.players[0].personaname}";
+            
 
             FunVm.DataRefresh();
             HomeVm.DataRefresh();
@@ -81,7 +95,23 @@ namespace StatControl.Mvvm.ViewModel
             WeaSelectVm.WeaponsDisplay.Clear();
             WeaSelectVm.onStarted();
             WeaSelectVm.platformHelper();
+
+            UserTitle = $"Viewing: {ApplicatationDataHandler.resultProfile.response.players[0].personaname}";
+
             OnPropertyChanged();
         }
+
+        protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (EqualityComparer<T>.Default.Equals(backingStore, value))
+            {
+                return false;
+            }
+
+            backingStore = value;
+            OnPropertyChanged(propertyName);
+            return true;
+        }
+
     }
 }
