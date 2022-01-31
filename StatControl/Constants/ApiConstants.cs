@@ -16,5 +16,6 @@ namespace StatControl.Constants
         public const string SteamGameStatEndpoint = "ISteamUserStats/GetUserStatsForGame/v0002/";
         public const string SteamUserProfileSummaryEndpoint = "ISteamUser/GetPlayerSummaries/v0002/";
         public const string SteamUserAchievementsEndpoint = "ISteamUserStats/GetPlayerAchievements/v0001/";
+        public const string SteamVanityUrlEndpoint = "ISteamUser/ResolveVanityURL/v0001/";
     }
 }

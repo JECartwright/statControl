@@ -31,7 +31,7 @@
             <Setter Property="CornerRadius" Value="15"/>
         </Style>
             
-        <Style  TargetType="NavigationPage" ApplyToDerivedTypes="true">
+        <Style TargetType="NavigationPage" ApplyToDerivedTypes="true">
             <Setter Property="BarBackgroundColor" Value="#5C7E10"/>
             <Setter Property="BarTextColor" Value="White"/>
         </Style>

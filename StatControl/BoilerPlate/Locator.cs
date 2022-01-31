@@ -76,6 +76,7 @@ namespace StatControl.BoilerPlate
 			_IoCC.Register<SteamUserAchievementsService>(GetSteamUserAchievementsService, Lifestyle.Singleton);
 			_IoCC.Register<SteamAchievementService>(GetSteamAchievementsService, Lifestyle.Singleton);
 			_IoCC.Register<SteamFriendsService>(GetSteamFriendsService, Lifestyle.Singleton);
+			_IoCC.Register<SteamVanityUrlService>(GetSteamVanityUrlService, Lifestyle.Singleton);
 			_IoCC.Register<IRestService>(GetRestService, Lifestyle.Singleton);
 
 		}
@@ -131,6 +132,10 @@ namespace StatControl.BoilerPlate
 		private SteamAchievementService GetSteamAchievementsService()
 		{
 			return new SteamAchievementService(_IoCC.GetInstance<IRestService>(), ApiConstants.SteamAchieveEndpoint, ApiConstants.SteamApiKey);
+		}
+		private SteamVanityUrlService GetSteamVanityUrlService()
+		{
+			return new SteamVanityUrlService(_IoCC.GetInstance<IRestService>(), ApiConstants.SteamVanityUrlEndpoint, ApiConstants.SteamApiKey);
 		}
 
 		private SteamFriendsService GetSteamFriendsService()

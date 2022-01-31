@@ -147,7 +147,14 @@ namespace StatControl.Mvvm.ViewModel
             }
         }
 
-
+        public void DataRefresh()
+        {
+            if (ApplicatationDataHandler.CheckAPI)
+            {
+                ResultStats = ApplicatationDataHandler.resultStats;
+            }
+            OnPropertyChanged();
+        }
 
         public SteamGameStatsResponse ResultStats
         {
