@@ -15,7 +15,6 @@ using StatControl.Mvvm.Model.SteamGameStats;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using StatControl.Mvvm.Model.DisplayModel;
-using StatControl.Mvvm.Model.ApplicationAPIData;
 
 
 

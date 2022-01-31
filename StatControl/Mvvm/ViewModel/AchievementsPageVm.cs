@@ -13,7 +13,6 @@ using StatControl.Mvvm.Model.SteamAchievementData;
 using Xamarin.Forms;
 using System.Diagnostics;
 using StatControl.Mvvm.Model.DisplayModel;
-using StatControl.Mvvm.Model.ApplicationAPIData;
 
 
 namespace StatControl.Mvvm.ViewModel

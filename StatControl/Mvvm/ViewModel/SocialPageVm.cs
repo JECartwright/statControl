@@ -13,7 +13,6 @@ using StatControl.Services;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Xamarin.Forms;
-using Xamarin.Forms.Core;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using StatControl.Mvvm.Model.DisplayModel;

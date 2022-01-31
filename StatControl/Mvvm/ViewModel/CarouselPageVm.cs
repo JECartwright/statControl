@@ -23,6 +23,7 @@ namespace StatControl.Mvvm.ViewModel
     {
         private readonly IPageServiceZero _pageService;
         
+
         public ICommand TestCommand { get; }
         public SocialPageVm SocialVm { get; private set; }
         public HomePageVm HomeVm { get; private set; }
@@ -46,7 +47,7 @@ namespace StatControl.Mvvm.ViewModel
             AchieveVm = new AchievementsPageVm(_pageService); 
         }
 
-        public void RefreshAll()
+        internal void Init(SteamUserAchievementsResponse resultUserAchieve, SteamAchievementDataResponse resultAchieveData, SteamUserProfileResponse resultProfile, SteamGameStatsResponse resultStats, SteamFriendsResponse resultFriends, SteamUserProfileService SendProfileService, SteamGameStatsService SendGameStatsService, SteamUserAchievementsService SendAchivementsService, SteamAchievementService SendAchievementDataService, SteamFriendsService SendFreiendsService)
         {
             FunVm.DataRefresh();
             HomeVm.DataRefresh();//Not Sure
@@ -76,6 +77,7 @@ namespace StatControl.Mvvm.ViewModel
             WeaSelectVm.WeaponsDisplay.Clear();
             WeaSelectVm.onStarted();
             WeaSelectVm.platformHelper();
+
             OnPropertyChanged();
         }
     }
