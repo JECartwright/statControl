@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
-using StatControl.Mvvm.View;
+﻿using StatControl.Mvvm.View;
 using FunctionZero.CommandZero;
 using FunctionZero.MvvmZero;
 using System.Windows.Input;
@@ -10,11 +6,6 @@ using System.Threading.Tasks;
 using StatControl.Services;
 using System.Diagnostics;
 using Xamarin.Forms;
-using StatControl.Mvvm.Model.SteamUserProfile;
-using StatControl.Mvvm.Model.SteamUserAchievements;
-using StatControl.Mvvm.Model.SteamGameStats;
-using StatControl.Mvvm.Model.SteamAchievementData;
-using StatControl.Mvvm.Model.SteamVanityUrl;
 using Xamarin.Essentials;
 using System.Text.RegularExpressions;
 using StatControl.Mvvm.Model.ApplicationAPIData;
@@ -39,19 +30,13 @@ namespace StatControl.Mvvm.ViewModel
         public string ErrorMsgText
         {
             get => _errorMsgText;
-            set
-            {
-                SetProperty(ref _errorMsgText, value);
-            }
+            set => SetProperty(ref _errorMsgText, value);
         }
 
         public string ErrorMsgTextVisible
         {
             get => _errorMsgTextVisible;
-            set
-            {
-                SetProperty(ref _errorMsgTextVisible, value);
-            }
+            set => SetProperty(ref _errorMsgTextVisible, value);
         }
 
         public ICommand HomePageCommand { get; }
@@ -69,7 +54,7 @@ namespace StatControl.Mvvm.ViewModel
             await ApplicatationDataHandler.Update(SteamProfileIdText);
             if (ApplicatationDataHandler.CheckAPI)
             {
-                ApplicatationDataHandler.MainUserID = _steamProfileIdText;
+                ApplicatationDataHandler.MainUserId = _steamProfileIdText;
                 await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init());
             }
             else

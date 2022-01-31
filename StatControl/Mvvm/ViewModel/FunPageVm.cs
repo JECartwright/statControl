@@ -1,13 +1,5 @@
 ﻿using FunctionZero.MvvmZero;
-using System.Windows.Input;
-using System.Threading.Tasks;
-using StatControl.Services;
-using System.Diagnostics;
-using Xamarin.Forms;
-using StatControl.Mvvm.Model.SteamUserProfile;
-using StatControl.Mvvm.Model.SteamUserAchievements;
 using StatControl.Mvvm.Model.SteamGameStats;
-using System.ComponentModel;
 using StatControl.Mvvm.Model.ApplicationAPIData;
 
 namespace StatControl.Mvvm.ViewModel
@@ -33,125 +25,86 @@ namespace StatControl.Mvvm.ViewModel
         public string WindowsBroken
         {
             get => _windowsBroken;
-            set
-            {
-                SetProperty(ref _windowsBroken, value);
-            }
+            set => SetProperty(ref _windowsBroken, value);
         }
         
         public string PistolRounds
         {
             get => _pistolRounds;
-            set
-            {
-                SetProperty(ref _pistolRounds, value);
-            }
+            set => SetProperty(ref _pistolRounds, value);
         }
                 
         public string EnemyWeapon
         {
             get => _enemyWeapon;
-            set
-            {
-                SetProperty(ref _enemyWeapon, value);
-            }
+            set => SetProperty(ref _enemyWeapon, value);
         }
                 
         public string EnemyFlash
         {
             get => _enemyFlash;
-            set
-            {
-                SetProperty(ref _enemyFlash, value);
-            }
+            set => SetProperty(ref _enemyFlash, value);
         }
                 
         public string KnifeKill
         {
             get => _knifeKill;
-            set
-            {
-                SetProperty(ref _knifeKill, value);
-            }
+            set => SetProperty(ref _knifeKill, value);
         }
                 
         public string ZoomSniperKill
         {
             get => _zoomSniperKill;
-            set
-            {
-                SetProperty(ref _zoomSniperKill, value);
-            }
+            set => SetProperty(ref _zoomSniperKill, value);
         }
         
         public string Domination
         {
             get => _domination;
-            set
-            {
-                SetProperty(ref _domination, value);
-            }
+            set => SetProperty(ref _domination, value);
         }
         
         public string Overkill
         {
             get => _overkill;
-            set
-            {
-                SetProperty(ref _overkill, value);
-            }
+            set => SetProperty(ref _overkill, value);
         }
                 
         public string Revenges
         {
             get => _revenges;
-            set
-            {
-                SetProperty(ref _revenges, value);
-            }
+            set => SetProperty(ref _revenges, value);
         }
                 
-        public string GGRoundWon
+        public string GgRoundWon
         {
             get => _ggRoundWon;
-            set
-            {
-                SetProperty(ref _ggRoundWon, value);
-            }
+            set => SetProperty(ref _ggRoundWon, value);
         }
                 
-        public string GGRoundPlayed
+        public string GgRoundPlayed
         {
             get => _ggRoundPlayed;
-            set
-            {
-                SetProperty(ref _ggRoundPlayed, value);
-            }
+            set => SetProperty(ref _ggRoundPlayed, value);
         }
                 
-        public string GGLifetimeScore
+        public string GgLifetimeScore
         {
             get => _ggLifetimeScore;
-            set
-            {
-                SetProperty(ref _ggLifetimeScore, value);
-            }
+            set => SetProperty(ref _ggLifetimeScore, value);
         }
         
         public string HostagesSaved
         {
             get => _hostagesSaved;
-            set
-            {
-                SetProperty(ref _hostagesSaved, value);
-            }
+            set => SetProperty(ref _hostagesSaved, value);
         }
 
         public void DataRefresh()
         {
             if (ApplicatationDataHandler.CheckAPI)
             {
-                ResultStats = ApplicatationDataHandler.resultStats;
+                ResultStats = ApplicatationDataHandler.ResultStats;
             }
             OnPropertyChanged();
         }
@@ -172,9 +125,9 @@ namespace StatControl.Mvvm.ViewModel
                 Domination = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_dominations"))?.value.ToString() ?? "0";
                 Overkill = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_domination_overkills"))?.value.ToString() ?? "0";
                 Revenges = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_revenges"))?.value.ToString() ?? "0";
-                GGRoundWon = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_gun_game_rounds_won"))?.value.ToString() ?? "0";
-                GGRoundPlayed = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_gun_game_rounds_played"))?.value.ToString() ?? "0";
-                GGLifetimeScore = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_gun_game_contribution_score"))?.value.ToString() ?? "0";
+                GgRoundWon = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_gun_game_rounds_won"))?.value.ToString() ?? "0";
+                GgRoundPlayed = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_gun_game_rounds_played"))?.value.ToString() ?? "0";
+                GgLifetimeScore = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_gun_game_contribution_score"))?.value.ToString() ?? "0";
                 HostagesSaved = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_rescued_hostages"))?.value.ToString() ?? "0";
                 
                 OnPropertyChanged();

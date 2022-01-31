@@ -36,8 +36,8 @@ namespace StatControl.Mvvm.Model.DisplayModel
                 Accuracy = 0;
                 ArcAngle = 0;
             }
-            KillsText = "K:" + Kills.ToString();
-            AccuracyText = "A:" + Accuracy.ToString();
+            KillsText = $"K:{Kills}";
+            AccuracyText = $"A:{Accuracy}";
         }
 
         public WeaponSelectDisplayModel(string Name, string DisplayName)

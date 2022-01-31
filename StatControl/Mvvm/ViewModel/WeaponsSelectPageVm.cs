@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Text;
 using StatControl.Mvvm.View;
-using FunctionZero.CommandZero;
 using FunctionZero.MvvmZero;
-using System.Windows.Input;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Essentials;
@@ -53,19 +49,13 @@ namespace StatControl.Mvvm.ViewModel
 
         public SteamGameStatsResponse ResultStats
         {
-            get { return _resultGameStats; }
-            set
-            {
-                SetProperty(ref _resultGameStats, value);
-            }
+            get => _resultGameStats;
+            set => SetProperty(ref _resultGameStats, value);
         }
         public int ProgressBarSize
         {
             get => _progressBarSize;
-            set
-            {
-                SetProperty(ref _progressBarSize, value);
-            }
+            set => SetProperty(ref _progressBarSize, value);
         }
         //for push
         private readonly Dictionary<String, String> _favWeaponDictionary = new Dictionary<String, String>()
@@ -106,7 +96,7 @@ namespace StatControl.Mvvm.ViewModel
 
         public void OnStarted()
         {
-            List<WeaponSelectDisplayModel> Weapons = new List<WeaponSelectDisplayModel>
+            List<WeaponSelectDisplayModel> weapons = new List<WeaponSelectDisplayModel>
             {
                 new WeaponSelectDisplayModel("deagle", "Deagle/R8"),
                 new WeaponSelectDisplayModel("elite", "Dual Elites"),
@@ -144,27 +134,27 @@ namespace StatControl.Mvvm.ViewModel
 
             for (int i = 0;i< ResultStats.playerstats.stats.Count; i++)
             {
-                for (int b = 0; b < Weapons.Count;b++)
+                for (int b = 0; b < weapons.Count;b++)
                 {
-                    if (ResultStats.playerstats.stats[i].name == "total_kills_" + Weapons[b].APIName)
+                    if (ResultStats.playerstats.stats[i].name == $"total_kills_{weapons[b].APIName}")
                     {
-                        Weapons[b].Kills = ResultStats.playerstats.stats[i].value;
+                        weapons[b].Kills = ResultStats.playerstats.stats[i].value;
                     }
-                    else if (ResultStats.playerstats.stats[i].name == "total_shots_" + Weapons[b].APIName)
+                    else if (ResultStats.playerstats.stats[i].name == $"total_shots_{weapons[b].APIName}")
                     {
-                        Weapons[b].shots = ResultStats.playerstats.stats[i].value;
+                        weapons[b].shots = ResultStats.playerstats.stats[i].value;
                     }
-                    else if (ResultStats.playerstats.stats[i].name == "total_hits_" + Weapons[b].APIName)
+                    else if (ResultStats.playerstats.stats[i].name == $"total_hits_{weapons[b].APIName}")
                     {
-                        Weapons[b].hits = ResultStats.playerstats.stats[i].value;
+                        weapons[b].hits = ResultStats.playerstats.stats[i].value;
                     }
                 }
             }
-            for (int c = 0;c<Weapons.Count;c++)
+            for (int c = 0;c<weapons.Count;c++)
             {
-                Weapons[c].WeaponImage = _favWeaponDictionary[Weapons[c].APIName];
-                Weapons[c].setAccuracy();
-                WeaponsDisplay.Add(Weapons[c]);                
+                weapons[c].WeaponImage = _favWeaponDictionary[weapons[c].APIName];
+                weapons[c].setAccuracy();
+                WeaponsDisplay.Add(weapons[c]);                
             }
             Debug.WriteLine("Finished Setting Up Weapon Data");
             
@@ -175,17 +165,17 @@ namespace StatControl.Mvvm.ViewModel
             switch (Device.RuntimePlatform)
             {
                 case Device.Android:                    
-                    var Screen = DeviceDisplay.MainDisplayInfo;
-                    var X = Screen.Width;
-                    if (X == 1080)
+                    var screen = DeviceDisplay.MainDisplayInfo;
+                    var x = screen.Width;
+                    if (x == 1080)
                     {
                         ProgressBarSize = 24;
                     }
-                    else if (X == 1440)
+                    else if (x == 1440)
                     {
                         ProgressBarSize = 30;
                     }
-                    else if (X == 720)
+                    else if (x == 720)
                     {
                         ProgressBarSize = 18;
                     }
@@ -207,7 +197,7 @@ namespace StatControl.Mvvm.ViewModel
         {
             if (ApplicatationDataHandler.CheckAPI)
             {
-                ResultStats = ApplicatationDataHandler.resultStats;
+                ResultStats = ApplicatationDataHandler.ResultStats;
             }
             OnPropertyChanged();
         }
