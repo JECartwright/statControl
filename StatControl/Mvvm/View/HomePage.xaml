@@ -13,6 +13,9 @@
             <Frame>
                 <Label Text="{Binding ResultProfile.response.players[0].personaname}"  HorizontalOptions="Center" FontSize="Large"/>
             </Frame>
+            <Frame IsVisible="{Binding IsButtonVisible}">
+                <Button Command="{Binding ReloadUser}" Text="Reaload Main User" IsVisible="{Binding IsButtonVisible}"/>
+            </Frame>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
