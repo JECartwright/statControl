@@ -104,7 +104,7 @@ namespace StatControl.Mvvm.ViewModel
                 { "hegrenade", "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/weapons/base_weapons/weapon_hegrenade.7b344756d5dbdda4fd2e583a227a670599889f59.png" }
             };
 
-        public void onStarted()
+        public void OnStarted()
         {
             List<WeaponSelectDisplayModel> Weapons = new List<WeaponSelectDisplayModel>
             {
@@ -170,7 +170,7 @@ namespace StatControl.Mvvm.ViewModel
             
         }
 
-        public void platformHelper()
+        public void PlatformHelper()
         {
             switch (Device.RuntimePlatform)
             {

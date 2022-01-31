@@ -29,7 +29,7 @@ namespace StatControl.Mvvm.ViewModel
         private CarouselPageVm daddy;
 
         private SteamFriendsResponse _steamFriendsResponse;
-        public SteamFriendsResponse steamFriendsResponse
+        public SteamFriendsResponse SteamFriendsResponse
         {
             get { return _steamFriendsResponse; }
             set
@@ -42,7 +42,7 @@ namespace StatControl.Mvvm.ViewModel
         }
 
         private SteamUserProfileService _steamUserProfileService;
-        public SteamUserProfileService steamUserProfileService
+        public SteamUserProfileService SteamUserProfileService
         {
             get { return _steamUserProfileService; }
             set
@@ -106,7 +106,7 @@ namespace StatControl.Mvvm.ViewModel
             for (int b = 0;b < _steamFriendsResponse.friendslist.friends.Count; b++)
             {
                 string steamid = _steamFriendsResponse.friendslist.friends[b].steamid;
-                var resultProfile = await steamUserProfileService.GetUserSummaryAsync(steamid);
+                var resultProfile = await SteamUserProfileService.GetUserSummaryAsync(steamid);
                 //Checking to see if the response was successful
                 if (resultProfile.status == 0)
                 {
@@ -132,11 +132,13 @@ namespace StatControl.Mvvm.ViewModel
 
             for(int i = 0;i < steamUserProfileResponses.Count;i++)
             {
-                SocialProfileDisplayModel ToAdd = new SocialProfileDisplayModel();
-                ToAdd.ID = steamUserProfileResponses[i].response.players[0].steamid;
-                ToAdd.Name = steamUserProfileResponses[i].response.players[0].personaname;
-                ToAdd.ProfilePicture = steamUserProfileResponses[i].response.players[0].avatarfull;
-                ToAdd.Score = "Score: 0";
+                SocialProfileDisplayModel ToAdd = new SocialProfileDisplayModel
+                {
+                    ID = steamUserProfileResponses[i].response.players[0].steamid,
+                    Name = steamUserProfileResponses[i].response.players[0].personaname,
+                    ProfilePicture = steamUserProfileResponses[i].response.players[0].avatarfull,
+                    Score = "Score: 0"
+                };
                 Friends.Add(ToAdd);
                 Points.Add(ToAdd); // please remove me when you add point system
             }
@@ -148,13 +150,13 @@ namespace StatControl.Mvvm.ViewModel
         {
             if (ApplicatationDataHandler.CheckAPI)
             {
-                steamUserProfileService = ApplicatationDataHandler.GetUserProfileServiceForSocial();
-                steamFriendsResponse = ApplicatationDataHandler.resultFriends;
+                SteamUserProfileService = ApplicatationDataHandler.GetUserProfileServiceForSocial();
+                SteamFriendsResponse = ApplicatationDataHandler.resultFriends;
             }
             OnPropertyChanged();
         }
 
-        public void getParent(CarouselPageVm dad)
+        public void GetParent(CarouselPageVm dad)
         {
             daddy = dad;
         }
