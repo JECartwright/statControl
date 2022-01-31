@@ -11,9 +11,8 @@ using System.Diagnostics;
 using Xamarin.Forms;
 using StatControl.Mvvm.Model.SteamUserProfile;
 using StatControl.Mvvm.Model.SteamUserAchievements;
-using StatControl.Mvvm.Model.ApplicationAPIData;
-
 using StatControl.Mvvm.Model.SteamGameStats;
+using StatControl.Mvvm.Model.ApplicationAPIData;
 using System.ComponentModel;
 
 namespace StatControl.Mvvm.ViewModel
@@ -41,131 +40,146 @@ namespace StatControl.Mvvm.ViewModel
 
         public string RoundsWon
         {
-            get => _roundsWon; 
+            get => _roundsWon;
             set
             {
                 SetProperty(ref _roundsWon, value);
             }
         }
 
-        public string MVP { 
-            get => _mVP; 
+        public string MVP
+        {
+            get => _mVP;
             set
             {
                 SetProperty(ref _mVP, value);
-            } 
+            }
         }
 
-        public string MoneyEarned { 
-            get => _moneyEarned; 
+        public string MoneyEarned
+        {
+            get => _moneyEarned;
             set
             {
                 SetProperty(ref _moneyEarned, value);
-            } 
+            }
         }
 
-        public string BombsPlanted { 
+        public string BombsPlanted
+        {
             get => _bombsPlanted;
             set
             {
                 SetProperty(ref _bombsPlanted, value);
-            } 
+            }
         }
 
-        public string BombsDefused { 
-            get => _bombsDefused; 
+        public string BombsDefused
+        {
+            get => _bombsDefused;
             set
             {
                 SetProperty(ref _bombsDefused, value);
-            } 
+            }
         }
 
-        public string WeaponsDonated { 
-            get => _weaponsDonated; 
+        public string WeaponsDonated
+        {
+            get => _weaponsDonated;
             set
             {
                 SetProperty(ref _weaponsDonated, value);
-            } 
+            }
         }
 
-        public string Damage { 
-            get => _damage; 
+        public string Damage
+        {
+            get => _damage;
             set
             {
                 SetProperty(ref _damage, value);
-            } 
+            }
         }
 
-        public string Headshots { 
-            get => _headshots; 
+        public string Headshots
+        {
+            get => _headshots;
             set
             {
                 SetProperty(ref _headshots, value);
-            } 
+            }
         }
 
-        public string Shots { 
-            get => _shots; 
+        public string Shots
+        {
+            get => _shots;
             set
             {
                 SetProperty(ref _shots, value);
-            } 
+            }
         }
 
-        public string Kills { 
-            get => _kills; 
+        public string Kills
+        {
+            get => _kills;
             set
             {
                 SetProperty(ref _kills, value);
-            } 
+            }
         }
 
-        public string Hits { 
-            get => _hits; 
+        public string Hits
+        {
+            get => _hits;
             set
             {
                 SetProperty(ref _hits, value);
-            } 
+            }
         }
 
-        public string Accuracy { 
-            get => _accuracy; 
+        public string Accuracy
+        {
+            get => _accuracy;
             set
             {
                 SetProperty(ref _accuracy, value);
-            } 
+            }
         }
 
-        public string MatchesPlayed { 
-            get => _matchesPlayed; 
+        public string MatchesPlayed
+        {
+            get => _matchesPlayed;
             set
             {
                 SetProperty(ref _matchesPlayed, value);
-            } 
+            }
         }
 
-        public string MatchesWon { 
-            get => _matchesWon; 
+        public string MatchesWon
+        {
+            get => _matchesWon;
             set
             {
                 SetProperty(ref _matchesWon, value);
-            } 
+            }
         }
 
-        public string MatchesWinRate { 
-            get => _matchesWinRate; 
+        public string MatchesWinRate
+        {
+            get => _matchesWinRate;
             set
             {
                 SetProperty(ref _matchesWinRate, value);
-            } 
+            }
         }
 
-        public string ContributionScore { 
-            get => _contributionScore; 
+        public string ContributionScore
+        {
+            get => _contributionScore;
             set
             {
                 SetProperty(ref _contributionScore, value);
-            } 
+            }
         }
 
         public SteamGameStatsResponse ResultStats
@@ -174,7 +188,7 @@ namespace StatControl.Mvvm.ViewModel
             set
             {
                 SetProperty(ref _resultStats, value);
-                
+
                 RoundsWon = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_wins"))?.value.ToString() ?? "0";
                 MVP = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_mvps"))?.value.ToString() ?? "0";
                 MoneyEarned = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_money_earned"))?.value.ToString() ?? "0";
@@ -198,9 +212,9 @@ namespace StatControl.Mvvm.ViewModel
 
         public void DataRefresh()
         {
-            if (AplicatationDataHandler.CheckAPI)
+            if (ApplicatationDataHandler.CheckAPI)
             {
-                ResultStats = AplicatationDataHandler.resultStats;
+                ResultStats = ApplicatationDataHandler.resultStats;
             }
             OnPropertyChanged();
         }

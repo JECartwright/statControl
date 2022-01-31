@@ -16,14 +16,15 @@ using Xamarin.Forms;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
 using StatControl.Services;
+using StatControl.Mvvm.Model.ApplicationAPIData;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace StatControl.Mvvm.ViewModel
 {
-    internal class CarouselPageVm : CarouselPage
+    internal class CarouselPageVm : CarouselPage, INotifyPropertyChanged
     {
         private readonly IPageServiceZero _pageService;
-        
-
         public ICommand TestCommand { get; }
         public SocialPageVm SocialVm { get; private set; }
         public HomePageVm HomeVm { get; private set; }
@@ -33,6 +34,16 @@ namespace StatControl.Mvvm.ViewModel
         public MapPageVm MapVm { get; private set; }
         public FunPageVm FunVm { get; private set; }
         public AchievementsPageVm AchieveVm { get; private set; }
+
+        private string _userTitle;
+        public string UserTitle
+        {
+            get => _userTitle;
+            set
+            {
+                SetProperty(ref _userTitle, value);
+            }
+        }
 
         public CarouselPageVm(IPageServiceZero pageService)
         {
@@ -44,11 +55,13 @@ namespace StatControl.Mvvm.ViewModel
             WeaSelectVm = new WeaponsSelectPageVm(_pageService);
             MapVm = new MapPageVm(_pageService);
             FunVm = new FunPageVm(_pageService);
-            AchieveVm = new AchievementsPageVm(_pageService); 
+            AchieveVm = new AchievementsPageVm(_pageService);
         }
 
-        internal void Init(SteamUserAchievementsResponse resultUserAchieve, SteamAchievementDataResponse resultAchieveData, SteamUserProfileResponse resultProfile, SteamGameStatsResponse resultStats, SteamFriendsResponse resultFriends, SteamUserProfileService SendProfileService, SteamGameStatsService SendGameStatsService, SteamUserAchievementsService SendAchivementsService, SteamAchievementService SendAchievementDataService, SteamFriendsService SendFreiendsService)
+        public void RefreshAll()
         {
+
+
             FunVm.DataRefresh();
             HomeVm.DataRefresh();//Not Sure
             MainVm.DataRefresh();
@@ -59,11 +72,16 @@ namespace StatControl.Mvvm.ViewModel
             WeaSelectVm.WeaponsDisplay.Clear();
             WeaSelectVm.onStarted();
             WeaSelectVm.platformHelper();
+
+            UserTitle = $"Viewing: {ApplicatationDataHandler.resultProfile.response.players[0].personaname}";
+
             OnPropertyChanged();
         }
 
         internal void Init()
         {
+
+
             FunVm.DataRefresh();
             HomeVm.DataRefresh();
             HomeVm.getParent(this);
@@ -78,7 +96,22 @@ namespace StatControl.Mvvm.ViewModel
             WeaSelectVm.onStarted();
             WeaSelectVm.platformHelper();
 
+            UserTitle = $"Viewing: {ApplicatationDataHandler.resultProfile.response.players[0].personaname}";
+
             OnPropertyChanged();
         }
+
+        protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (EqualityComparer<T>.Default.Equals(backingStore, value))
+            {
+                return false;
+            }
+
+            backingStore = value;
+            OnPropertyChanged(propertyName);
+            return true;
+        }
+
     }
 }

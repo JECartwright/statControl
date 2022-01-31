@@ -1,8 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Text;
+using StatControl.Mvvm.View;
+using FunctionZero.CommandZero;
 using FunctionZero.MvvmZero;
+using System.Windows.Input;
+using System.Threading.Tasks;
+using StatControl.Mvvm.Model.DisplayModel;
 using StatControl.Mvvm.Model.SteamGameStats;
+using Xamarin.Essentials;
 using Xamarin.Forms;
+using System.Diagnostics;
 
 namespace StatControl.Mvvm.ViewModel
 {
@@ -55,8 +64,8 @@ namespace StatControl.Mvvm.ViewModel
             set => SetProperty(ref _currentWeapon, value);
         }
         private string _weapon;
-        public string Weapon 
-        { 
+        public string Weapon
+        {
             get => _weapon;
             set => SetProperty(ref _weapon, value);
         }
@@ -67,8 +76,8 @@ namespace StatControl.Mvvm.ViewModel
             set => SetProperty(ref _weaponImage, value);
         }
 
-        private readonly Color _customRed = new Color(255, 0, 0);
-        private readonly Color _customGreen = new Color(0, 255, 0);
+        private Color _customRed = new Color(255, 0, 0);
+        private Color _customGreen = new Color(0, 255, 0);
 
         private string _rangeTimeframe;
         public string RangeTimeframe
@@ -76,7 +85,7 @@ namespace StatControl.Mvvm.ViewModel
             get => _rangeTimeframe;
             set
             {
-                value = $"Changes Over {value}";
+                value = "Changes Over " + value;
                 SetProperty(ref _rangeTimeframe, value);
             }
         }
@@ -87,7 +96,7 @@ namespace StatControl.Mvvm.ViewModel
             get => _rangeAccuracy;
             set
             {
-                value = $"Accuracy: {value}%";
+                value = "Accuracy: " + value + "%";
                 SetProperty(ref _rangeAccuracy, value);
             }
         }
@@ -98,7 +107,7 @@ namespace StatControl.Mvvm.ViewModel
             get => _rangeKills;
             set
             {
-                value = $"Kills: {value}";
+                value = "Kills: " + value;
                 SetProperty(ref _rangeKills, value);
             }
         }
@@ -109,7 +118,7 @@ namespace StatControl.Mvvm.ViewModel
             get => _rangeHits;
             set
             {
-                value = $"Hits: {value}";
+                value = "Hits: " + value;
                 SetProperty(ref _rangeHits, value);
             }
         }
@@ -120,7 +129,7 @@ namespace StatControl.Mvvm.ViewModel
             get => _rangeShots;
             set
             {
-                value = $"Shots: {value}";
+                value = "Shots: " + value;
                 SetProperty(ref _rangeShots, value);
             }
         }
@@ -131,7 +140,7 @@ namespace StatControl.Mvvm.ViewModel
             get => _rangeMisses;
             set
             {
-                value = $"Misses: {value}";
+                value = "Misses: " + value;
                 SetProperty(ref _rangeMisses, value);
             }
         }
@@ -142,7 +151,7 @@ namespace StatControl.Mvvm.ViewModel
             get => _globalAccuracy;
             set
             {
-                value = $"Accuracy: {value}%";
+                value = "Accuracy: " + value + "%";
                 SetProperty(ref _globalAccuracy, value);
             }
         }
@@ -153,7 +162,7 @@ namespace StatControl.Mvvm.ViewModel
             get => _globalKills;
             set
             {
-                value = $"Kills: {value}";
+                value = "Kills: " + value;
                 SetProperty(ref _globalKills, value);
             }
         }
@@ -164,7 +173,7 @@ namespace StatControl.Mvvm.ViewModel
             get => _globalHits;
             set
             {
-                value = $"Hits: {value}";
+                value = "Hits: " + value;
                 SetProperty(ref _globalHits, value);
             }
         }
@@ -175,7 +184,7 @@ namespace StatControl.Mvvm.ViewModel
             get => _globalShots;
             set
             {
-                value = $"Shots: {value}";
+                value = "Shots: " + value;
                 SetProperty(ref _globalShots, value);
             }
         }
@@ -186,7 +195,7 @@ namespace StatControl.Mvvm.ViewModel
             get => _globalMisses;
             set
             {
-                value = $"Misses: {value}";
+                value = "Misses: " + value;
                 SetProperty(ref _globalMisses, value);
             }
         }
@@ -201,15 +210,15 @@ namespace StatControl.Mvvm.ViewModel
                 {
                     if (Convert.ToSingle(value) > 0)
                     {
-                        value = $"↑{value}%";
+                        value = "↑" + value + "%";
                         _rangeAccuracyChangeColor = _customRed;
                     }
                     else
                     {
-                        value = $"↓{value}%";
+                        value = "↓" + value + "%";
                         _rangeAccuracyChangeColor = _customGreen;
                     }
-                }                
+                }
                 SetProperty(ref _rangeAccuracyChange, value);
             }
         }
@@ -224,15 +233,15 @@ namespace StatControl.Mvvm.ViewModel
                 {
                     if (Convert.ToSingle(value) > 0)
                     {
-                        value = $"↑{value}%";
+                        value = "↑" + value + "%";
                         _rangeKillsChangeColor = _customGreen;
                     }
                     else
                     {
-                        value = $"↓{value}%";
+                        value = "↓" + value + "%";
                         _rangeKillsChangeColor = _customRed;
                     }
-                }                
+                }
                 SetProperty(ref _rangeKillsChange, value);
             }
         }
@@ -247,15 +256,15 @@ namespace StatControl.Mvvm.ViewModel
                 {
                     if (Convert.ToSingle(value) > 0)
                     {
-                        value = $"↑{value}%";
+                        value = "↑" + value + "%";
                         _rangeHitsChangeColor = _customGreen;
                     }
                     else
                     {
-                        value = $"↓{value}%";
+                        value = "↓" + value + "%";
                         _rangeHitsChangeColor = _customRed;
                     }
-                }                
+                }
                 SetProperty(ref _rangeHitsChange, value);
             }
         }
@@ -270,15 +279,15 @@ namespace StatControl.Mvvm.ViewModel
                 {
                     if (Convert.ToSingle(value) > 0)
                     {
-                        value = $"↑{value}%";
+                        value = "↑" + value + "%";
                         _rangeShotsChangeColor = _customGreen;
                     }
                     else
                     {
-                        value = $"↓{value}%";
+                        value = "↓" + value + "%";
                         _rangeShotsChangeColor = _customRed;
                     }
-                }                
+                }
                 SetProperty(ref _rangeShotsChange, value);
             }
         }
@@ -293,15 +302,15 @@ namespace StatControl.Mvvm.ViewModel
                 {
                     if (Convert.ToSingle(value) > 0)
                     {
-                        value = $"↑{value}%";
+                        value = "↑" + value + "%";
                         _rangeMissesChangeColor = _customGreen;
                     }
                     else
                     {
-                        value = $"↓{value}%";
+                        value = "↓" + value + "%";
                         _rangeMissesChangeColor = _customRed;
                     }
-                }                
+                }
                 SetProperty(ref _rangeMissesChange, value);
             }
         }
@@ -316,15 +325,15 @@ namespace StatControl.Mvvm.ViewModel
                 {
                     if (Convert.ToSingle(value) > 0)
                     {
-                        value = $"↑{value}%";
+                        value = "↑" + value + "%";
                         _globalAccuracyChangeColor = _customGreen;
                     }
                     else
                     {
-                        value = $"↓{value}%";
+                        value = "↓" + value + "%";
                         _globalAccuracyChangeColor = _customRed;
                     }
-                }                
+                }
                 SetProperty(ref _globalAccuracyChange, value);
             }
         }
@@ -339,15 +348,15 @@ namespace StatControl.Mvvm.ViewModel
                 {
                     if (Convert.ToSingle(value) > 0)
                     {
-                        value = $"↑{value}%";
+                        value = "↑" + value + "%";
                         _globalKillsChangeColor = _customGreen;
                     }
                     else
                     {
-                        value = $"↓{value}%";
+                        value = "↓" + value + "%";
                         _globalKillsChangeColor = _customRed;
                     }
-                }                
+                }
                 SetProperty(ref _globalKillsChange, value);
             }
         }
@@ -362,15 +371,15 @@ namespace StatControl.Mvvm.ViewModel
                 {
                     if (Convert.ToSingle(value) > 0)
                     {
-                        value = $"↑{value}%";
+                        value = "↑" + value + "%";
                         _globalHitsChangeColor = _customGreen;
                     }
                     else
                     {
-                        value = $"↓{value}%";
+                        value = "↓" + value + "%";
                         _globalHitsChangeColor = _customRed;
                     }
-                }                
+                }
                 SetProperty(ref _globalHitsChange, value);
             }
         }
@@ -385,15 +394,15 @@ namespace StatControl.Mvvm.ViewModel
                 {
                     if (Convert.ToSingle(value) > 0)
                     {
-                        value = $"↑{value}%";
+                        value = "↑" + value + "%";
                         _globalShotsChangeColor = _customGreen;
                     }
                     else
                     {
-                        value = $"↓{value}%";
+                        value = "↓" + value + "%";
                         _globalShotsChangeColor = _customRed;
                     }
-                }                
+                }
                 SetProperty(ref _globalShotsChange, value);
             }
         }
@@ -408,15 +417,15 @@ namespace StatControl.Mvvm.ViewModel
                 {
                     if (Convert.ToSingle(value) > 0)
                     {
-                        value = $"↑{value}%";
+                        value = "↑" + value + "%";
                         _globalMissesChangeColor = _customRed;
                     }
                     else
                     {
-                        value = $"↓{value}%";
+                        value = "↓" + value + "%";
                         _globalMissesChangeColor = _customGreen;
                     }
-                }                
+                }
                 SetProperty(ref _globalMissesChange, value);
             }
         }
@@ -425,70 +434,100 @@ namespace StatControl.Mvvm.ViewModel
         public Color RangeAccuracyChangeColor
         {
             get => _rangeAccuracyChangeColor;
-            set => SetProperty(ref _rangeAccuracyChangeColor, value);
+            set
+            {
+                SetProperty(ref _rangeAccuracyChangeColor, value);
+            }
         }
 
         private Color _rangeKillsChangeColor;
         public Color RangeKillsChangeColor
         {
             get => _rangeKillsChangeColor;
-            set => SetProperty(ref _rangeKillsChangeColor, value);
+            set
+            {
+                SetProperty(ref _rangeKillsChangeColor, value);
+            }
         }
 
         private Color _rangeHitsChangeColor;
         public Color RangeHitsChangeColor
         {
             get => _rangeHitsChangeColor;
-            set => SetProperty(ref _rangeHitsChangeColor, value);
+            set
+            {
+                SetProperty(ref _rangeHitsChangeColor, value);
+            }
         }
 
         private Color _rangeShotsChangeColor;
         public Color RangeShotsChangeColor
         {
             get => _rangeShotsChangeColor;
-            set => SetProperty(ref _rangeShotsChangeColor, value);
+            set
+            {
+                SetProperty(ref _rangeShotsChangeColor, value);
+            }
         }
 
         private Color _rangeMissesChangeColor;
         public Color RangeMissesChangeColor
         {
             get => _rangeMissesChangeColor;
-            set => SetProperty(ref _rangeMissesChangeColor, value);
+            set
+            {
+                SetProperty(ref _rangeMissesChangeColor, value);
+            }
         }
 
         private Color _globalAccuracyChangeColor;
         public Color GlobalAccuracyChangeColor
         {
             get => _globalAccuracyChangeColor;
-            set => SetProperty(ref _globalAccuracyChangeColor, value);
+            set
+            {
+                SetProperty(ref _globalAccuracyChangeColor, value);
+            }
         }
 
         private Color _globalKillsChangeColor;
         public Color GlobalKillsChangeColor
         {
             get => _globalKillsChangeColor;
-            set => SetProperty(ref _globalKillsChangeColor, value);
+            set
+            {
+                SetProperty(ref _globalKillsChangeColor, value);
+            }
         }
 
         private Color _globalHitsChangeColor;
         public Color GlobalHitsChangeColor
         {
             get => _globalHitsChangeColor;
-            set => SetProperty(ref _globalHitsChangeColor, value);
+            set
+            {
+                SetProperty(ref _globalHitsChangeColor, value);
+            }
         }
 
         private Color _globalShotsChangeColor;
         public Color GlobalShotsChangeColor
         {
             get => _globalShotsChangeColor;
-            set => SetProperty(ref _globalShotsChangeColor, value);
+            set
+            {
+                SetProperty(ref _globalShotsChangeColor, value);
+            }
         }
 
         private Color _globalMissesChangeColor;
         public Color GlobalMissesChangeColor
         {
             get => _globalMissesChangeColor;
-            set => SetProperty(ref _globalMissesChangeColor, value);
+            set
+            {
+                SetProperty(ref _globalMissesChangeColor, value);
+            }
         }
 
         private string _score;
@@ -497,7 +536,7 @@ namespace StatControl.Mvvm.ViewModel
             get => _score;
             set
             {
-                value = $"Score: {value}";
+                value = "Score: " + value;
                 SetProperty(ref _score, value);
             }
         }
@@ -509,14 +548,17 @@ namespace StatControl.Mvvm.ViewModel
         public SteamGameStatsResponse ResultGameStats
         {
             get => _resultGameStats;
-            set =>
+            set
+            {
                 //_resultStats = value;
                 SetProperty(ref _resultGameStats, value);
+            }
         }
 
-        //functions
+        //fuctions
+
         public void PageSetup(SteamGameStatsResponse data)
-        {            
+        {
             WeaponImage = _favWeaponDictionary[Weapon];
             WeaponDataShots = data.playerstats.stats.Find(x => x.name.Equals($"total_shots_{Weapon}"))?.value.ToString() ?? "0";
             WeaponDataHits = data.playerstats.stats.Find(x => x.name.Equals($"total_hits_{Weapon}"))?.value.ToString() ?? "0";
@@ -584,7 +626,7 @@ namespace StatControl.Mvvm.ViewModel
 
         public IndividualWeaponPageVm()
         {
-            SetDefaultValues();            
+            SetDefaultValues();
         }
 
         internal void Init(SteamGameStatsResponse resultGameStats, string currentWeapon)

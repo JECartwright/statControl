@@ -1,25 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using StatControl.Mvvm.View;
 using FunctionZero.CommandZero;
 using FunctionZero.MvvmZero;
 using System.Windows.Input;
 using System.Threading.Tasks;
 using StatControl.Services;
-using System.Collections.Generic;
 using System.Diagnostics;
 using Xamarin.Forms;
+using Xamarin.Forms.Core;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using StatControl.Mvvm.Model.DisplayModel;
 using StatControl.Mvvm.Model.SteamUserFriends;
 using StatControl.Mvvm.Model.SteamUserProfile;
 using StatControl.Mvvm.Model.ApplicationAPIData;
-using StatControl.Services;
 using Xamarin.Essentials;
 
 namespace StatControl.Mvvm.ViewModel
@@ -30,29 +26,28 @@ namespace StatControl.Mvvm.ViewModel
         public ObservableCollection<SocialProfileDisplayModel> Points { get; private set; }
         private List<SteamUserProfileResponse> steamUserProfileResponses = new List<SteamUserProfileResponse>();
         private readonly IPageServiceZero _pageService;
+        private CarouselPageVm daddy;
 
-        private SteamFriendsResponse _response;
-        public SteamFriendsResponse Response
+        private SteamFriendsResponse _steamFriendsResponse;
+        public SteamFriendsResponse steamFriendsResponse
         {
-            get { return _response; }
+            get { return _steamFriendsResponse; }
             set
             {
-                SetProperty(ref _response, value);
+                SetProperty(ref _steamFriendsResponse, value);
                 DisplayStuff();
-
-
 
                 OnPropertyChanged();
             }
         }
 
-        private SteamUserProfileService _recivedProfileService;
-        public SteamUserProfileService RecivedProfileService
+        private SteamUserProfileService _steamUserProfileService;
+        public SteamUserProfileService steamUserProfileService
         {
-            get { return _recivedProfileService; }
+            get { return _steamUserProfileService; }
             set
             {
-                SetProperty(ref _recivedProfileService, value);
+                SetProperty(ref _steamUserProfileService, value);
             }
         }
 
@@ -71,6 +66,7 @@ namespace StatControl.Mvvm.ViewModel
                 OnPropertyChanged();
             }
         }
+
         SocialProfileDisplayModel _selectedProfilePoints;
         public SocialProfileDisplayModel SelectedProfilePoints
         {
@@ -87,29 +83,30 @@ namespace StatControl.Mvvm.ViewModel
             }
         }
 
-        private CarouselPageVm daddy;
-
         private async void OpenNewUser(SocialProfileDisplayModel current)
         {
-            await AplicatationDataHandler.Update(current.ID);
-            if (AplicatationDataHandler.CheckAPI)
+            await ApplicatationDataHandler.Update(current.ID);
+            if (ApplicatationDataHandler.CheckAPI)
             {
-                daddy.RefreshAll();                
+                daddy.RefreshAll();
             }
             else
             {
-                await AplicatationDataHandler.ReloadMain();
+                await ApplicatationDataHandler.ReloadMain();
             }
-            OnPropertyChanged();
+            await Task.Delay(10);
+            SelectedProfileFriends = null;
+            SelectedProfilePoints = null;
 
+            OnPropertyChanged();
         }
 
         private async void DisplayStuff()
         {
-            for (int b = 0;b < _response.friendslist.friends.Count; b++)
+            for (int b = 0; b < _steamFriendsResponse.friendslist.friends.Count; b++)
             {
-                string steamid = _response.friendslist.friends[b].steamid;
-                var resultProfile = await RecivedProfileService.GetUserSummaryAsync(steamid);
+                string steamid = _steamFriendsResponse.friendslist.friends[b].steamid;
+                var resultProfile = await steamUserProfileService.GetUserSummaryAsync(steamid);
                 //Checking to see if the response was successful
                 if (resultProfile.status == 0)
                 {
@@ -130,10 +127,10 @@ namespace StatControl.Mvvm.ViewModel
                 else
                 {
                     Debug.WriteLine("Error in getting API.");
-                }                
+                }
             }
-            Console.WriteLine("HELLO");
-            for(int i = 0;i < steamUserProfileResponses.Count;i++)
+
+            for (int i = 0; i < steamUserProfileResponses.Count; i++)
             {
                 SocialProfileDisplayModel ToAdd = new SocialProfileDisplayModel();
                 ToAdd.ID = steamUserProfileResponses[i].response.players[0].steamid;
@@ -144,15 +141,15 @@ namespace StatControl.Mvvm.ViewModel
                 Points.Add(ToAdd); // please remove me when you add point system
             }
             OnPropertyChanged();
-            Debug.WriteLine("Finished Adding Users To Social Pannel");
+            Debug.WriteLine("Finished Adding Users To Social Page");
         }
 
         public void DataRefresh()
         {
-            if (AplicatationDataHandler.CheckAPI)
+            if (ApplicatationDataHandler.CheckAPI)
             {
-                RecivedProfileService = AplicatationDataHandler.GetServiceForSocial();
-                Response = AplicatationDataHandler.resultFriends;                
+                steamUserProfileService = ApplicatationDataHandler.GetUserProfileServiceForSocial();
+                steamFriendsResponse = ApplicatationDataHandler.resultFriends;
             }
             OnPropertyChanged();
         }
@@ -162,14 +159,11 @@ namespace StatControl.Mvvm.ViewModel
             daddy = dad;
         }
 
-        public SocialPageVm(IPageServiceZero pageService)  
+        public SocialPageVm(IPageServiceZero pageService)
         {
             Friends = new ObservableCollection<SocialProfileDisplayModel>();
             Points = new ObservableCollection<SocialProfileDisplayModel>();
             _pageService = pageService;
         }
-
-
-
     }
 }

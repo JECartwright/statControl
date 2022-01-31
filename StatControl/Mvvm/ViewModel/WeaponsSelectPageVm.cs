@@ -13,6 +13,7 @@ using Xamarin.Essentials;
 using StatControl.Mvvm.Model.DisplayModel;
 using StatControl.Mvvm.Model.SteamGameStats;
 using System.Diagnostics;
+using StatControl.Mvvm.Model.ApplicationAPIData;
 
 
 namespace StatControl.Mvvm.ViewModel
@@ -141,9 +142,9 @@ namespace StatControl.Mvvm.ViewModel
                 new WeaponSelectDisplayModel("hegrenade", "Grenade")
             };
 
-            for (int i = 0;i< ResultStats.playerstats.stats.Count; i++)
+            for (int i = 0; i < ResultStats.playerstats.stats.Count; i++)
             {
-                for (int b = 0; b < Weapons.Count;b++)
+                for (int b = 0; b < Weapons.Count; b++)
                 {
                     if (ResultStats.playerstats.stats[i].name == "total_kills_" + Weapons[b].APIName)
                     {
@@ -159,21 +160,21 @@ namespace StatControl.Mvvm.ViewModel
                     }
                 }
             }
-            for (int c = 0;c<Weapons.Count;c++)
+            for (int c = 0; c < Weapons.Count; c++)
             {
                 Weapons[c].WeaponImage = _favWeaponDictionary[Weapons[c].APIName];
                 Weapons[c].setAccuracy();
-                WeaponsDisplay.Add(Weapons[c]);                
+                WeaponsDisplay.Add(Weapons[c]);
             }
             Debug.WriteLine("Finished Setting Up Weapon Data");
-            
+
         }
 
         public void platformHelper()
         {
             switch (Device.RuntimePlatform)
             {
-                case Device.Android:                    
+                case Device.Android:
                     var Screen = DeviceDisplay.MainDisplayInfo;
                     var X = Screen.Width;
                     if (X == 1080)
@@ -204,9 +205,9 @@ namespace StatControl.Mvvm.ViewModel
 
         public void DataRefresh()
         {
-            if (AplicatationDataHandler.CheckAPI)
+            if (ApplicatationDataHandler.CheckAPI)
             {
-                ResultStats = AplicatationDataHandler.resultStats;
+                ResultStats = ApplicatationDataHandler.resultStats;
             }
             OnPropertyChanged();
         }
