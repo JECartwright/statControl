@@ -22,7 +22,7 @@ namespace StatControl.Mvvm.ViewModel
         private readonly IPageServiceZero _pageService;
         private SteamUserProfileResponse _resultProfile;
         private CarouselPageVm daddy;
-
+        public ICommand ReloadUser { get; }
         public ICommand UpdateCommand { get; }
         public SteamUserProfileResponse ResultProfile
         {
@@ -32,6 +32,22 @@ namespace StatControl.Mvvm.ViewModel
                 SetProperty(ref _resultProfile, value);
                 OnPropertyChanged();
             }
+        }
+
+        private bool _isButtonVisible;
+        public bool IsButtonVisible
+        {
+            get => _isButtonVisible;
+            set
+            {
+                SetProperty(ref _isButtonVisible, value);
+            }
+        }
+
+        private async Task RealoadUserCommand()
+        {
+            await ApplicatationDataHandler.ReloadMain();
+            daddy.RefreshAll();
         }
 
         public void getParent(CarouselPageVm dad)
@@ -44,13 +60,23 @@ namespace StatControl.Mvvm.ViewModel
             if (ApplicatationDataHandler.CheckAPI)
             {
                 ResultProfile = ApplicatationDataHandler.resultProfile;
+                if (ResultProfile.response.players[0].steamid == ApplicatationDataHandler.MainUserID)
+                {
+                    IsButtonVisible = false;
+                }
+                else
+                {
+                    IsButtonVisible = true;
+                }
             }
+            
             OnPropertyChanged();
         }
 
         public HomePageVm(IPageServiceZero pageService)
         {
             _pageService = pageService;
+            ReloadUser = new CommandBuilder().SetExecuteAsync(RealoadUserCommand).Build();
         }
     }
 }
