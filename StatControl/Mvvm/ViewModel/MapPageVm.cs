@@ -1,18 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using StatControl.Mvvm.View;
-using FunctionZero.CommandZero;
 using FunctionZero.MvvmZero;
-using System.Windows.Input;
-using System.Threading.Tasks;
-using StatControl.Services;
-using System.Diagnostics;
-using Xamarin.Forms;
-using StatControl.Mvvm.Model.SteamUserProfile;
-using StatControl.Mvvm.Model.SteamUserAchievements;
 using StatControl.Mvvm.Model.SteamGameStats;
-using System.ComponentModel;
 using System.Collections.ObjectModel;
 using StatControl.Mvvm.Model.DisplayModel;
 using StatControl.Mvvm.Model.ApplicationAPIData;
@@ -54,7 +43,7 @@ namespace StatControl.Mvvm.ViewModel
         {
             if (ApplicatationDataHandler.CheckAPI)
             {
-                ResultStats = ApplicatationDataHandler.resultStats;
+                ResultStats = ApplicatationDataHandler.ResultStats;
             }
             OnPropertyChanged();
         }

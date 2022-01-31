@@ -1,22 +1,15 @@
-﻿using System;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Text;
-using StatControl.Mvvm.View;
-using FunctionZero.CommandZero;
 using FunctionZero.MvvmZero;
-using System.Windows.Input;
 using System.Threading.Tasks;
 using StatControl.Services;
 using System.Diagnostics;
-using Xamarin.Forms;
-using Xamarin.Forms.Core;
-using System.ComponentModel;
 using System.Collections.ObjectModel;
+using System.Linq;
 using StatControl.Mvvm.Model.DisplayModel;
 using StatControl.Mvvm.Model.SteamUserFriends;
 using StatControl.Mvvm.Model.SteamUserProfile;
 using StatControl.Mvvm.Model.ApplicationAPIData;
-using Xamarin.Essentials;
 
 namespace StatControl.Mvvm.ViewModel
 {
@@ -24,14 +17,15 @@ namespace StatControl.Mvvm.ViewModel
     {
         public ObservableCollection<SocialProfileDisplayModel> Friends { get; private set; }
         public ObservableCollection<SocialProfileDisplayModel> Points { get; private set; }
-        private List<SteamUserProfileResponse> steamUserProfileResponses = new List<SteamUserProfileResponse>();
+        private ConcurrentBag<SteamUserProfileResponse> _steamUserProfileResponsesConcurrentBag = new ConcurrentBag<SteamUserProfileResponse>();
+        private List<SteamUserProfileResponse> _steamUserProfileResponsesList = new List<SteamUserProfileResponse>();
         private readonly IPageServiceZero _pageService;
         private CarouselPageVm daddy;
 
         private SteamFriendsResponse _steamFriendsResponse;
         public SteamFriendsResponse SteamFriendsResponse
         {
-            get { return _steamFriendsResponse; }
+            get => _steamFriendsResponse;
             set
             {
                 SetProperty(ref _steamFriendsResponse, value);
@@ -44,11 +38,8 @@ namespace StatControl.Mvvm.ViewModel
         private SteamUserProfileService _steamUserProfileService;
         public SteamUserProfileService SteamUserProfileService
         {
-            get { return _steamUserProfileService; }
-            set
-            {
-                SetProperty(ref _steamUserProfileService, value);
-            }
+            get => _steamUserProfileService;
+            set => SetProperty(ref _steamUserProfileService, value);
         }
 
         SocialProfileDisplayModel _selectedProfileFriends;
@@ -101,46 +92,53 @@ namespace StatControl.Mvvm.ViewModel
             OnPropertyChanged();
         }
 
-        private async void DisplayStuff()
+        private async Task GetFriendData(Friend friend)
         {
-            for (int b = 0;b < _steamFriendsResponse.friendslist.friends.Count; b++)
+            string steamid = friend.steamid;
+            var resultProfile = await SteamUserProfileService.GetUserSummaryAsync(steamid);
+            //Checking to see if the response was successful
+            if (resultProfile.status == 0)
             {
-                string steamid = _steamFriendsResponse.friendslist.friends[b].steamid;
-                var resultProfile = await SteamUserProfileService.GetUserSummaryAsync(steamid);
-                //Checking to see if the response was successful
-                if (resultProfile.status == 0)
+                //Checking to see if the response contains data
+                if (resultProfile.payload.response.players != null)
                 {
-                    //Checking to see if the response contains data
-                    if (resultProfile.payload.response.players != null)
-                    {
-
-                        if (resultProfile.payload != null)
-                        {
-                            steamUserProfileResponses.Add(resultProfile.payload);
-                        }
-                    }
-                    else
-                    {
-                        Debug.WriteLine("Data Returned is null.");
-                    }
+                    _steamUserProfileResponsesConcurrentBag.Add(resultProfile.payload);
                 }
                 else
                 {
-                    Debug.WriteLine("Error in getting API.");
-                }                
+                    Debug.WriteLine("Data Returned is null.");
+                }
+            }
+            else
+            {
+                Debug.WriteLine("Error in getting API.");
+            }
+        }
+        
+        private async void DisplayStuff()
+        {
+            var friendsTasks = new List<Task>();
+            foreach (var t in _steamFriendsResponse.friendslist.friends)
+            {
+                var friendsTask = GetFriendData(t);
+                friendsTasks.Add(friendsTask);
             }
 
-            for(int i = 0;i < steamUserProfileResponses.Count;i++)
+            await Task.WhenAll(friendsTasks);
+            
+            _steamUserProfileResponsesList = _steamUserProfileResponsesConcurrentBag.ToList();
+
+            for(int i = 0;i < _steamUserProfileResponsesList.Count;i++)
             {
-                SocialProfileDisplayModel ToAdd = new SocialProfileDisplayModel
+                SocialProfileDisplayModel toAdd = new SocialProfileDisplayModel
                 {
-                    ID = steamUserProfileResponses[i].response.players[0].steamid,
-                    Name = steamUserProfileResponses[i].response.players[0].personaname,
-                    ProfilePicture = steamUserProfileResponses[i].response.players[0].avatarfull,
+                    ID = _steamUserProfileResponsesList[i].response.players[0].steamid,
+                    Name = _steamUserProfileResponsesList[i].response.players[0].personaname,
+                    ProfilePicture = _steamUserProfileResponsesList[i].response.players[0].avatarfull,
                     Score = "Score: 0"
                 };
-                Friends.Add(ToAdd);
-                Points.Add(ToAdd); // please remove me when you add point system
+                Friends.Add(toAdd);
+                Points.Add(toAdd); // please remove me when you add point system
             }
             OnPropertyChanged();
             Debug.WriteLine("Finished Adding Users To Social Page");
@@ -151,7 +149,7 @@ namespace StatControl.Mvvm.ViewModel
             if (ApplicatationDataHandler.CheckAPI)
             {
                 SteamUserProfileService = ApplicatationDataHandler.GetUserProfileServiceForSocial();
-                SteamFriendsResponse = ApplicatationDataHandler.resultFriends;
+                SteamFriendsResponse = ApplicatationDataHandler.ResultFriends;
             }
             OnPropertyChanged();
         }

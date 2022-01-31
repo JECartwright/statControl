@@ -1,31 +1,14 @@
-﻿using StatControl.Mvvm.Model.SteamGameStats;
-using StatControl.Mvvm.Model.SteamUserAchievements;
-using StatControl.Mvvm.Model.SteamUserProfile;
-using StatControl.Mvvm.Model.SteamAchievementData;
-using StatControl.Mvvm.Model.SteamUserFriends;
-using StatControl.Mvvm.View;
-using FunctionZero.CommandZero;
-using FunctionZero.MvvmZero;
-using System.Windows.Input;
-using System.Threading.Tasks;
-using StatControl.Services.Rest;
-using System;
+﻿using FunctionZero.MvvmZero;
 using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms;
-using System.Diagnostics;
-using System.Collections.ObjectModel;
-using StatControl.Services;
 using StatControl.Mvvm.Model.ApplicationAPIData;
-using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace StatControl.Mvvm.ViewModel
 {
-    internal class CarouselPageVm : CarouselPage, INotifyPropertyChanged
+    internal class CarouselPageVm : CarouselPage
     {
         private readonly IPageServiceZero _pageService;
-        public ICommand TestCommand { get; }
         public SocialPageVm SocialVm { get; private set; }
         public HomePageVm HomeVm { get; private set; }
         public MainStatPageVm MainVm { get; private set; }
@@ -39,10 +22,7 @@ namespace StatControl.Mvvm.ViewModel
         public string UserTitle
         {
             get => _userTitle;
-            set
-            {
-                SetProperty(ref _userTitle, value);
-            }
+            set => SetProperty(ref _userTitle, value);
         }
 
         public CarouselPageVm(IPageServiceZero pageService)
@@ -73,7 +53,7 @@ namespace StatControl.Mvvm.ViewModel
             WeaSelectVm.OnStarted();
             WeaSelectVm.PlatformHelper();
 
-            UserTitle = $"Viewing: {ApplicatationDataHandler.resultProfile.response.players[0].personaname}";
+            UserTitle = $"Viewing: {ApplicatationDataHandler.ResultProfile.response.players[0].personaname}";
 
             OnPropertyChanged();
         }
@@ -96,21 +76,20 @@ namespace StatControl.Mvvm.ViewModel
             WeaSelectVm.OnStarted();
             WeaSelectVm.PlatformHelper();
 
-            UserTitle = $"Viewing: {ApplicatationDataHandler.resultProfile.response.players[0].personaname}";
+            UserTitle = $"Viewing: {ApplicatationDataHandler.ResultProfile.response.players[0].personaname}";
 
             OnPropertyChanged();
         }
 
-        protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = null)
+        private void SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = null)
         {
             if (EqualityComparer<T>.Default.Equals(backingStore, value))
             {
-                return false;
+                return;
             }
 
             backingStore = value;
             OnPropertyChanged(propertyName);
-            return true;
         }
 
     }

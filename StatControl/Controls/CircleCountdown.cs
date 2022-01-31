@@ -24,26 +24,26 @@ namespace StatControl.Controls
 
         public float StrokeWidth
         {
-            get { return (float)GetValue(StrokeWidthProperty); }
-            set { SetValue(StrokeWidthProperty, value); }
+            get => (float)GetValue(StrokeWidthProperty);
+            set => SetValue(StrokeWidthProperty, value);
         }
 
         public float Progress
         {
-            get { return (float)GetValue(ProgressProperty); }
-            set { SetValue(ProgressProperty, value); }
+            get => (float)GetValue(ProgressProperty);
+            set => SetValue(ProgressProperty, value);
         }
 
         public Color ProgressStartColor
         {
-            get { return (Color)GetValue(ProgressStartColorProperty); }
-            set { SetValue(ProgressStartColorProperty, value); }
+            get => (Color)GetValue(ProgressStartColorProperty);
+            set => SetValue(ProgressStartColorProperty, value);
         }
 
         public Color ProgressEndColor
         {
-            get { return (Color)GetValue(ProgressEndColorProperty); }
-            set { SetValue(ProgressEndColorProperty, value); }
+            get => (Color)GetValue(ProgressEndColorProperty);
+            set => SetValue(ProgressEndColorProperty, value);
         }
 
         protected override void OnPaintSurface(SKPaintSurfaceEventArgs args)
