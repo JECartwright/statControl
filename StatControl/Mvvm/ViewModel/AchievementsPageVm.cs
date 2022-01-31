@@ -24,7 +24,15 @@ namespace StatControl.Mvvm.ViewModel
         private SteamUserAchievementsResponse _resultUserAchieve;
         private SteamAchievementDataResponse _resultAchieveData;
 
-        public ObservableCollection<AchievementDisplayModel> Achievements { get; private set; } //Achievements that get binded to
+        private ObservableCollection<AchievementDisplayModel> _achievements;
+        public ObservableCollection<AchievementDisplayModel> Achievements {
+            get => _achievements;
+            set
+            {
+                SetProperty(ref _achievements, value);
+            }        
+        }
+
         private List<AchievementDisplayModel> AchievementsToSort = new List<AchievementDisplayModel>();
 
         public SteamAchievementDataResponse ResultAchieveData
