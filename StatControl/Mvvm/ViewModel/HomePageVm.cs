@@ -12,9 +12,8 @@ using Xamarin.Forms;
 using StatControl.Mvvm.Model.SteamUserProfile;
 using StatControl.Mvvm.Model.SteamUserAchievements;
 using StatControl.Mvvm.Model.SteamGameStats;
-using StatControl.Mvvm.Model.ApplicationAPIData;
-
 using System.ComponentModel;
+using StatControl.Mvvm.Model.ApplicationAPIData;
 
 namespace StatControl.Mvvm.ViewModel
 {
@@ -23,40 +22,28 @@ namespace StatControl.Mvvm.ViewModel
         private readonly IPageServiceZero _pageService;
         private SteamUserProfileResponse _resultProfile;
         private CarouselPageVm daddy;
+
         public ICommand UpdateCommand { get; }
         public SteamUserProfileResponse ResultProfile
         {
             get => _resultProfile;
-            set 
+            set
             {
                 SetProperty(ref _resultProfile, value);
                 OnPropertyChanged();
             }
         }
 
-        /*
-         * ADD THIS FUNCTION ON BUTTON PRESS TO LOAD ORIGIONAL USER
-         * 
-        private async void ReloadUser()
-        {
-            await AplicatationDataHandler.ReloadMain();
-            daddy.RefreshAll(); 
-            OnPropertyChanged();
-        }
-        */
-
         public void getParent(CarouselPageVm dad)
         {
             daddy = dad;
         }
 
-        
-
         public void DataRefresh()
         {
-            if (AplicatationDataHandler.CheckAPI)
+            if (ApplicatationDataHandler.CheckAPI)
             {
-                ResultProfile = AplicatationDataHandler.resultProfile;
+                ResultProfile = ApplicatationDataHandler.resultProfile;
             }
             OnPropertyChanged();
         }

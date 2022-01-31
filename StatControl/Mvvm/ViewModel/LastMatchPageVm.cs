@@ -7,8 +7,8 @@ using Xamarin.Forms;
 using StatControl.Mvvm.Model.SteamUserProfile;
 using StatControl.Mvvm.Model.SteamUserAchievements;
 using StatControl.Mvvm.Model.SteamGameStats;
-using System.ComponentModel;
 using StatControl.Mvvm.Model.ApplicationAPIData;
+using System.ComponentModel;
 using System;
 using System.Collections.Generic;
 
@@ -129,19 +129,21 @@ namespace StatControl.Mvvm.ViewModel
                 TextMatchResults = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_wins"))?.value.ToString() + " / " + (_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_rounds"))?.value - _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_wins"))?.value).ToString() ?? "0";
                 TextMVP = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_mvps"))?.value.ToString() ?? "0";
                 TextKills = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_kills"))?.value.ToString() ?? "0";
-                TextDeaths =  _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_deaths"))?.value.ToString() ?? "0";
-                
-                if (_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_deaths"))?.value == 0) {
+                TextDeaths = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_deaths"))?.value.ToString() ?? "0";
+
+                if (_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_deaths"))?.value == 0)
+                {
                     TextKD = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_kills"))?.value.ToString();
-                } else
+                }
+                else
                 {
                     TextKD = Math.Round((double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_kills"))?.value / (double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_deaths"))?.value, 2).ToString() ?? "0";
                 }
 
                 TextDamage = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_damage"))?.value.ToString() ?? "0";
                 TextADR = Math.Round((double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_damage"))?.value / (double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_rounds"))?.value, 2).ToString() ?? "0";
-                TextScore =  _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_contribution_score"))?.value.ToString() ?? "0";
-                TextMoneySpent =  _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_money_spent"))?.value.ToString() ?? "0";
+                TextScore = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_contribution_score"))?.value.ToString() ?? "0";
+                TextMoneySpent = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_money_spent"))?.value.ToString() ?? "0";
 
                 //Favourite Weapon
                 FavWeaponID = _favWeaponDictionary[_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_id")).value];
@@ -158,9 +160,9 @@ namespace StatControl.Mvvm.ViewModel
 
         public void DataRefresh()
         {
-            if (AplicatationDataHandler.CheckAPI)
+            if (ApplicatationDataHandler.CheckAPI)
             {
-                ResultStats = AplicatationDataHandler.resultStats;
+                ResultStats = ApplicatationDataHandler.resultStats;
             }
             OnPropertyChanged();
         }

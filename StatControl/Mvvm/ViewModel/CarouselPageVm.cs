@@ -55,12 +55,12 @@ namespace StatControl.Mvvm.ViewModel
             WeaSelectVm = new WeaponsSelectPageVm(_pageService);
             MapVm = new MapPageVm(_pageService);
             FunVm = new FunPageVm(_pageService);
-            AchieveVm = new AchievementsPageVm(_pageService); 
+            AchieveVm = new AchievementsPageVm(_pageService);
         }
 
-        internal void Init(SteamUserAchievementsResponse resultUserAchieve, SteamAchievementDataResponse resultAchieveData, SteamUserProfileResponse resultProfile, SteamGameStatsResponse resultStats, SteamFriendsResponse resultFriends, SteamUserProfileService SendProfileService, SteamGameStatsService SendGameStatsService, SteamUserAchievementsService SendAchivementsService, SteamAchievementService SendAchievementDataService, SteamFriendsService SendFreiendsService)
+        public void RefreshAll()
         {
-            
+
 
             FunVm.DataRefresh();
             HomeVm.DataRefresh();//Not Sure
@@ -80,7 +80,7 @@ namespace StatControl.Mvvm.ViewModel
 
         internal void Init()
         {
-            
+
 
             FunVm.DataRefresh();
             HomeVm.DataRefresh();

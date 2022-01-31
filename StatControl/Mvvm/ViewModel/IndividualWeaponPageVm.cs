@@ -64,8 +64,8 @@ namespace StatControl.Mvvm.ViewModel
             set => SetProperty(ref _currentWeapon, value);
         }
         private string _weapon;
-        public string Weapon 
-        { 
+        public string Weapon
+        {
             get => _weapon;
             set => SetProperty(ref _weapon, value);
         }
@@ -218,7 +218,7 @@ namespace StatControl.Mvvm.ViewModel
                         value = "↓" + value + "%";
                         _rangeAccuracyChangeColor = _customGreen;
                     }
-                }                
+                }
                 SetProperty(ref _rangeAccuracyChange, value);
             }
         }
@@ -241,7 +241,7 @@ namespace StatControl.Mvvm.ViewModel
                         value = "↓" + value + "%";
                         _rangeKillsChangeColor = _customRed;
                     }
-                }                
+                }
                 SetProperty(ref _rangeKillsChange, value);
             }
         }
@@ -264,7 +264,7 @@ namespace StatControl.Mvvm.ViewModel
                         value = "↓" + value + "%";
                         _rangeHitsChangeColor = _customRed;
                     }
-                }                
+                }
                 SetProperty(ref _rangeHitsChange, value);
             }
         }
@@ -287,7 +287,7 @@ namespace StatControl.Mvvm.ViewModel
                         value = "↓" + value + "%";
                         _rangeShotsChangeColor = _customRed;
                     }
-                }                
+                }
                 SetProperty(ref _rangeShotsChange, value);
             }
         }
@@ -310,7 +310,7 @@ namespace StatControl.Mvvm.ViewModel
                         value = "↓" + value + "%";
                         _rangeMissesChangeColor = _customRed;
                     }
-                }                
+                }
                 SetProperty(ref _rangeMissesChange, value);
             }
         }
@@ -333,7 +333,7 @@ namespace StatControl.Mvvm.ViewModel
                         value = "↓" + value + "%";
                         _globalAccuracyChangeColor = _customRed;
                     }
-                }                
+                }
                 SetProperty(ref _globalAccuracyChange, value);
             }
         }
@@ -356,7 +356,7 @@ namespace StatControl.Mvvm.ViewModel
                         value = "↓" + value + "%";
                         _globalKillsChangeColor = _customRed;
                     }
-                }                
+                }
                 SetProperty(ref _globalKillsChange, value);
             }
         }
@@ -379,7 +379,7 @@ namespace StatControl.Mvvm.ViewModel
                         value = "↓" + value + "%";
                         _globalHitsChangeColor = _customRed;
                     }
-                }                
+                }
                 SetProperty(ref _globalHitsChange, value);
             }
         }
@@ -402,7 +402,7 @@ namespace StatControl.Mvvm.ViewModel
                         value = "↓" + value + "%";
                         _globalShotsChangeColor = _customRed;
                     }
-                }                
+                }
                 SetProperty(ref _globalShotsChange, value);
             }
         }
@@ -425,7 +425,7 @@ namespace StatControl.Mvvm.ViewModel
                         value = "↓" + value + "%";
                         _globalMissesChangeColor = _customGreen;
                     }
-                }                
+                }
                 SetProperty(ref _globalMissesChange, value);
             }
         }
@@ -551,14 +551,14 @@ namespace StatControl.Mvvm.ViewModel
             set
             {
                 //_resultStats = value;
-                SetProperty(ref _resultGameStats, value);                
+                SetProperty(ref _resultGameStats, value);
             }
         }
 
         //fuctions
 
         public void PageSetup(SteamGameStatsResponse data)
-        {            
+        {
             WeaponImage = _favWeaponDictionary[Weapon];
             WeaponDataShots = data.playerstats.stats.Find(x => x.name.Equals($"total_shots_{Weapon}"))?.value.ToString() ?? "0";
             WeaponDataHits = data.playerstats.stats.Find(x => x.name.Equals($"total_hits_{Weapon}"))?.value.ToString() ?? "0";
@@ -626,7 +626,7 @@ namespace StatControl.Mvvm.ViewModel
 
         public IndividualWeaponPageVm()
         {
-            SetDefaultValues();            
+            SetDefaultValues();
         }
 
         internal void Init(SteamGameStatsResponse resultGameStats, string currentWeapon)
