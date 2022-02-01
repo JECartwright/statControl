@@ -128,11 +128,6 @@ namespace StatControl.Mvvm.ViewModel
             }
         }
 
-        private async Task AddData(SteamUserProfileResponse steamUserProfileResponse)
-        {
-
-        }
-        
         private async void DisplayStuff()
         {
             var tasks = new List<Task>();
