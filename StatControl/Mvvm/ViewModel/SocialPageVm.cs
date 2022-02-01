@@ -15,9 +15,22 @@ namespace StatControl.Mvvm.ViewModel
 {
     internal class SocialPageVm : MvvmZeroBaseVm
     {
-        public ObservableCollection<SocialProfileDisplayModel> Friends { get; private set; }
-        public ObservableCollection<SocialProfileDisplayModel> Points { get; private set; }
+        private ObservableCollection<SocialProfileDisplayModel> _friends;
+        public ObservableCollection<SocialProfileDisplayModel> Friends {
+            get => _friends;
+            set => SetProperty(ref _friends, value);
+            
+        }
+
+        private ObservableCollection<SocialProfileDisplayModel> _points;
+        public ObservableCollection<SocialProfileDisplayModel> Points {
+            get => _points;
+            set => SetProperty(ref _points, value);
+            
+        }
         private ConcurrentBag<SteamUserProfileResponse> _steamUserProfileResponsesConcurrentBag = new ConcurrentBag<SteamUserProfileResponse>();
+        private ConcurrentBag<SocialProfileDisplayModel> _friendsConcurrentBag = new ConcurrentBag<SocialProfileDisplayModel>();
+        private ConcurrentBag<SocialProfileDisplayModel> _pointsConcurrentBag = new ConcurrentBag<SocialProfileDisplayModel>();
         private List<SteamUserProfileResponse> _steamUserProfileResponsesList = new List<SteamUserProfileResponse>();
         private readonly IPageServiceZero _pageService;
         private CarouselPageVm daddy;
@@ -42,7 +55,7 @@ namespace StatControl.Mvvm.ViewModel
             set => SetProperty(ref _steamUserProfileService, value);
         }
 
-        SocialProfileDisplayModel _selectedProfileFriends;
+        private SocialProfileDisplayModel _selectedProfileFriends;
         public SocialProfileDisplayModel SelectedProfileFriends
         {
             get => _selectedProfileFriends;
@@ -58,7 +71,7 @@ namespace StatControl.Mvvm.ViewModel
             }
         }
 
-        SocialProfileDisplayModel _selectedProfilePoints;
+        private SocialProfileDisplayModel _selectedProfilePoints;
         public SocialProfileDisplayModel SelectedProfilePoints
         {
             get => _selectedProfilePoints;
@@ -114,32 +127,40 @@ namespace StatControl.Mvvm.ViewModel
                 Debug.WriteLine("Error in getting API.");
             }
         }
+
+        private async Task AddData(SteamUserProfileResponse steamUserProfileResponse)
+        {
+
+        }
         
         private async void DisplayStuff()
         {
-            var friendsTasks = new List<Task>();
-            foreach (var t in _steamFriendsResponse.friendslist.friends)
+            var tasks = new List<Task>();
+            foreach (var friend in _steamFriendsResponse.friendslist.friends)
             {
-                var friendsTask = GetFriendData(t);
-                friendsTasks.Add(friendsTask);
+                var friendsTask = GetFriendData(friend);
+                tasks.Add(friendsTask);
             }
-
-            await Task.WhenAll(friendsTasks);
-            
+            await Task.WhenAll(tasks);
             _steamUserProfileResponsesList = _steamUserProfileResponsesConcurrentBag.ToList();
 
-            for(int i = 0;i < _steamUserProfileResponsesList.Count;i++)
+            Parallel.ForEach(_steamUserProfileResponsesList, t =>
             {
                 SocialProfileDisplayModel toAdd = new SocialProfileDisplayModel
                 {
-                    ID = _steamUserProfileResponsesList[i].response.players[0].steamid,
-                    Name = _steamUserProfileResponsesList[i].response.players[0].personaname,
-                    ProfilePicture = _steamUserProfileResponsesList[i].response.players[0].avatarfull,
+                    ID = t.response.players[0].steamid,
+                    Name = t.response.players[0].personaname,
+                    ProfilePicture = t.response.players[0].avatarfull,
                     Score = "Score: 0"
                 };
-                Friends.Add(toAdd);
-                Points.Add(toAdd); // please remove me when you add point system
-            }
+                _friendsConcurrentBag.Add(toAdd);
+                _pointsConcurrentBag.Add(toAdd); // please remove me when you add point system
+            });
+            
+
+            Friends = new ObservableCollection<SocialProfileDisplayModel>(_friendsConcurrentBag.ToList());
+            Points = new ObservableCollection<SocialProfileDisplayModel>(_pointsConcurrentBag.ToList());
+            
             OnPropertyChanged();
             Debug.WriteLine("Finished Adding Users To Social Page");
         }
