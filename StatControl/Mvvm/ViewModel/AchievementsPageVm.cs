@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using FunctionZero.MvvmZero;
 using StatControl.Mvvm.Model.ApplicationAPIData;
 using StatControl.Mvvm.Model.DisplayModel;
@@ -16,7 +18,7 @@ namespace StatControl.Mvvm.ViewModel
 
         private ObservableCollection<AchievementDisplayModel> _achievements;
 
-        private readonly List<AchievementDisplayModel> _achievementsToSort = new List<AchievementDisplayModel>();
+        private ConcurrentBag<AchievementDisplayModel> _achievementsToSort = new ConcurrentBag<AchievementDisplayModel>();
         private SteamAchievementDataResponse _resultAchieveData;
         private SteamUserAchievementsResponse _resultUserAchieve;
 
@@ -40,7 +42,6 @@ namespace StatControl.Mvvm.ViewModel
                 SetProperty(ref _resultAchieveData, value);
 
                 Achievements.Clear();
-                _achievementsToSort.Clear();
                 CallServer();
                 OnPropertyChanged();
             }
@@ -59,8 +60,9 @@ namespace StatControl.Mvvm.ViewModel
 
         private void CallServer()
         {
+            _achievementsToSort = new ConcurrentBag<AchievementDisplayModel>();
             //Goes through all the achievements
-            for (var i = 0; i < ResultUserAchieve.playerstats.achievements.Count; i++)
+            Parallel.For(0, ResultUserAchieve.playerstats.achievements.Count, i =>
             {
                 var toPush = new AchievementDisplayModel
                 {
@@ -70,28 +72,28 @@ namespace StatControl.Mvvm.ViewModel
                     Achieved = ResultUserAchieve.playerstats.achievements[i].achieved
                 };
 
-                //Assigns tick or cross, Colour, and image depending if it is achieved by the player
-                if (toPush.Achieved == 1)
+                switch (toPush.Achieved)
                 {
-                    toPush.AchievedText = "✓";
-                    toPush.AchievedColor = new Color(0, 255, 0);
-                    toPush.ImageAddress = ResultAchieveData.game.availableGameStats.achievements[i].icon;
-                }
-                else if (toPush.Achieved == 0)
-                {
-                    toPush.AchievedText = "✗";
-                    toPush.AchievedColor = new Color(255, 0, 0);
-                    toPush.ImageAddress = ResultAchieveData.game.availableGameStats.achievements[i].icongray;
-                }
-                else
-                {
-                    toPush.AchievedText = "!";
-                    toPush.AchievedColor = new Color(255, 0, 0);
-                    toPush.ImageAddress = "Backup Image.jpg";
+                    //Assigns tick or cross, Colour, and image depending if it is achieved by the player
+                    case 1:
+                        toPush.AchievedText = "✓";
+                        toPush.AchievedColor = new Color(0, 255, 0);
+                        toPush.ImageAddress = ResultAchieveData.game.availableGameStats.achievements[i].icon;
+                        break;
+                    case 0:
+                        toPush.AchievedText = "✗";
+                        toPush.AchievedColor = new Color(255, 0, 0);
+                        toPush.ImageAddress = ResultAchieveData.game.availableGameStats.achievements[i].icongray;
+                        break;
+                    default:
+                        toPush.AchievedText = "!";
+                        toPush.AchievedColor = new Color(255, 0, 0);
+                        toPush.ImageAddress = "Backup Image.jpg";
+                        break;
                 }
 
                 _achievementsToSort.Add(toPush);
-            }
+            });
 
             //Sorts achievements by achieved
             var sortedAchievements = _achievementsToSort.OrderByDescending(o => o.Achieved).ToList();
