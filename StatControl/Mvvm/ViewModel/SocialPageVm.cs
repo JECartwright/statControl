@@ -6,10 +6,13 @@ using StatControl.Services;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
+using FunctionZero.CommandZero;
 using StatControl.Mvvm.Model.DisplayModel;
 using StatControl.Mvvm.Model.SteamUserFriends;
 using StatControl.Mvvm.Model.SteamUserProfile;
 using StatControl.Mvvm.Model.ApplicationAPIData;
+using Xamarin.Forms;
 
 namespace StatControl.Mvvm.ViewModel
 {
@@ -21,12 +24,18 @@ namespace StatControl.Mvvm.ViewModel
             set => SetProperty(ref _friends, value);
             
         }
+        
+        private string _steamProfileIdText;
+        public string SteamProfileIdText
+        {
+            get => _steamProfileIdText;
+            set => SetProperty(ref _steamProfileIdText, value);
+        }
 
         private ObservableCollection<SocialProfileDisplayModel> _points;
         public ObservableCollection<SocialProfileDisplayModel> Points {
             get => _points;
             set => SetProperty(ref _points, value);
-            
         }
         private ConcurrentBag<SteamUserProfileResponse> _steamUserProfileResponsesConcurrentBag = new ConcurrentBag<SteamUserProfileResponse>();
         private ConcurrentBag<SocialProfileDisplayModel> _friendsConcurrentBag = new ConcurrentBag<SocialProfileDisplayModel>();
@@ -35,6 +44,13 @@ namespace StatControl.Mvvm.ViewModel
         private readonly IPageServiceZero _pageService;
         private CarouselPageVm daddy;
 
+        public ICommand SearchCommand { get; }
+        private async Task SearchCommandExecuteAsync()
+        {
+            OpenNewUser(SteamProfileIdText);
+            OnPropertyChanged();
+        }
+        
         private SteamFriendsResponse _steamFriendsResponse;
         public SteamFriendsResponse SteamFriendsResponse
         {
@@ -64,7 +80,7 @@ namespace StatControl.Mvvm.ViewModel
 
                 if (value != null)
                 {
-                    OpenNewUser(value);
+                    OpenNewUser(value.ID);
                 }
                 SetProperty(ref _selectedProfileFriends, value);
                 OnPropertyChanged();
@@ -80,22 +96,24 @@ namespace StatControl.Mvvm.ViewModel
 
                 if (value != null)
                 {
-                    OpenNewUser(value);
+                    OpenNewUser(value.ID);
                 }
                 SetProperty(ref _selectedProfilePoints, value);
                 OnPropertyChanged();
             }
         }
 
-        private async void OpenNewUser(SocialProfileDisplayModel current)
+        private async void OpenNewUser(string id)
         {
-            await ApplicatationDataHandler.Update(current.ID);
+            await ApplicatationDataHandler.Update(id);
             if (ApplicatationDataHandler.CheckAPI)
             {
                 daddy.RefreshAll();
+                await Application.Current.MainPage.DisplayAlert("Alert", "Successfully Selected User's Data.\nPlease Swipe Right.", "OK");
             }
             else
             {
+                await Application.Current.MainPage.DisplayAlert("Alert", "Error In Getting Selected User's Data.\nTheir Profile May Be Private.", "OK");
                 await ApplicatationDataHandler.ReloadMain();
             }
             await Task.Delay(10);
@@ -180,6 +198,8 @@ namespace StatControl.Mvvm.ViewModel
             Friends = new ObservableCollection<SocialProfileDisplayModel>();
             Points = new ObservableCollection<SocialProfileDisplayModel>();
             _pageService = pageService;            
+            
+            SearchCommand = new CommandBuilder().SetExecuteAsync(SearchCommandExecuteAsync).Build();
         }
     }
 }

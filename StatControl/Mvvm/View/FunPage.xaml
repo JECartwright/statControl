@@ -44,9 +44,9 @@
                     <Label Grid.Column="1" Grid.Row="6" Text="{Binding Domination}"/>
                     <Label Grid.Column="1" Grid.Row="7" Text="{Binding Overkill}"/>
                     <Label Grid.Column="1" Grid.Row="8" Text="{Binding Revenges}"/>
-                    <Label Grid.Column="1" Grid.Row="9" Text="{Binding GGRoundWon}"/>
-                    <Label Grid.Column="1" Grid.Row="10" Text="{Binding GGRoundPlayed}"/>
-                    <Label Grid.Column="1" Grid.Row="11" Text="{Binding GGLifetimeScore}"/>
+                    <Label Grid.Column="1" Grid.Row="9" Text="{Binding GgRoundWon}"/>
+                    <Label Grid.Column="1" Grid.Row="10" Text="{Binding GgRoundPlayed}"/>
+                    <Label Grid.Column="1" Grid.Row="11" Text="{Binding GgLifetimeScore}"/>
                     <Label Grid.Column="1" Grid.Row="12" Text="{Binding HostagesSaved}"/>
                 </Grid>
             </Frame>
