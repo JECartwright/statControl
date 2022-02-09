@@ -6,16 +6,16 @@
               x:Class="StatControl.Mvvm.View.CarouselViewPage"
               x:DataType="vm:CarouselPageVm"
               Title="{Binding UserTitle}">
-
-
+    
     <CarouselPage.Children>
-    <v:SocialPage v:BindingContext="{Binding SocialVm}"/>
-    <v:HomePage v:BindingContext="{Binding HomeVm}"/>
-    <v:MainStatPage v:BindingContext="{Binding MainVm}"/>
-    <v:LastMatchPage v:BindingContext="{Binding LastVm}"/>
-    <v:WeaponsSelectPage v:BindingContext="{Binding WeaSelectVm}"/>
-    <v:MapPage v:BindingContext="{Binding MapVm}"/>
-    <v:FunPage v:BindingContext="{Binding FunVm}"/>
-    <v:AchievementsPage v:BindingContext="{Binding AchieveVm}"/>
+        <v:SocialPage v:BindingContext="{Binding SocialVm}"/>
+        <v:HomePage v:BindingContext="{Binding HomeVm}"/>
+        <v:MainStatPage v:BindingContext="{Binding MainVm}"/>
+        <v:LastMatchPage v:BindingContext="{Binding LastVm}"/>
+        <v:WeaponsSelectPage v:BindingContext="{Binding WeaSelectVm}"/>
+        <v:MapPage v:BindingContext="{Binding MapVm}"/>
+        <v:FunPage v:BindingContext="{Binding FunVm}"/>
+        <v:AchievementsPage v:BindingContext="{Binding AchieveVm}"/>
     </CarouselPage.Children>
+
 </CarouselPage>

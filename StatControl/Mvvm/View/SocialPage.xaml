@@ -10,12 +10,18 @@
             <Frame HeightRequest="50" Padding="0">
                 <Label Text="Social" FontSize="Large" VerticalOptions="Center" HorizontalOptions="CenterAndExpand"/>
             </Frame>
+            
             <Frame Padding="0" HeightRequest="220">
                 <StackLayout HeightRequest="50" Padding="0" Spacing="0">
                     <Label Text="Search" FontSize="Large" VerticalOptions="Start" HorizontalOptions="CenterAndExpand"/>
-                    <Entry Placeholder="Search ID"/>
+                    
+                    <StackLayout Orientation="Horizontal" Margin="10,0">
+                        <Entry Placeholder="Search ID" Text="{Binding SteamProfileIdText}" HorizontalOptions="FillAndExpand"/>
+                        <Button Command="{Binding SearchCommand}" Text="🔎︎"  HorizontalOptions="End"/>
+                    </StackLayout>
                 </StackLayout>
             </Frame>
+            
             <Frame>
                 <StackLayout Spacing="0">
                     <Label Text="Friends" FontSize="Large" VerticalOptions="Center" HorizontalOptions="CenterAndExpand"/>

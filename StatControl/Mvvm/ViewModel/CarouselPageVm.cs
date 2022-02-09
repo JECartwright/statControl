@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Xamarin.Forms;
 using StatControl.Mvvm.Model.ApplicationAPIData;
 using System.Runtime.CompilerServices;
+using StatControl.Mvvm.View;
 
 namespace StatControl.Mvvm.ViewModel
 {
