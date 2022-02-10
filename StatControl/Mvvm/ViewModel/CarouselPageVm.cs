@@ -74,7 +74,6 @@ namespace StatControl.Mvvm.ViewModel
             WeaSelectVm.platformHelper();
 
             UserTitle = $"Viewing: {ApplicatationDataHandler.resultProfile.response.players[0].personaname}";
-
             OnPropertyChanged();
         }
 

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using StatControl.Services;
 using System.Diagnostics;
 using Xamarin.Forms;
+using Xamarin.Essentials;
 using StatControl.Mvvm.Model.SteamUserProfile;
 using StatControl.Mvvm.Model.SteamUserAchievements;
 using StatControl.Mvvm.Model.SteamGameStats;
@@ -23,6 +24,7 @@ namespace StatControl.Mvvm.ViewModel
         private SteamUserProfileResponse _resultProfile;
         private CarouselPageVm daddy;
         public ICommand ReloadUser { get; }
+        public ICommand OpenProfile { get; }
         public ICommand UpdateCommand { get; }
         public SteamUserProfileResponse ResultProfile
         {
@@ -73,10 +75,24 @@ namespace StatControl.Mvvm.ViewModel
             OnPropertyChanged();
         }
 
-        public HomePageVm(IPageServiceZero pageService)
+        public async Task OpenBrowser()
+        {
+            Uri uri = new Uri($"https://steamcommunity.com/profiles/{ApplicatationDataHandler.currentID}/");
+            try
+            {
+                await Browser.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
+            }
+            catch (Exception ex)
+            {
+                // An unexpected error occured. No browser may be installed on the device.
+            }
+        }
+
+            public HomePageVm(IPageServiceZero pageService)
         {
             _pageService = pageService;
             ReloadUser = new CommandBuilder().SetExecuteAsync(RealoadUserCommand).Build();
+            OpenProfile = new CommandBuilder().SetExecuteAsync(OpenBrowser).Build();
         }
     }
 }
