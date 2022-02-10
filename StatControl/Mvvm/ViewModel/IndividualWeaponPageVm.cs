@@ -788,7 +788,6 @@ namespace StatControl.Mvvm.ViewModel
             RangeShotsChange = changeweaponshots.ToString();
 
             int DaysToDisplay = 0;
-            Tuple<float, string> toadd;
             switch (TimeframeDropper)
             {
                 case "1 Week":
@@ -834,7 +833,7 @@ namespace StatControl.Mvvm.ViewModel
                         break;
                 }
             }
-            for (int b = 0; b < Values.Count-1;b++)
+            for (int b = 1; b < Values.Count-1;b++)
             {
                 ChartEntry chartEntry = new ChartEntry(Values[b]);
                 chartEntry.Label = b.ToString();
