@@ -12,10 +12,31 @@
             <Frame HorizontalOptions="Center" HeightRequest="50">
                 <Label Text="{Binding Weapon}" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold"/>  
             </Frame>
-            <StackLayout HeightRequest="50" Orientation="Horizontal">
+            <StackLayout HeightRequest="100" Orientation="Horizontal">
                 <!-- Insert Drop Down Heare  -->
-                <Rectangle Fill="green" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="100" HeightRequest="25"/>
-                <Rectangle Fill="green" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="100" HeightRequest="25"/>
+                <Picker  HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="150" HeightRequest="60" Title="Time Period" SelectedItem="{Binding TimeframeDropper, Mode=TwoWay}">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>1 Week</x:String>
+                            <x:String>1 Month</x:String>
+                            <x:String>3 Months</x:String>
+                            <x:String>1 Year</x:String>
+                            <x:String>All Time</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+
+                <Picker  HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="150" HeightRequest="60" Title="Graph Display" SelectedItem="{Binding GraphModeDropper, Mode=TwoWay}">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Accuracy</x:String>
+                            <x:String>Kills</x:String>
+                            <x:String>Shots</x:String>
+                            <x:String>Hits</x:String>
+                            <x:String>Misses</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
             </StackLayout>
             <Rectangle Fill="green" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="400" HeightRequest="300"/>
             <Frame>
