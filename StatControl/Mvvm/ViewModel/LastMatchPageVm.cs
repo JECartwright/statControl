@@ -172,6 +172,7 @@ namespace StatControl.Mvvm.ViewModel
             _pageService = pageService;
             _favWeaponDictionary = new Dictionary<int, String>()
             {
+                { 0, "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/weapons/base_weapons/weapon_knife_t.3d6c8a849655a3ff51633c7dd575646ed9ac020d.png"},
                 { 1, "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/weapons/base_weapons/weapon_deagle.29e8f0d7d0be5e737d4f663ee8b394b5c9e00bdd.png" },
                 { 2, "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/weapons/base_weapons/weapon_elite.6563e9d274c6e799d71a7809021624f213d5e080.png" },
                 { 3, "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/weapons/base_weapons/weapon_fiveseven.7c33b4a78ae94a3d14e7cd0f71b295cf61717d75.png" },

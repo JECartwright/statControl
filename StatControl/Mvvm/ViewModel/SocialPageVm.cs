@@ -60,7 +60,7 @@ namespace StatControl.Mvvm.ViewModel
 
                 if (value != null)
                 {
-                    OpenNewUser(value);
+                    OpenNewUser(value.ID);
                 }
                 SetProperty(ref _selectedProfileFriends, value);
                 OnPropertyChanged();
@@ -76,16 +76,16 @@ namespace StatControl.Mvvm.ViewModel
 
                 if (value != null)
                 {
-                    OpenNewUser(value);
+                    OpenNewUser(value.ID);
                 }
                 SetProperty(ref _selectedProfilePoints, value);
                 OnPropertyChanged();
             }
         }
 
-        private async void OpenNewUser(SocialProfileDisplayModel current)
+        private async void OpenNewUser(string ID)
         {
-            await ApplicatationDataHandler.Update(current.ID);
+            await ApplicatationDataHandler.Update(ID);
             if (ApplicatationDataHandler.CheckAPI)
             {
                 daddy.RefreshAll();
