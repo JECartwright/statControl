@@ -685,7 +685,6 @@ namespace StatControl.Mvvm.ViewModel
             RangeShotsChange = changeweaponshots.ToString();
 
             int daysToDisplay = 0;
-            Tuple<float, string> toadd;
             switch (TimeframeDropper)
             {
                 case "1 Week":

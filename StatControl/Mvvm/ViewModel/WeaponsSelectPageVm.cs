@@ -106,7 +106,7 @@ namespace StatControl.Mvvm.ViewModel
 
         public void onStarted()
         {
-            List<WeaponSelectDisplayModel> Weapons = new List<WeaponSelectDisplayModel>
+            List<WeaponSelectDisplayModel> weapons = new List<WeaponSelectDisplayModel>
             {
                 new WeaponSelectDisplayModel("deagle", "Deagle/R8"),
                 new WeaponSelectDisplayModel("elite", "Dual Elites"),
@@ -146,17 +146,17 @@ namespace StatControl.Mvvm.ViewModel
             {
                 for (int b = 0; b < weapons.Count; b++)
                 {
-                    if (ResultStats.playerstats.stats[i].name == "total_kills_" + Weapons[b].APIName)
+                    if (ResultStats.playerstats.stats[i].name == "total_kills_" + weapons[b].APIName)
                     {
-                        Weapons[b].Kills = ResultStats.playerstats.stats[i].value;
+                        weapons[b].Kills = ResultStats.playerstats.stats[i].value;
                     }
-                    else if (ResultStats.playerstats.stats[i].name == "total_shots_" + Weapons[b].APIName)
+                    else if (ResultStats.playerstats.stats[i].name == "total_shots_" + weapons[b].APIName)
                     {
-                        Weapons[b].shots = ResultStats.playerstats.stats[i].value;
+                        weapons[b].shots = ResultStats.playerstats.stats[i].value;
                     }
-                    else if (ResultStats.playerstats.stats[i].name == "total_hits_" + Weapons[b].APIName)
+                    else if (ResultStats.playerstats.stats[i].name == "total_hits_" + weapons[b].APIName)
                     {
-                        Weapons[b].hits = ResultStats.playerstats.stats[i].value;
+                        weapons[b].hits = ResultStats.playerstats.stats[i].value;
                     }
                 }
             }
