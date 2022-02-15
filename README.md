@@ -1,5 +1,5 @@
 # Stat Control
-This app is a Counter-Strike: Global Offensive Stat Tracker. To use this app make sure your steam profile is set to public otherwise the API will not be able to get your game data.
+This app is a Counter-Strike: Global Offensive Stat Tracker. To use this app make sure your steam profile is set to public otherwise the API will not be able to get your game data. When you login for the first time you'll be prompted with the option to not store your Counter-Strike: Global Offensive in our Database, the only data that will be stored is your SteamID, and your game data for Counter-Strike: Global Offensive.
 
 # How To Use?
 To first use this application you will need to have your SteamID64; you can get this from your steam URL.
@@ -8,7 +8,7 @@ To first use this application you will need to have your SteamID64; you can get 
 
 Next you'll want to input your ID into the input box.
 
-![Inputting Steam ID](https://uc12e5c45b50282483e9877d0494.previews.dropboxusercontent.com/p/thumb/ABc75IYO6bNWxPwOW1vHzqAzj9PjXDtL3b-ZzOyvMOqqnopnrKYc_D9sMMaGE3UQqnPSNgUkKCgK3yPB8BL9-ugVR-1FR8hmwxC_tViQjhbM-h7seTjGsEuM9RdBRAWPasl-k-UvuElAhLnCN5pSBNtfUZjZjtSxOxi45zhyc1-INNgvnkWaAI8by7IeUIe708S6UqTMQKXZaide0pWc6iruv5bzc22uRQaNn3FFp1VpOdUov_AS38AWH4XO13ktRtLh_C8uCI8bVzO6ZTj6kEKaQeN7q7ZsUNkglfDym3Rze3bsqkW9rHuUgUyxvACtdSLMVUkD3eRyE0O_W790RpHRY0hOH1HEX9h8mHfTIkhTMP5fqT5oibIDf1RQnUqcf6nh4cHuOcvR-xzWJDqEWJwm/p.png?size=2048x1536&size_mode=3)
+![Inputting Steam ID](https://uc40081e1f28fbd3de3d453e2d6e.previews.dropboxusercontent.com/p/thumb/ABdo-YRbHJ9c8BVzbf5u_wDNAWMDGPa01dRRcmmmYvDgRQwOxbMyDH1bOOyCiUvjP9ogynTjOC_aNUr_ELMVrIXDHMqHmwDq7sc7HV36MgcM0xRnASofcbGLI8XZA1JVi5vO7Aqc5QfD76zgFJOH3vUZmp12DfyUKV9QqTqI3oUoQN_VV-nSOV0EfxaFAfMtZNebxbgkbxTQ6YTE7wwF7Vgn8220Ne1yNVgIdaRaawyU8PzykU7XqTr4-FP7xyDegSC4itlUSO-0URhj1qfSFyK-rXpiAKszFBZfCptpb5sQOdnh_tKzWRxA6Ac5GlRpJT4Xcag1b6RVR6N3wnz2Lsov2VMOFxsz_NQL5vyO5yT2-o5D7CQNhUPki5grHulE_-5V4o7VHrGwNvSiaRtNxNWh/p.png?size=2048x1536&size_mode=3)
 
 Once you have searched for your SteamID you'll be brought to the homepage. Swipe left to get to your Friends page; Swipe right to see your stats from Counter-Strike: Global Offensive.
 
