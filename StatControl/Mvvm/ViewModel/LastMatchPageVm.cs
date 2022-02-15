@@ -1,14 +1,6 @@
 ﻿using FunctionZero.MvvmZero;
-using System.Windows.Input;
-using System.Threading.Tasks;
-using StatControl.Services;
-using System.Diagnostics;
-using Xamarin.Forms;
-using StatControl.Mvvm.Model.SteamUserProfile;
-using StatControl.Mvvm.Model.SteamUserAchievements;
 using StatControl.Mvvm.Model.SteamGameStats;
 using StatControl.Mvvm.Model.ApplicationAPIData;
-using System.ComponentModel;
 using System;
 using System.Collections.Generic;
 
@@ -18,27 +10,27 @@ namespace StatControl.Mvvm.ViewModel
     {
         private readonly IPageServiceZero _pageService;
         private string _textMatchResults;
-        private string _textMVP;
+        private string _textMvp;
         private string _textKills;
         private string _textDeaths;
-        private string _textKD;
+        private string _textKd;
         private string _textDamage;
-        private string _textADR;
+        private string _textAdr;
         private string _textMoneySpent;
         private string _textScore;
         private string _textFavShots;
         private string _textFavHits;
         private string _textFavKills;
         private string _textFavAccuracy;
-        private string _FavWeaponID;
+        private string _favWeaponId;
         private SteamGameStatsResponse _resultStats;
 
         private readonly Dictionary<int, String> _favWeaponDictionary;
 
-        public string FavWeaponID
+        public string FavWeaponId
         {
-            get => _FavWeaponID;
-            set => SetProperty(ref _FavWeaponID, value);
+            get => _favWeaponId;
+            set => SetProperty(ref _favWeaponId, value);
         }
 
         public string TextFavShots
@@ -71,10 +63,10 @@ namespace StatControl.Mvvm.ViewModel
             set => SetProperty(ref _textMatchResults, value);
         }
 
-        public string TextMVP
+        public string TextMvp
         {
-            get => _textMVP;
-            set => SetProperty(ref _textMVP, value);
+            get => _textMvp;
+            set => SetProperty(ref _textMvp, value);
         }
 
         public string TextKills
@@ -89,10 +81,10 @@ namespace StatControl.Mvvm.ViewModel
             set => SetProperty(ref _textDeaths, value);
         }
 
-        public string TextKD
+        public string TextKd
         {
-            get => _textKD;
-            set => SetProperty(ref _textKD, value);
+            get => _textKd;
+            set => SetProperty(ref _textKd, value);
         }
 
         public string TextDamage
@@ -101,10 +93,10 @@ namespace StatControl.Mvvm.ViewModel
             set => SetProperty(ref _textDamage, value);
         }
 
-        public string TextADR
+        public string TextAdr
         {
-            get => _textADR;
-            set => SetProperty(ref _textADR, value);
+            get => _textAdr;
+            set => SetProperty(ref _textAdr, value);
         }
 
         public string TextScore
@@ -126,32 +118,37 @@ namespace StatControl.Mvvm.ViewModel
             {
                 SetProperty(ref _resultStats, value);
 
-                TextMatchResults = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_wins"))?.value.ToString() + " / " + (_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_rounds"))?.value - _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_wins"))?.value).ToString() ?? "0";
-                TextMVP = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_mvps"))?.value.ToString() ?? "0";
+                TextMatchResults =
+                    $"{_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_wins"))?.value} / {(_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_rounds"))?.value - _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_wins"))?.value)}" ?? "0";
+                TextMvp = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_mvps"))?.value.ToString() ?? "0";
                 TextKills = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_kills"))?.value.ToString() ?? "0";
                 TextDeaths = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_deaths"))?.value.ToString() ?? "0";
 
                 if (_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_deaths"))?.value == 0)
                 {
-                    TextKD = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_kills"))?.value.ToString();
+                    TextKd = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_kills"))?.value.ToString();
                 }
                 else
                 {
-                    TextKD = Math.Round((double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_kills"))?.value / (double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_deaths"))?.value, 2).ToString() ?? "0";
+                    TextKd = Math.Round((double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_kills"))?.value / (double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_deaths"))?.value, 2).ToString() ?? "0";
                 }
 
                 TextDamage = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_damage"))?.value.ToString() ?? "0";
-                TextADR = Math.Round((double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_damage"))?.value / (double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_rounds"))?.value, 2).ToString() ?? "0";
+                TextAdr = Math.Round((double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_damage"))?.value / (double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_rounds"))?.value, 2).ToString() ?? "0";
                 TextScore = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_contribution_score"))?.value.ToString() ?? "0";
                 TextMoneySpent = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_money_spent"))?.value.ToString() ?? "0";
 
                 //Favourite Weapon
-                FavWeaponID = _favWeaponDictionary[_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_id")).value];
+                FavWeaponId = _favWeaponDictionary[_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_id")).value];
 
-                TextFavShots = "Shots: " + _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_shots"))?.value.ToString() ?? "0";
-                TextFavHits = "Hits: " + _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_hits"))?.value.ToString() ?? "0";
-                TextFavKills = "Kills: " + _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_kills"))?.value.ToString() ?? "0";
-                TextFavAccuracy = "Accuracy: " + Math.Round((double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_hits"))?.value / (double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_shots"))?.value * 100, 2).ToString() + "%";
+                TextFavShots =
+                    $"Shots: {_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_shots"))?.value}" ?? "0";
+                TextFavHits =
+                    $"Hits: {_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_hits"))?.value}" ?? "0";
+                TextFavKills =
+                    $"Kills: {_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_kills"))?.value}" ?? "0";
+                TextFavAccuracy =
+                    $"Accuracy: {Math.Round((double) _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_hits"))?.value / (double) _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_shots"))?.value, 2)}%";
 
 
                 OnPropertyChanged();

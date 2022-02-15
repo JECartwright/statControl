@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 
 namespace StatControl.Mvvm.Model.ApplicationAPIData
 {
-    static internal class ApplicatationDataHandler
+    internal static class ApplicatationDataHandler
     {
-        public static string MainUserID;
+        public static string MainUserId;
         private static SteamGameStatsService _steamGameStatsService;
         private static SteamUserAchievementsService _steamUserAchievementsService;
         private static SteamUserProfileService _steamUserProfileService;
@@ -29,26 +29,26 @@ namespace StatControl.Mvvm.Model.ApplicationAPIData
 
         public static async Task ReloadMain()
         {
-            await Update(MainUserID);
-            currentID = MainUserID;
+            await Update(MainUserId);
+            currentID = MainUserId;
         }
 
 
         /// <summary>
         /// Update The API Data Can Be Used To Load New Users Data
         /// </summary>
-        /// <param name="_steamProfileIdText">Steam ID</param>
-        public static async Task Update(string _steamProfileIdText)
+        /// <param name="steamProfileIdText">Steam ID</param>
+        public static async Task Update(string steamProfileIdText)
         {
-            var _resultUserAchieve = await _steamUserAchievementsService.GetUserAchieveAsync(_steamProfileIdText);
+            var _resultUserAchieve = await _steamUserAchievementsService.GetUserAchieveAsync(steamProfileIdText);
             resultUserAchieve = _resultUserAchieve.payload;
             Debug.WriteLine("LOGIN_PAGE: User Achievements Response Received");
 
-            var _resultProfile = await _steamUserProfileService.GetUserSummaryAsync(_steamProfileIdText);
+            var _resultProfile = await _steamUserProfileService.GetUserSummaryAsync(steamProfileIdText);
             resultProfile = _resultProfile.payload;
             Debug.WriteLine("LOGIN_PAGE: User Profile Response Received");
 
-            var _resultStats = await _steamGameStatsService.GetUserStatsAsync(_steamProfileIdText);
+            var _resultStats = await _steamGameStatsService.GetUserStatsAsync(steamProfileIdText);
             resultStats = _resultStats.payload;
             Debug.WriteLine("LOGIN_PAGE: Game Stats Response Received");
 
@@ -56,17 +56,21 @@ namespace StatControl.Mvvm.Model.ApplicationAPIData
             resultAchieveData = _resultAchieveData.payload;
             Debug.WriteLine("LOGIN_PAGE: Steam Achievements Response Received");
 
-            var _resultFriends = await _steamFriendsService.GetFriendsListAsync(_steamProfileIdText);
+            var _resultFriends = await _steamFriendsService.GetFriendsListAsync(steamProfileIdText);
             resultFriends = _resultFriends.payload;
             Debug.WriteLine("LOGIN_PAGE: Steam Friends Response Received");
             CheckAPI = false;
+            
             //Checking to see if the response was successful
-            if (_resultUserAchieve.status == 0 & _resultAchieveData.status == 0 & _resultProfile.status == 0 & _resultStats.status == 0 & _resultFriends.status == 0)
+            if (_resultUserAchieve.status == 0 & _resultAchieveData.status == 0 & _resultProfile.status == 0 &
+                _resultStats.status == 0 & _resultFriends.status == 0)
             {
-                if (_resultStats.payload.playerstats.stats != null & _resultUserAchieve.payload.playerstats != null & _resultProfile.payload.response.players != null & _resultAchieveData.payload.game != null & _resultFriends.payload.friendslist.friends != null)
+                if (_resultStats.payload.playerstats.stats != null & _resultUserAchieve.payload.playerstats != null &
+                    _resultProfile.payload.response.players != null & _resultAchieveData.payload.game != null &
+                    _resultFriends.payload.friendslist.friends != null)
                 {
                     CheckAPI = true;
-                    currentID = _steamProfileIdText;
+                    currentID = steamProfileIdText;
                 }
                 else
                 {

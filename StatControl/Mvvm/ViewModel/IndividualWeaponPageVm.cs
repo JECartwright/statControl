@@ -11,7 +11,6 @@ using StatControl.Mvvm.Model.DisplayModel;
 using StatControl.Mvvm.Model.SteamGameStats;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using System.Diagnostics;
 using StatControl.Mvvm.Model.SQL;
 using StatControl.Services;
 using StatControl.Mvvm.Model.ApplicationAPIData;
@@ -57,8 +56,8 @@ namespace StatControl.Mvvm.ViewModel
             };
 
         //geter seters
-        private List<SQLWeaponDataModel> PreviousSQLWeapons;
-        private List<SQLWeaponDataModel> SQLWeapons;
+        private List<SQLWeaponDataModel> _previousSqlWeapons;
+        private List<SQLWeaponDataModel> _sqlWeapons;
         private SteamGameStatsResponse _resultGameStats;
 
         private string _currentWeapon;
@@ -580,7 +579,6 @@ namespace StatControl.Mvvm.ViewModel
             {
                 //_resultStats = value;
                 SetProperty(ref _resultGameStats, value);
-            }
         }
 
         //fuctions
@@ -654,30 +652,28 @@ namespace StatControl.Mvvm.ViewModel
             int localweaponhits = 0;
             int localweaponkills = 0;
             int localweaponmisses = 0;
-            float localweaponaccuracy = 0f;
             string localweaponaccuracypercent = "0";
             float globalweaponshotschange = 0f;
             float globalweaponhitschange = 0f;
             float globalweaponkillschange = 0f;
             float globalweaponmisseschange = 0f;
-            float globalaccuracychange = 0f;
             string globalaccuracychangepercent = "0";
-            if (SQLWeapons.Count > 0)
+            if (_sqlWeapons.Count > 0)
             {
-                SQLWeaponDataModel oldentry = SQLWeapons[0];
-                SQLWeaponDataModel recententry = SQLWeapons[SQLWeapons.Count - 1];
+                SQLWeaponDataModel oldentry = _sqlWeapons[0];
+                SQLWeaponDataModel recententry = _sqlWeapons[_sqlWeapons.Count - 1];
                 localweaponkills = Convert.ToInt32(recententry.weapon_kills) - Convert.ToInt32(oldentry.weapon_kills);
                 localweaponhits = Convert.ToInt32(recententry.weapon_hits) - Convert.ToInt32(oldentry.weapon_hits);
                 localweaponshots = Convert.ToInt32(recententry.weapon_shots) - Convert.ToInt32(oldentry.weapon_shots);
                 localweaponmisses = localweaponshots - localweaponhits;
-                localweaponaccuracy = Convert.ToSingle(localweaponhits) / Convert.ToSingle(localweaponshots);
+                var localweaponaccuracy = Convert.ToSingle(localweaponhits) / Convert.ToSingle(localweaponshots);
                 localweaponaccuracypercent = Math.Round(localweaponaccuracy*100, 2).ToString();
-                globalaccuracychange = (Convert.ToSingle(recententry.weapon_hits) / Convert.ToSingle(recententry.weapon_shots)) - (Convert.ToSingle(oldentry.weapon_hits) / Convert.ToSingle(oldentry.weapon_shots));
+                var globalaccuracychange = (Convert.ToSingle(recententry.weapon_hits) / Convert.ToSingle(recententry.weapon_shots)) - (Convert.ToSingle(oldentry.weapon_hits) / Convert.ToSingle(oldentry.weapon_shots));
                 globalaccuracychangepercent = (Math.Round(globalaccuracychange, 2) * 100).ToString();
-                globalweaponhitschange = (((float)weaponhits + (float)localweaponhits)/(float)weaponhits)-1f;
-                globalweaponshotschange = (((float)weaponshots + (float)localweaponshots) / (float)weaponshots)-1f;
-                globalweaponkillschange = (((float)weaponkills + (float)localweaponkills) / (float)weaponkills)-1f;
-                globalweaponmisseschange = (((float)weaponmisses + (float)localweaponmisses) / (float)weaponmisses)-1f;
+                globalweaponhitschange = ((weaponhits + (float)localweaponhits)/weaponhits)-1f;
+                globalweaponshotschange = ((weaponshots + (float)localweaponshots) / weaponshots)-1f;
+                globalweaponkillschange = ((weaponkills + (float)localweaponkills) / weaponkills)-1f;
+                globalweaponmisseschange = ((weaponmisses + (float)localweaponmisses) / weaponmisses)-1f;
                 globalweaponhitschange= (float)Math.Round(globalweaponhitschange*100, 2);
                 globalweaponkillschange = (float)Math.Round(globalweaponkillschange * 100, 2);
                 globalweaponshotschange = (float)Math.Round(globalweaponshotschange * 100, 2);
@@ -705,10 +701,10 @@ namespace StatControl.Mvvm.ViewModel
             int changeweaponkills = 0;
             int changeweaponmisses = 0;
             float changeweaponaccuracy = 0f;
-            if (PreviousSQLWeapons.Count > 1)
+            if (_previousSqlWeapons.Count > 1)
             {
-                SQLWeaponDataModel oldoldentry = PreviousSQLWeapons[0];
-                SQLWeaponDataModel oldrecententry = PreviousSQLWeapons[SQLWeapons.Count - 1];
+                SQLWeaponDataModel oldoldentry = _previousSqlWeapons[0];
+                SQLWeaponDataModel oldrecententry = _previousSqlWeapons[_sqlWeapons.Count - 1];
                 oldweaponkills = Convert.ToInt32(oldrecententry.weapon_kills) - Convert.ToInt32(oldoldentry.weapon_kills);
                 oldweaponhits = Convert.ToInt32(oldrecententry.weapon_hits) - Convert.ToInt32(oldoldentry.weapon_hits);
                 oldweaponshots = Convert.ToInt32(oldrecententry.weapon_shots) - Convert.ToInt32(oldoldentry.weapon_shots);
@@ -728,32 +724,31 @@ namespace StatControl.Mvvm.ViewModel
             RangeMissesChange = changeweaponmisses.ToString();
             RangeShotsChange = changeweaponshots.ToString();
 
-            int DaysToDisplay = 0;
-            Tuple<float, string> toadd;
+            int daysToDisplay = 0;
             switch (TimeframeDropper)
             {
                 case "1 Week":
-                    DaysToDisplay = 7;
+                    daysToDisplay = 7;
                     break;
                 case "1 Month":
-                    DaysToDisplay = 31;
+                    daysToDisplay = 31;
                     break;
                 case "3 Months":
-                    DaysToDisplay = 63;
+                    daysToDisplay = 63;
                     break;
                 case "1 Year":
-                    DaysToDisplay = 365;
+                    daysToDisplay = 365;
                     break;
                 case "All Time":
-                    DaysToDisplay = SQLWeapons.Count - 1;
+                    daysToDisplay = _sqlWeapons.Count - 1;
                     break;
             }
-            if (DaysToDisplay > SQLWeapons.Count - 1)
+            if (daysToDisplay > _sqlWeapons.Count - 1)
             {
-                DaysToDisplay = SQLWeapons.Count - 1;
+                daysToDisplay = _sqlWeapons.Count - 1;
             }
             List<float> Values = new List<float>();
-            for (int i = 1; i < DaysToDisplay; i++)
+            for (int i = 1; i < daysToDisplay; i++)
             {
                 (int, int, int, int, float) toaddtovalues = WorkOutDay(i);
                 switch (GraphModeDropper)
@@ -775,10 +770,8 @@ namespace StatControl.Mvvm.ViewModel
                         break;
                 }
             }
-
         }
-
-
+            
         public void OnGraphChange()
         {
             SetTrueValues();
@@ -792,10 +785,10 @@ namespace StatControl.Mvvm.ViewModel
             int oldweaponkills = 0;
             int oldweaponmisses = 0;
             float oldweaponaccuracy = 0f;
-            if (SQLWeapons[day] != null && SQLWeapons[day - 1] != null)
+            if (_sqlWeapons[day] != null && _sqlWeapons[day - 1] != null)
             {
-                SQLWeaponDataModel oldentry = SQLWeapons[day];
-                SQLWeaponDataModel recententry = SQLWeapons[day - 1];
+                SQLWeaponDataModel oldentry = _sqlWeapons[day];
+                SQLWeaponDataModel recententry = _sqlWeapons[day - 1];
                 oldweaponkills = Convert.ToInt32(recententry.weapon_kills) - Convert.ToInt32(oldentry.weapon_kills);
                 oldweaponhits = Convert.ToInt32(recententry.weapon_hits) - Convert.ToInt32(oldentry.weapon_hits);
                 oldweaponshots = Convert.ToInt32(recententry.weapon_shots) - Convert.ToInt32(oldentry.weapon_shots);
@@ -809,7 +802,7 @@ namespace StatControl.Mvvm.ViewModel
 
         public void OnTimePeriodSelected(bool def = false)
         {
-            SQLWeapons.Clear();
+            _sqlWeapons.Clear();
             DateTime previoustoday = DateTime.Today;
             DateTime previouslowerbracket = previoustoday;
             DateTime today = DateTime.Today;
@@ -857,9 +850,9 @@ namespace StatControl.Mvvm.ViewModel
                 }
             }
             List<SQLWeaponDataModel> sQLs = SQLDataService.GetSQLWeaponData(ApplicatationDataHandler.currentID, DateToStringForSQL(lowerbracket), DateToStringForSQL(today));
-            SQLWeapons = GetUsefullWeapons(sQLs);
+            _sqlWeapons = GetUsefullWeapons(sQLs);
             List<SQLWeaponDataModel> sQLsprev = SQLDataService.GetSQLWeaponData(ApplicatationDataHandler.currentID, DateToStringForSQL(previouslowerbracket), DateToStringForSQL(previoustoday));
-            PreviousSQLWeapons = GetUsefullWeapons(sQLsprev);
+            _previousSqlWeapons = GetUsefullWeapons(sQLsprev);
         }
 
 
@@ -891,8 +884,8 @@ namespace StatControl.Mvvm.ViewModel
 
         public IndividualWeaponPageVm()
         {
-            SQLWeapons = new List<SQLWeaponDataModel>();
-            PreviousSQLWeapons = new List<SQLWeaponDataModel>();
+            _sqlWeapons = new List<SQLWeaponDataModel>();
+            _previousSqlWeapons = new List<SQLWeaponDataModel>();
             SetDefaultValues();
         }
 
