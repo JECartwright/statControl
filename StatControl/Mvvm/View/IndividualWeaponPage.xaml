@@ -2,9 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StatControl.Mvvm.View.IndividualWeaponPage"
-             xmlns:local="clr-namespace:StatControl.Mvvm.ViewModel"
-             xmlns:forms="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
-             x:DataType="local:IndividualWeaponPageVm">
+             xmlns:local="clr-namespace:StatControl.Mvvm.ViewModel">
     <ContentPage.BindingContext>
         <local:IndividualWeaponPageVm/>
     </ContentPage.BindingContext>
@@ -24,7 +22,7 @@
                             <x:String>3 Months</x:String>
                             <x:String>1 Year</x:String>
                             <x:String>All Time</x:String>
-                        </x:Array>                            
+                        </x:Array>
                     </Picker.ItemsSource>
                 </Picker>
 
@@ -36,13 +34,13 @@
                             <x:String>Shots</x:String>
                             <x:String>Hits</x:String>
                             <x:String>Misses</x:String>
-                        </x:Array>                        
+                        </x:Array>
                     </Picker.ItemsSource>
                 </Picker>
             </StackLayout>
-            <forms:ChartView HeightRequest="500" WidthRequest="700" Chart="{Binding WeaponChart}"/>
-            <Frame>
-                <Grid>
+            <Image Source="https://cdn.akamai.steamstatic.com/steamcommunity/public/images/clans/40158973/69045566cfaf3f88150368852a327b8a655362de.png"  HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="400" HeightRequest="300"/>
+            <Frame Padding="10">
+                <Grid HeightRequest="800">
                     <Grid.RowDefinitions>
                         <RowDefinition Height ="*"/>
                     </Grid.RowDefinitions>

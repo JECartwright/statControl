@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using MySql.Data.MySqlClient;
-using StatControl.Mvvm.Model.SQLWeaponModel;
+using MySqlConnector;
+using StatControl.Mvvm.Model.SQL;
 
 namespace StatControl.Services
 {
@@ -14,7 +14,7 @@ namespace StatControl.Services
             List<SQLWeaponDataModel> sQLs = new List<SQLWeaponDataModel>();
             MySqlConnection connection = new MySqlConnection(SQLADR);
             connection.Open();
-            MySqlCommand command = new MySqlCommand($"SELECT weapondata.WeaponID,total_kills,total_shots,total_hits,PushDate,weaponindex.WeaponName FROM stat_control_schema.weapondata Left Join weaponindex On weapondata.WeaponID = weaponindex.WeaponID where SteamID = \"{SteamID}\" and PushDate between \"{BeginingDate}\" and \"{EndDate}\" order by PushDate ASC; ",connection);
+            MySqlCommand command = new MySqlCommand($"SELECT weapondata.WeaponID,total_kills,total_shots,total_hits,PushDate,weaponindex.WeaponName FROM stat_control_schema.weapondata Left Join weaponindex On weapondata.WeaponID = weaponindex.WeaponID where SteamID = \"{SteamID}\" and PushDate between \"{BeginingDate}\" and \"{EndDate}\" order by PushDate ASC; ", connection);
             MySqlDataReader dr = command.ExecuteReader();
             if (dr.HasRows)
             {
@@ -30,7 +30,34 @@ namespace StatControl.Services
                     sQLs.Add(wdm);
                 }
             }
+            connection.Close();
             return sQLs;
+        }
+
+        public static bool AddNewUser(string ID)
+        {
+            MySqlConnection connection = new MySqlConnection(SQLADR);
+            connection.Open();
+            MySqlCommand command = new MySqlCommand($"SELECT SteamID FROM users where SteamID = \"{ID}\";", connection);
+            MySqlDataReader dr = command.ExecuteReader();
+            List<string> users = new List<string>();
+            if (dr.HasRows)
+            {
+                while (dr.Read())
+                {
+                    users.Add(dr.GetString(0));
+                }
+            }
+            connection.Close();
+            if (users.Count == 0)
+            {
+                connection.Open();
+                MySqlCommand command2 = new MySqlCommand($"insert into users (SteamID) Values (\"{ID}\");", connection);
+                command2.ExecuteNonQuery();
+                connection.Close();
+                return true;
+            }            
+            return false;
         }
     }
 }

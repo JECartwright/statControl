@@ -4,7 +4,6 @@ using FunctionZero.MvvmZero;
 using System.Windows.Input;
 using System.Threading.Tasks;
 using StatControl.Services;
-using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using System.Text.RegularExpressions;
@@ -15,7 +14,7 @@ namespace StatControl.Mvvm.ViewModel
     internal class LoginPageVm : MvvmZeroBaseVm
     {
         private string _steamProfileIdText;
-        
+
         private readonly SteamGameStatsService _steamGameStatsService;
         private readonly SteamUserAchievementsService _steamUserAchievementsService;
         private readonly SteamUserProfileService _steamUserProfileService;
@@ -40,6 +39,14 @@ namespace StatControl.Mvvm.ViewModel
             if (ApplicatationDataHandler.CheckAPI)
             {
                 ApplicatationDataHandler.MainUserId = _steamProfileIdText;
+                if (HasAgreed)
+                {
+                    bool newUserCreated = SQLDataService.AddNewUser(_steamProfileIdText);
+                    if (newUserCreated)
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Alert", "Your Steam ID Has Been Added To Our Servers And We Are Now Tracking Your Stats :)", "OK");
+                    }
+                }                
                 await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init());
             }
             else
@@ -62,9 +69,7 @@ namespace StatControl.Mvvm.ViewModel
             }
         }
 
-        public string privatepolicy = "";
-
-        public bool IsFirstRun 
+        public bool IsFirstRun
         {
             get => Preferences.Get(nameof(IsFirstRun), true);
             set => Preferences.Set(nameof(IsFirstRun), value);
@@ -83,7 +88,6 @@ namespace StatControl.Mvvm.ViewModel
             {
                 HasAgreed = true;
             }
-            await Application.Current.MainPage.DisplayAlert("Alert", "Swipe left and right to navigate", "OK");
         }
 
         public LoginPageVm(IPageServiceZero pageService, SteamGameStatsService steamGameStatsService, SteamUserAchievementsService steamUserAchievementsService, SteamUserProfileService steamUserProfileService, SteamAchievementService steamAchievementDataService, SteamFriendsService steamFriendsService, SteamVanityUrlService steamVanityUrlService)
@@ -97,14 +101,10 @@ namespace StatControl.Mvvm.ViewModel
             _steamFriendsService = steamFriendsService;
             ApplicatationDataHandler.SetService(steamGameStatsService, steamUserAchievementsService, steamUserProfileService, steamAchievementDataService, steamFriendsService);
 
-            //TODO: TEMP ID FOR TESTING - REMOVE ON RELEASE
-            SteamProfileIdText = "76561198045733101";
-            //
-
             if (IsFirstRun || !HasAgreed)
             {
                 IsFirstRun = false;
-                DisplayTerms();                
+                DisplayTerms();
             }
 
             HomePageCommand = new CommandBuilder().SetExecuteAsync(HomePageCommandExecuteAsync).SetName("Search").Build();

@@ -17,7 +17,7 @@
                 <StackLayout>
                     <Label Text="FAVOURITE WEAPON" HorizontalOptions="CenterAndExpand"/>
                     <BoxView VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="1" WidthRequest="300" Color="#414141"/>
-                    <Image Source="{Binding FavWeaponID}" HorizontalOptions="CenterAndExpand" WidthRequest="150"/>
+                    <Image Source="{Binding FavWeaponId}" HorizontalOptions="CenterAndExpand" WidthRequest="150"/>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -50,12 +50,12 @@
                     <Label Grid.Row="6" Grid.Column="0" Text="Money Spent: " />
                     <Label Grid.Row="7" Grid.Column="0" Text="Score: " />
 
-                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding TextMVP}" />
+                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding TextMvp}" />
                     <Label Grid.Row="1" Grid.Column="1" Text="{Binding TextKills}" />
                     <Label Grid.Row="2" Grid.Column="1" Text="{Binding TextDeaths}" />
-                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding TextKD}" />
+                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding TextKd}" />
                     <Label Grid.Row="4" Grid.Column="1" Text="{Binding TextDamage}" />
-                    <Label Grid.Row="5" Grid.Column="1" Text="{Binding TextADR}" />
+                    <Label Grid.Row="5" Grid.Column="1" Text="{Binding TextAdr}" />
                     <Label Grid.Row="6" Grid.Column="1" Text="{Binding TextMoneySpent}" />
                     <Label Grid.Row="7" Grid.Column="1" Text="{Binding TextScore}" />
                 </Grid>
