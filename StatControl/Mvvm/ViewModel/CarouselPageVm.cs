@@ -89,7 +89,7 @@ namespace StatControl.Mvvm.ViewModel
             LastVm.DataRefresh();
             WeaSelectVm.DataRefresh();
             SocialVm.DataRefresh();
-            SocialVm.getParent(this);
+            SocialVm.GetParent(this);
             MapVm.DataRefresh();
             AchieveVm.DataRefresh();
             WeaSelectVm.WeaponsDisplay.Clear();
