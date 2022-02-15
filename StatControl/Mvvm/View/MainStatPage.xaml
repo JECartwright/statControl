@@ -29,7 +29,7 @@
                     <Label Grid.Column="0" Grid.Row="5" Text="Weapons Donated:"/>
 
                     <Label Grid.Column="1" Grid.Row="0" Text="{Binding RoundsWon}"/>
-                    <Label Grid.Column="1" Grid.Row="1" Text="{Binding MVP}"/>
+                    <Label Grid.Column="1" Grid.Row="1" Text="{Binding Mvp}"/>
                     <Label Grid.Column="1" Grid.Row="2" Text="{Binding MoneyEarned}"/>
                     <Label Grid.Column="1" Grid.Row="3" Text="{Binding BombsPlanted}"/>
                     <Label Grid.Column="1" Grid.Row="4" Text="{Binding BombsDefused}"/>
