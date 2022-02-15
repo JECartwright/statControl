@@ -29,8 +29,8 @@ namespace StatControl.Mvvm.Model.ApplicationAPIData
 
         public static async Task ReloadMain()
         {
-            await Update(MainUserID);
-            currentID = MainUserID;
+            await Update(MainUserId);
+            currentID = MainUserId;
         }
 
 
@@ -41,23 +41,23 @@ namespace StatControl.Mvvm.Model.ApplicationAPIData
         public static async Task Update(string steamProfileIdText)
         {
             var _resultUserAchieve = await _steamUserAchievementsService.GetUserAchieveAsync(steamProfileIdText);
-            ResultUserAchieve = _resultUserAchieve.payload;
+            resultUserAchieve = _resultUserAchieve.payload;
             Debug.WriteLine("LOGIN_PAGE: User Achievements Response Received");
 
             var _resultProfile = await _steamUserProfileService.GetUserSummaryAsync(steamProfileIdText);
-            ResultProfile = _resultProfile.payload;
+            resultProfile = _resultProfile.payload;
             Debug.WriteLine("LOGIN_PAGE: User Profile Response Received");
 
             var _resultStats = await _steamGameStatsService.GetUserStatsAsync(steamProfileIdText);
-            ResultStats = _resultStats.payload;
+            resultStats = _resultStats.payload;
             Debug.WriteLine("LOGIN_PAGE: Game Stats Response Received");
 
             var _resultAchieveData = await _steamAchievementDataService.GetAchieveInfoAsync();
-            ResultAchieveData = _resultAchieveData.payload;
+            resultAchieveData = _resultAchieveData.payload;
             Debug.WriteLine("LOGIN_PAGE: Steam Achievements Response Received");
 
             var _resultFriends = await _steamFriendsService.GetFriendsListAsync(steamProfileIdText);
-            ResultFriends = _resultFriends.payload;
+            resultFriends = _resultFriends.payload;
             Debug.WriteLine("LOGIN_PAGE: Steam Friends Response Received");
             CheckAPI = false;
             
@@ -70,7 +70,7 @@ namespace StatControl.Mvvm.Model.ApplicationAPIData
                     _resultFriends.payload.friendslist.friends != null)
                 {
                     CheckAPI = true;
-                    currentID = _steamProfileIdText;
+                    currentID = steamProfileIdText;
                 }
                 else
                 {

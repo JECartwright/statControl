@@ -4,7 +4,6 @@ using FunctionZero.MvvmZero;
 using System.Windows.Input;
 using System.Threading.Tasks;
 using StatControl.Services;
-using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using System.Text.RegularExpressions;
@@ -39,9 +38,9 @@ namespace StatControl.Mvvm.ViewModel
             await ApplicatationDataHandler.Update(SteamProfileIdText);
             if (ApplicatationDataHandler.CheckAPI)
             {
-                ApplicatationDataHandler.MainUserID = _steamProfileIdText;
-                bool NewUserCreated = SQLDataService.AddNewUser(_steamProfileIdText);
-                if (NewUserCreated)
+                ApplicatationDataHandler.MainUserId = _steamProfileIdText;
+                bool newUserCreated = SQLDataService.AddNewUser(_steamProfileIdText);
+                if (newUserCreated)
                 {
                     await Application.Current.MainPage.DisplayAlert("Alert", "Your Steam ID Has Been Added To Our Servers And We Are Now Tracking Your Stats :)", "OK");
                 }
@@ -66,8 +65,6 @@ namespace StatControl.Mvvm.ViewModel
                 SteamProfileIdText = resultVantityUrl.payload.response.steamid;
             }
         }
-
-        public string privatepolicy = "";
 
         public bool IsFirstRun
         {

@@ -104,7 +104,7 @@ namespace StatControl.Mvvm.ViewModel
         {
             if (ApplicatationDataHandler.CheckAPI)
             {
-                ResultStats = ApplicatationDataHandler.ResultStats;
+                ResultStats = ApplicatationDataHandler.resultStats;
             }
             OnPropertyChanged();
         }

@@ -43,7 +43,7 @@ namespace StatControl.Mvvm.ViewModel
         {
             if (ApplicatationDataHandler.CheckAPI)
             {
-                ResultStats = ApplicatationDataHandler.ResultStats;
+                ResultStats = ApplicatationDataHandler.resultStats;
             }
             OnPropertyChanged();
         }
@@ -77,7 +77,7 @@ namespace StatControl.Mvvm.ViewModel
                     {"de_vertigo", "https://static.wikia.nocookie.net/cswikia/images/a/a5/Vertigo-b-site-overview.png"}
             };
 
-            _mapNames = new string[]{"ar_baggage",
+            _mapNames = new[]{"ar_baggage",
                                     "ar_monastery",
                                     "ar_shoots",
                                     "cs_assault",
