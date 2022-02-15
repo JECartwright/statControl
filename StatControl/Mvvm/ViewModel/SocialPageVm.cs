@@ -129,7 +129,8 @@ namespace StatControl.Mvvm.ViewModel
                     Debug.WriteLine("Error in getting API.");
                 }
             }
-
+            Friends.Clear();
+            Points.Clear();
             for (int i = 0; i < steamUserProfileResponses.Count; i++)
             {
                 SocialProfileDisplayModel ToAdd = new SocialProfileDisplayModel();
@@ -138,7 +139,7 @@ namespace StatControl.Mvvm.ViewModel
                 ToAdd.ProfilePicture = steamUserProfileResponses[i].response.players[0].avatarfull;
                 ToAdd.Score = "Score: 0";
                 Friends.Add(ToAdd);
-                Points.Add(ToAdd); // please remove me when you add point system
+                //Points.Add(ToAdd); // please remove me when you add point system
             }
             OnPropertyChanged();
             Debug.WriteLine("Finished Adding Users To Social Page");
