@@ -69,11 +69,14 @@ namespace StatControl.Mvvm.ViewModel
             if (ApplicatationDataHandler.CheckAPI)
             {
                 ApplicatationDataHandler.MainUserId = _steamProfileIdText;
-                bool newUserCreated = SQLDataService.AddNewUser(_steamProfileIdText);
-                if (newUserCreated)
+                if (HasAgreed)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Alert", "Your Steam ID Has Been Added To Our Servers And We Are Now Tracking Your Stats :)", "OK");
-                }
+                    bool newUserCreated = SQLDataService.AddNewUser(_steamProfileIdText);
+                    if (newUserCreated)
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Alert", "Your Steam ID Has Been Added To Our Servers And We Are Now Tracking Your Stats :)", "OK");
+                    }
+                }                
                 await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init());
             }
             else
@@ -117,7 +120,6 @@ namespace StatControl.Mvvm.ViewModel
             {
                 HasAgreed = true;
             }
-            await Application.Current.MainPage.DisplayAlert("Alert", "Swipe left and right to navigate", "OK");
         }
 
         public LoginPageVm(IPageServiceZero pageService, SteamGameStatsService steamGameStatsService, SteamUserAchievementsService steamUserAchievementsService, SteamUserProfileService steamUserProfileService, SteamAchievementService steamAchievementDataService, SteamFriendsService steamFriendsService, SteamVanityUrlService steamVanityUrlService)
