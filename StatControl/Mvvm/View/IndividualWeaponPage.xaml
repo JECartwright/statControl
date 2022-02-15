@@ -39,8 +39,8 @@
                 </Picker>
             </StackLayout>
             <Image Source="https://cdn.akamai.steamstatic.com/steamcommunity/public/images/clans/40158973/69045566cfaf3f88150368852a327b8a655362de.png"  HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="400" HeightRequest="300"/>
-            <Frame>
-                <Grid>
+            <Frame Padding="10">
+                <Grid HeightRequest="800">
                     <Grid.RowDefinitions>
                         <RowDefinition Height ="*"/>
                     </Grid.RowDefinitions>
