@@ -21,7 +21,7 @@ namespace StatControl.Services
 
         public async Task<(ResultStatus status, SteamUserAchievementsResponse payload, string rawResponse)> GetUserAchieveAsync(string id)
         {
-            return await _restService.GetAsync<SteamUserAchievementsResponse>($"{_apiPath}?appid=730&key={_apiKey}&steamid={id}");
+            return await _restService.GetAsync<SteamUserAchievementsResponse>($"{_apiPath}?appid=730&key={_apiKey}&steamid={id}&l=en");
         }
     }
 }
