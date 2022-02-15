@@ -25,10 +25,11 @@ namespace StatControl.Mvvm.Model.ApplicationAPIData
         public static SteamGameStatsResponse ResultStats;
         public static SteamAchievementDataResponse ResultAchieveData;
         public static SteamFriendsResponse ResultFriends;
-
+        public static string currentID;
         public static async Task ReloadMain()
         {
             await Update(MainUserId);
+            currentID = MainUserId;
         }
 
 
@@ -68,6 +69,8 @@ namespace StatControl.Mvvm.Model.ApplicationAPIData
                     _resultFriends.payload.friendslist.friends != null)
                 {
                     CheckAPI = true;
+                    currentID = steamProfileIdText;
+
                 }
                 else
                 {
