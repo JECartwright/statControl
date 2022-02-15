@@ -70,6 +70,11 @@ namespace StatControl.Mvvm.ViewModel
             if (ApplicatationDataHandler.CheckAPI)
             {
                 ApplicatationDataHandler.MainUserID = _steamProfileIdText;
+                bool NewUserCreated = SQLDataService.AddNewUser(_steamProfileIdText);
+                if (NewUserCreated)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Alert", "Your Steam ID Has Been Added To Our Servers And We Are Now Tracking Your Stats :)", "OK");
+                }
                 await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init());
             }
             else
