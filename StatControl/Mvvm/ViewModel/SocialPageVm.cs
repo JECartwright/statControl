@@ -45,10 +45,11 @@ namespace StatControl.Mvvm.ViewModel
         private CarouselPageVm daddy;
 
         public ICommand SearchCommand { get; }
-        private async Task SearchCommandExecuteAsync()
+        private Task SearchCommandExecuteAsync()
         {
             OpenNewUser(SteamProfileIdText);
             OnPropertyChanged();
+            return Task.CompletedTask;
         }
         
         private SteamFriendsResponse _steamFriendsResponse;

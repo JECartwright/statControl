@@ -166,23 +166,26 @@ namespace StatControl.Mvvm.ViewModel
             {
                 case Device.Android:                    
                     var screen = DeviceDisplay.MainDisplayInfo;
-                    var x = screen.Width;
-                    if (x == 1080)
-                    {
-                        ProgressBarSize = 24;
-                    }
-                    else if (x == 1440)
-                    {
-                        ProgressBarSize = 30;
-                    }
-                    else if (x == 720)
-                    {
-                        ProgressBarSize = 18;
-                    }
-                    else
-                    {
-                        ProgressBarSize = 24;
-                    }
+                    var x = (int)screen.Width;
+                    
+                    // if (x == 1080)
+                    // {
+                    //     ProgressBarSize = 24;
+                    // }
+                    // else if (x == 1440)
+                    // {
+                    //     ProgressBarSize = 30;
+                    // }
+                    // else if (x == 720)
+                    // {
+                    //     ProgressBarSize = 18;
+                    // }
+                    // else
+                    // {
+                    //     ProgressBarSize = 24;
+                    // }
+                    ProgressBarSize = (int)Math.Floor(0.0166666666666666667 * x + 6);
+                    
                     break;
                 case Device.UWP:
                     ProgressBarSize = 9;
