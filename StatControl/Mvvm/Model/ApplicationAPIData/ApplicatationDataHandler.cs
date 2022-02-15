@@ -20,15 +20,17 @@ namespace StatControl.Mvvm.Model.ApplicationAPIData
         private static SteamUserProfileService _steamUserProfileService;
         private static SteamAchievementService _steamAchievementDataService;
         private static SteamFriendsService _steamFriendsService;
-        public static SteamUserAchievementsResponse ResultUserAchieve;
-        public static SteamUserProfileResponse ResultProfile;
-        public static SteamGameStatsResponse ResultStats;
-        public static SteamAchievementDataResponse ResultAchieveData;
-        public static SteamFriendsResponse ResultFriends;
+        public static SteamUserAchievementsResponse resultUserAchieve;
+        public static SteamUserProfileResponse resultProfile;
+        public static SteamGameStatsResponse resultStats;
+        public static SteamAchievementDataResponse resultAchieveData;
+        public static SteamFriendsResponse resultFriends;
+        public static string currentID;
 
         public static async Task ReloadMain()
         {
-            await Update(MainUserId);
+            await Update(MainUserID);
+            currentID = MainUserID;
         }
 
 
@@ -68,6 +70,7 @@ namespace StatControl.Mvvm.Model.ApplicationAPIData
                     _resultFriends.payload.friendslist.friends != null)
                 {
                     CheckAPI = true;
+                    currentID = _steamProfileIdText;
                 }
                 else
                 {

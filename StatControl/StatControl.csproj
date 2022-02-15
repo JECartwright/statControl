@@ -18,6 +18,8 @@
 
   <ItemGroup>
     <PackageReference Include="FunctionZero.MvvmZero" Version="2.2.5" />
+    <PackageReference Include="Microcharts.Forms" Version="1.0.0-preview1" />
+    <PackageReference Include="MySql.Data" Version="8.0.28" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="SimpleInjector" Version="5.3.2" />
     <PackageReference Include="SkiaSharp" Version="2.80.3" />

@@ -15,7 +15,7 @@ namespace StatControl.Mvvm.ViewModel
     internal class LoginPageVm : MvvmZeroBaseVm
     {
         private string _steamProfileIdText;
-        
+
         private readonly SteamGameStatsService _steamGameStatsService;
         private readonly SteamUserAchievementsService _steamUserAchievementsService;
         private readonly SteamUserProfileService _steamUserProfileService;
@@ -39,7 +39,12 @@ namespace StatControl.Mvvm.ViewModel
             await ApplicatationDataHandler.Update(SteamProfileIdText);
             if (ApplicatationDataHandler.CheckAPI)
             {
-                ApplicatationDataHandler.MainUserId = _steamProfileIdText;
+                ApplicatationDataHandler.MainUserID = _steamProfileIdText;
+                bool NewUserCreated = SQLDataService.AddNewUser(_steamProfileIdText);
+                if (NewUserCreated)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Alert", "Your Steam ID Has Been Added To Our Servers And We Are Now Tracking Your Stats :)", "OK");
+                }
                 await _pageService.PushPageAsync<CarouselViewPage, CarouselPageVm>((vm) => vm.Init());
             }
             else
@@ -64,7 +69,7 @@ namespace StatControl.Mvvm.ViewModel
 
         public string privatepolicy = "";
 
-        public bool IsFirstRun 
+        public bool IsFirstRun
         {
             get => Preferences.Get(nameof(IsFirstRun), true);
             set => Preferences.Set(nameof(IsFirstRun), value);
@@ -104,7 +109,7 @@ namespace StatControl.Mvvm.ViewModel
             if (IsFirstRun || !HasAgreed)
             {
                 IsFirstRun = false;
-                DisplayTerms();                
+                DisplayTerms();
             }
 
             HomePageCommand = new CommandBuilder().SetExecuteAsync(HomePageCommandExecuteAsync).SetName("Search").Build();

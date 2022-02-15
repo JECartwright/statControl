@@ -194,7 +194,7 @@ namespace StatControl.Mvvm.ViewModel
             daddy = dad;
         }
 
-        public SocialPageVm(IPageServiceZero pageService)  
+        public SocialPageVm(IPageServiceZero pageService)
         {
             Friends = new ObservableCollection<SocialProfileDisplayModel>();
             Points = new ObservableCollection<SocialProfileDisplayModel>();

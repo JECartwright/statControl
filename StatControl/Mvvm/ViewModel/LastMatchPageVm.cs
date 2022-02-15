@@ -122,19 +122,21 @@ namespace StatControl.Mvvm.ViewModel
                     $"{_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_wins"))?.value} / {(_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_rounds"))?.value - _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_wins"))?.value)}" ?? "0";
                 TextMVP = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_mvps"))?.value.ToString() ?? "0";
                 TextKills = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_kills"))?.value.ToString() ?? "0";
-                TextDeaths =  _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_deaths"))?.value.ToString() ?? "0";
-                
-                if (_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_deaths"))?.value == 0) {
+                TextDeaths = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_deaths"))?.value.ToString() ?? "0";
+
+                if (_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_deaths"))?.value == 0)
+                {
                     TextKD = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_kills"))?.value.ToString();
-                } else
+                }
+                else
                 {
                     TextKD = Math.Round((double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_kills"))?.value / (double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_deaths"))?.value, 2).ToString() ?? "0";
                 }
 
                 TextDamage = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_damage"))?.value.ToString() ?? "0";
                 TextADR = Math.Round((double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_damage"))?.value / (double)_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_rounds"))?.value, 2).ToString() ?? "0";
-                TextScore =  _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_contribution_score"))?.value.ToString() ?? "0";
-                TextMoneySpent =  _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_money_spent"))?.value.ToString() ?? "0";
+                TextScore = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_contribution_score"))?.value.ToString() ?? "0";
+                TextMoneySpent = _resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_money_spent"))?.value.ToString() ?? "0";
 
                 //Favourite Weapon
                 FavWeaponID = _favWeaponDictionary[_resultStats.playerstats.stats.Find(x => x.name.Equals("last_match_favweapon_id")).value];
@@ -167,6 +169,7 @@ namespace StatControl.Mvvm.ViewModel
             _pageService = pageService;
             _favWeaponDictionary = new Dictionary<int, String>()
             {
+                { 0, "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/weapons/base_weapons/weapon_knife_t.3d6c8a849655a3ff51633c7dd575646ed9ac020d.png"},
                 { 1, "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/weapons/base_weapons/weapon_deagle.29e8f0d7d0be5e737d4f663ee8b394b5c9e00bdd.png" },
                 { 2, "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/weapons/base_weapons/weapon_elite.6563e9d274c6e799d71a7809021624f213d5e080.png" },
                 { 3, "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/weapons/base_weapons/weapon_fiveseven.7c33b4a78ae94a3d14e7cd0f71b295cf61717d75.png" },

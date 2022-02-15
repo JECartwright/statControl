@@ -69,7 +69,7 @@ namespace StatControl.Mvvm.ViewModel
             get => _overkill;
             set => SetProperty(ref _overkill, value);
         }
-                
+
         public string Revenges
         {
             get => _revenges;
@@ -93,7 +93,7 @@ namespace StatControl.Mvvm.ViewModel
             get => _ggLifetimeScore;
             set => SetProperty(ref _ggLifetimeScore, value);
         }
-        
+
         public string HostagesSaved
         {
             get => _hostagesSaved;
@@ -129,7 +129,7 @@ namespace StatControl.Mvvm.ViewModel
                 GgRoundPlayed = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_gun_game_rounds_played"))?.value.ToString() ?? "0";
                 GgLifetimeScore = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_gun_game_contribution_score"))?.value.ToString() ?? "0";
                 HostagesSaved = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_rescued_hostages"))?.value.ToString() ?? "0";
-                
+
                 OnPropertyChanged();
             }
         }

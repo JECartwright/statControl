@@ -41,7 +41,7 @@ namespace StatControl.Mvvm.ViewModel
 
         public void RefreshAll()
         {
-            
+
 
             FunVm.DataRefresh();
             HomeVm.DataRefresh();//Not Sure
@@ -61,7 +61,7 @@ namespace StatControl.Mvvm.ViewModel
 
         internal void Init()
         {
-            
+
 
             FunVm.DataRefresh();
             HomeVm.DataRefresh();

@@ -42,7 +42,8 @@ namespace StatControl.Mvvm.ViewModel
             set => SetProperty(ref _moneyEarned, value);
         }
 
-        public string BombsPlanted { 
+        public string BombsPlanted
+        {
             get => _bombsPlanted;
             set => SetProperty(ref _bombsPlanted, value);
         }
@@ -113,7 +114,7 @@ namespace StatControl.Mvvm.ViewModel
             set
             {
                 SetProperty(ref _resultStats, value);
-                
+
                 RoundsWon = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_wins"))?.value.ToString() ?? "0";
                 MVP = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_mvps"))?.value.ToString() ?? "0";
                 MoneyEarned = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_money_earned"))?.value.ToString() ?? "0";
@@ -136,7 +137,7 @@ namespace StatControl.Mvvm.ViewModel
                     .Round(
                         (double) _resultStats.playerstats.stats.Find(x => x.name.Equals("total_matches_won"))?.value /
                         (double) _resultStats.playerstats.stats.Find(x => x.name.Equals("total_matches_played"))
-                            ?.value * 100, 2).ToString() ?? "0";
+                            ?.value, 2).ToString() ?? "0";
                 ContributionScore = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_contribution_score"))?.value.ToString() ?? "0";
 
                 OnPropertyChanged();

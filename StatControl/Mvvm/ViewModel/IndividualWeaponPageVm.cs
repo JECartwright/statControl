@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using FunctionZero.MvvmZero;
 using StatControl.Mvvm.Model.SteamGameStats;
 using Xamarin.Forms;
+using System.Diagnostics;
+using StatControl.Mvvm.Model.SQL;
+using StatControl.Services;
+using StatControl.Mvvm.Model.ApplicationAPIData;
 
 namespace StatControl.Mvvm.ViewModel
 {
@@ -45,7 +49,8 @@ namespace StatControl.Mvvm.ViewModel
             };
 
         //geter seters
-
+        private List<SQLWeaponDataModel> PreviousSQLWeapons;
+        private List<SQLWeaponDataModel> SQLWeapons;
         private SteamGameStatsResponse _resultGameStats;
 
         private string _currentWeapon;
@@ -55,8 +60,8 @@ namespace StatControl.Mvvm.ViewModel
             set => SetProperty(ref _currentWeapon, value);
         }
         private string _weapon;
-        public string Weapon 
-        { 
+        public string Weapon
+        {
             get => _weapon;
             set => SetProperty(ref _weapon, value);
         }
@@ -67,8 +72,32 @@ namespace StatControl.Mvvm.ViewModel
             set => SetProperty(ref _weaponImage, value);
         }
 
-        private readonly Color _customRed = new Color(255, 0, 0);
-        private readonly Color _customGreen = new Color(0, 255, 0);
+
+        private string _graphModeDropper;
+        public string GraphModeDropper
+        {
+            get => _graphModeDropper;
+            set
+            {
+                SetProperty(ref _graphModeDropper, value);
+                OnGraphChange();
+            }
+        }
+
+        private string _timeframeDropper;
+        public string TimeframeDropper
+        {
+            get => _timeframeDropper;
+            set
+            {
+                SetProperty(ref _timeframeDropper, value);
+                OnTimePeriodSelected();
+                SetTrueValues();
+            }
+        }
+
+        private Color _customRed = new Color(255, 0, 0);
+        private Color _customGreen = new Color(0, 255, 0);
 
         private string _rangeTimeframe;
         public string RangeTimeframe
@@ -209,7 +238,7 @@ namespace StatControl.Mvvm.ViewModel
                         value = $"↓{value}%";
                         _rangeAccuracyChangeColor = _customGreen;
                     }
-                }                
+                }
                 SetProperty(ref _rangeAccuracyChange, value);
             }
         }
@@ -232,7 +261,7 @@ namespace StatControl.Mvvm.ViewModel
                         value = $"↓{value}%";
                         _rangeKillsChangeColor = _customRed;
                     }
-                }                
+                }
                 SetProperty(ref _rangeKillsChange, value);
             }
         }
@@ -255,7 +284,7 @@ namespace StatControl.Mvvm.ViewModel
                         value = $"↓{value}%";
                         _rangeHitsChangeColor = _customRed;
                     }
-                }                
+                }
                 SetProperty(ref _rangeHitsChange, value);
             }
         }
@@ -278,7 +307,7 @@ namespace StatControl.Mvvm.ViewModel
                         value = $"↓{value}%";
                         _rangeShotsChangeColor = _customRed;
                     }
-                }                
+                }
                 SetProperty(ref _rangeShotsChange, value);
             }
         }
@@ -301,7 +330,7 @@ namespace StatControl.Mvvm.ViewModel
                         value = $"↓{value}%";
                         _rangeMissesChangeColor = _customRed;
                     }
-                }                
+                }
                 SetProperty(ref _rangeMissesChange, value);
             }
         }
@@ -324,7 +353,7 @@ namespace StatControl.Mvvm.ViewModel
                         value = $"↓{value}%";
                         _globalAccuracyChangeColor = _customRed;
                     }
-                }                
+                }
                 SetProperty(ref _globalAccuracyChange, value);
             }
         }
@@ -347,7 +376,7 @@ namespace StatControl.Mvvm.ViewModel
                         value = $"↓{value}%";
                         _globalKillsChangeColor = _customRed;
                     }
-                }                
+                }
                 SetProperty(ref _globalKillsChange, value);
             }
         }
@@ -370,7 +399,7 @@ namespace StatControl.Mvvm.ViewModel
                         value = $"↓{value}%";
                         _globalHitsChangeColor = _customRed;
                     }
-                }                
+                }
                 SetProperty(ref _globalHitsChange, value);
             }
         }
@@ -393,7 +422,7 @@ namespace StatControl.Mvvm.ViewModel
                         value = $"↓{value}%";
                         _globalShotsChangeColor = _customRed;
                     }
-                }                
+                }
                 SetProperty(ref _globalShotsChange, value);
             }
         }
@@ -416,7 +445,7 @@ namespace StatControl.Mvvm.ViewModel
                         value = $"↓{value}%";
                         _globalMissesChangeColor = _customGreen;
                     }
-                }                
+                }
                 SetProperty(ref _globalMissesChange, value);
             }
         }
@@ -512,11 +541,12 @@ namespace StatControl.Mvvm.ViewModel
             set =>
                 //_resultStats = value;
                 SetProperty(ref _resultGameStats, value);
+            }
         }
 
         //functions
         public void PageSetup(SteamGameStatsResponse data)
-        {            
+        {
             WeaponImage = _favWeaponDictionary[Weapon];
             WeaponDataShots = data.playerstats.stats.Find(x => x.name.Equals($"total_shots_{Weapon}"))?.value.ToString() ?? "0";
             WeaponDataHits = data.playerstats.stats.Find(x => x.name.Equals($"total_hits_{Weapon}"))?.value.ToString() ?? "0";
@@ -573,18 +603,257 @@ namespace StatControl.Mvvm.ViewModel
             }
             weaponmisses = weaponshots - weaponhits;
             weaponaccuracy = Convert.ToSingle(weaponhits) / Convert.ToSingle(weaponshots);
-            string weaponaccuracypercent = (Math.Round(weaponaccuracy, 2) * 100).ToString();
+            string weaponaccuracypercent = Math.Round(weaponaccuracy * 100, 2).ToString();
             GlobalAccuracy = weaponaccuracypercent;
             GlobalMisses = weaponmisses.ToString();
             GlobalHits = weaponhits.ToString();
             GlobalKills = weaponkills.ToString();
             GlobalShots = weaponshots.ToString();
+            //LOCAL-------------------------------------------------------------------------------
+            int localweaponshots = 0;
+            int localweaponhits = 0;
+            int localweaponkills = 0;
+            int localweaponmisses = 0;
+            float localweaponaccuracy = 0f;
+            string localweaponaccuracypercent = "0";
+            float globalweaponshotschange = 0f;
+            float globalweaponhitschange = 0f;
+            float globalweaponkillschange = 0f;
+            float globalweaponmisseschange = 0f;
+            float globalaccuracychange = 0f;
+            string globalaccuracychangepercent = "0";
+            if (SQLWeapons.Count > 0)
+            {
+                SQLWeaponDataModel oldentry = SQLWeapons[0];
+                SQLWeaponDataModel recententry = SQLWeapons[SQLWeapons.Count - 1];
+                localweaponkills = Convert.ToInt32(recententry.weapon_kills) - Convert.ToInt32(oldentry.weapon_kills);
+                localweaponhits = Convert.ToInt32(recententry.weapon_hits) - Convert.ToInt32(oldentry.weapon_hits);
+                localweaponshots = Convert.ToInt32(recententry.weapon_shots) - Convert.ToInt32(oldentry.weapon_shots);
+                localweaponmisses = localweaponshots - localweaponhits;
+                localweaponaccuracy = Convert.ToSingle(localweaponhits) / Convert.ToSingle(localweaponshots);
+                localweaponaccuracypercent = Math.Round(localweaponaccuracy*100, 2).ToString();
+                globalaccuracychange = (Convert.ToSingle(recententry.weapon_hits) / Convert.ToSingle(recententry.weapon_shots)) - (Convert.ToSingle(oldentry.weapon_hits) / Convert.ToSingle(oldentry.weapon_shots));
+                globalaccuracychangepercent = (Math.Round(globalaccuracychange, 2) * 100).ToString();
+                globalweaponhitschange = (((float)weaponhits + (float)localweaponhits)/(float)weaponhits)-1f;
+                globalweaponshotschange = (((float)weaponshots + (float)localweaponshots) / (float)weaponshots)-1f;
+                globalweaponkillschange = (((float)weaponkills + (float)localweaponkills) / (float)weaponkills)-1f;
+                globalweaponmisseschange = (((float)weaponmisses + (float)localweaponmisses) / (float)weaponmisses)-1f;
+                globalweaponhitschange= (float)Math.Round(globalweaponhitschange*100, 2);
+                globalweaponkillschange = (float)Math.Round(globalweaponkillschange * 100, 2);
+                globalweaponshotschange = (float)Math.Round(globalweaponshotschange * 100, 2);
+                globalweaponmisseschange = (float)Math.Round(globalweaponmisseschange * 100, 2);
+            }
+            RangeAccuracy = localweaponaccuracypercent;
+            RangeMisses = localweaponmisses.ToString();
+            RangeHits = localweaponhits.ToString();
+            RangeKills = localweaponkills.ToString();
+            RangeShots = localweaponshots.ToString();
+            GlobalAccuracyChange = globalaccuracychangepercent;
+            GlobalHitsChange = globalweaponhitschange.ToString();
+            GlobalKillsChange = globalweaponkillschange.ToString();
+            GlobalMissesChange = globalweaponmisseschange.ToString();
+            GlobalShotsChange = globalweaponshotschange.ToString();
+            //CHANGES-------------------------------------------------------------------------------
+            int oldweaponshots = 0;
+            int oldweaponhits = 0;
+            int oldweaponkills = 0;
+            int oldweaponmisses = 0;
+            float oldweaponaccuracy = 0f;
+            string changeweaponaccuracypercent = "0";
+            int changeweaponshots = 0;
+            int changeweaponhits = 0;
+            int changeweaponkills = 0;
+            int changeweaponmisses = 0;
+            float changeweaponaccuracy = 0f;
+            if (PreviousSQLWeapons.Count > 1)
+            {
+                SQLWeaponDataModel oldoldentry = PreviousSQLWeapons[0];
+                SQLWeaponDataModel oldrecententry = PreviousSQLWeapons[SQLWeapons.Count - 1];
+                oldweaponkills = Convert.ToInt32(oldrecententry.weapon_kills) - Convert.ToInt32(oldoldentry.weapon_kills);
+                oldweaponhits = Convert.ToInt32(oldrecententry.weapon_hits) - Convert.ToInt32(oldoldentry.weapon_hits);
+                oldweaponshots = Convert.ToInt32(oldrecententry.weapon_shots) - Convert.ToInt32(oldoldentry.weapon_shots);
+                oldweaponmisses = oldweaponshots - oldweaponhits;
+                oldweaponaccuracy = Convert.ToSingle(oldweaponhits) / Convert.ToSingle(oldweaponshots);
 
+                changeweaponshots = weaponshots - oldweaponshots;
+                changeweaponhits = weaponhits - oldweaponhits;
+                changeweaponkills = weaponkills - oldweaponkills;
+                changeweaponmisses = weaponmisses - oldweaponmisses;
+                changeweaponaccuracy = weaponaccuracy - oldweaponaccuracy;
+                changeweaponaccuracypercent = Math.Round(changeweaponaccuracy * 100, 2).ToString();
+            }
+            RangeAccuracyChange = changeweaponaccuracypercent;
+            RangeHitsChange = changeweaponhits.ToString();
+            RangeKillsChange = changeweaponkills.ToString();
+            RangeMissesChange = changeweaponmisses.ToString();
+            RangeShotsChange = changeweaponshots.ToString();
+
+            int DaysToDisplay = 0;
+            Tuple<float, string> toadd;
+            switch (TimeframeDropper)
+            {
+                case "1 Week":
+                    DaysToDisplay = 7;
+                    break;
+                case "1 Month":
+                    DaysToDisplay = 31;
+                    break;
+                case "3 Months":
+                    DaysToDisplay = 63;
+                    break;
+                case "1 Year":
+                    DaysToDisplay = 365;
+                    break;
+                case "All Time":
+                    DaysToDisplay = SQLWeapons.Count - 1;
+                    break;
+            }
+            if (DaysToDisplay > SQLWeapons.Count - 1)
+            {
+                DaysToDisplay = SQLWeapons.Count - 1;
+            }
+            List<float> Values = new List<float>();
+            for (int i = 1; i < DaysToDisplay; i++)
+            {
+                (int, int, int, int, float) toaddtovalues = WorkOutDay(i);
+                switch (GraphModeDropper)
+                {
+                    case "Accuracy":
+                        Values.Add(toaddtovalues.Item5);
+                        break;
+                    case "Kills":
+                        Values.Add(Convert.ToSingle(toaddtovalues.Item1));
+                        break;
+                    case "Shots":
+                        Values.Add(Convert.ToSingle(toaddtovalues.Item2));
+                        break;
+                    case "Hits":
+                        Values.Add(Convert.ToSingle(toaddtovalues.Item3));
+                        break;
+                    case "Misses":
+                        Values.Add(Convert.ToSingle(toaddtovalues.Item4));
+                        break;
+                }
+            }
+
+        }
+
+
+        public void OnGraphChange()
+        {
+            SetTrueValues();
+        }
+
+
+        private (int, int, int, int, float) WorkOutDay(int day)
+        {
+            int oldweaponshots = 0;
+            int oldweaponhits = 0;
+            int oldweaponkills = 0;
+            int oldweaponmisses = 0;
+            float oldweaponaccuracy = 0f;
+            if (SQLWeapons[day] != null && SQLWeapons[day - 1] != null)
+            {
+                SQLWeaponDataModel oldentry = SQLWeapons[day];
+                SQLWeaponDataModel recententry = SQLWeapons[day - 1];
+                oldweaponkills = Convert.ToInt32(recententry.weapon_kills) - Convert.ToInt32(oldentry.weapon_kills);
+                oldweaponhits = Convert.ToInt32(recententry.weapon_hits) - Convert.ToInt32(oldentry.weapon_hits);
+                oldweaponshots = Convert.ToInt32(recententry.weapon_shots) - Convert.ToInt32(oldentry.weapon_shots);
+                oldweaponmisses = oldweaponshots - oldweaponhits;
+                oldweaponaccuracy = Convert.ToSingle(oldweaponhits) / Convert.ToSingle(oldweaponshots);
+            }
+            (int, int, int, int, float) toret = (oldweaponkills, oldweaponshots, oldweaponhits, oldweaponmisses, oldweaponaccuracy);
+            return toret;
+        }
+
+
+        public void OnTimePeriodSelected(bool def = false)
+        {
+            SQLWeapons.Clear();
+            DateTime previoustoday = DateTime.Today;
+            DateTime previouslowerbracket = previoustoday;
+            DateTime today = DateTime.Today;
+            DateTime lowerbracket = today;
+            if (def)
+            {
+                lowerbracket = today.AddDays(-6);
+                previoustoday = today.AddDays(-7);
+                previouslowerbracket = today.AddDays(-14);
+            }
+            else
+            {
+                if (TimeframeDropper == "1 Week")
+                {
+                    lowerbracket = today.AddDays(-6);
+                    previoustoday = today.AddDays(-7);
+                    previouslowerbracket = today.AddDays(-14);
+                    RangeTimeframe = "1 Week";
+                }
+                else if (TimeframeDropper == "1 Month")
+                {
+                    lowerbracket = today.AddMonths(-1);
+                    previoustoday = today.AddMonths(-1);
+                    previouslowerbracket = today.AddMonths(-2);
+                    RangeTimeframe = "1 Month";
+                }
+                else if (TimeframeDropper == "3 Months")
+                {
+                    lowerbracket = today.AddMonths(-3);
+                    previoustoday = today.AddMonths(-3);
+                    previouslowerbracket = today.AddMonths(-6);
+                    RangeTimeframe = "3 Months";
+                }
+                else if (TimeframeDropper == "1 Year")
+                {
+                    lowerbracket = today.AddYears(-1);
+                    previoustoday = today.AddYears(-1);
+                    previouslowerbracket = today.AddYears(-2);
+                    RangeTimeframe = "1 Year";
+                }
+                else if (TimeframeDropper == "All Time")
+                {
+                    RangeTimeframe = "All Time";
+                    lowerbracket = today.AddYears(-30);//WILL NOT WORK IN 2052
+                }
+            }
+            List<SQLWeaponDataModel> sQLs = SQLDataService.GetSQLWeaponData(ApplicatationDataHandler.currentID, DateToStringForSQL(lowerbracket), DateToStringForSQL(today));
+            SQLWeapons = GetUsefullWeapons(sQLs);
+            List<SQLWeaponDataModel> sQLsprev = SQLDataService.GetSQLWeaponData(ApplicatationDataHandler.currentID, DateToStringForSQL(previouslowerbracket), DateToStringForSQL(previoustoday));
+            PreviousSQLWeapons = GetUsefullWeapons(sQLsprev);
+        }
+
+
+
+            private string DateToStringForSQL(DateTime indate)
+        {
+            string stringcon = "";
+            stringcon += indate.Year.ToString();
+            stringcon += "-";
+            stringcon += indate.Month.ToString();
+            stringcon += "-";
+            stringcon += indate.Day.ToString();
+            stringcon += "-";
+            return stringcon;
+        }
+
+        private List<SQLWeaponDataModel> GetUsefullWeapons(List<SQLWeaponDataModel> sQLs)
+        {
+            List<SQLWeaponDataModel> temp = new List<SQLWeaponDataModel>();
+            for (int i = 0; i < sQLs.Count; i++)
+            {
+                if (sQLs[i].weapon_name == Weapon)
+                {
+                    temp.Add(sQLs[i]);
+                }
+            }
+            return temp;
         }
 
         public IndividualWeaponPageVm()
         {
-            SetDefaultValues();            
+            SQLWeapons = new List<SQLWeaponDataModel>();
+            PreviousSQLWeapons = new List<SQLWeaponDataModel>();
+            SetDefaultValues();
         }
 
         internal void Init(SteamGameStatsResponse resultGameStats, string currentWeapon)
