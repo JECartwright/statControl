@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
-using StatControl.Mvvm.View;
+﻿using StatControl.Mvvm.View;
 using FunctionZero.CommandZero;
 using FunctionZero.MvvmZero;
 using System.Windows.Input;
 using System.Threading.Tasks;
 using StatControl.Services;
 using Xamarin.Forms;
-using StatControl.Mvvm.Model.SteamUserProfile;
-using StatControl.Mvvm.Model.SteamUserAchievements;
-using StatControl.Mvvm.Model.SteamGameStats;
-using StatControl.Mvvm.Model.SteamAchievementData;
-using StatControl.Mvvm.Model.SteamVanityUrl;
 using Xamarin.Essentials;
 using System.Text.RegularExpressions;
 using StatControl.Mvvm.Model.ApplicationAPIData;
@@ -31,27 +22,6 @@ namespace StatControl.Mvvm.ViewModel
         private readonly SteamVanityUrlService _steamVanityUrlService;
         private readonly SteamFriendsService _steamFriendsService;
         private readonly IPageServiceZero _pageService;
-
-        private string _errorMsgText;
-        private string _errorMsgTextVisible;
-
-        public string ErrorMsgText
-        {
-            get => _errorMsgText;
-            set
-            {
-                SetProperty(ref _errorMsgText, value);
-            }
-        }
-
-        public string ErrorMsgTextVisible
-        {
-            get => _errorMsgTextVisible;
-            set
-            {
-                SetProperty(ref _errorMsgTextVisible, value);
-            }
-        }
 
         public ICommand HomePageCommand { get; }
 
@@ -81,18 +51,16 @@ namespace StatControl.Mvvm.ViewModel
             }
             else
             {
-                ErrorMsgText = "Error In Trying To Retrieve Data From The API\nPlease Try Again.";
-                ErrorMsgTextVisible = "True";
-                Debug.WriteLine("Error in getting API.");
+                await Application.Current.MainPage.DisplayAlert("Alert", "Error In Getting Selected User's Data.\nTheir Profile May Be Private.", "OK");
             }
         }
 
         //Check to see what type the steam ID is
         private async Task GetIdTypeAsync(string id)
         {
-            string pattern = @"7656119[0-9]{10}";
-            Regex r = new Regex(pattern, RegexOptions.IgnoreCase);
-            Match m = r.Match(id);
+            const string pattern = @"7656119[0-9]{10}";
+            var r = new Regex(pattern, RegexOptions.IgnoreCase);
+            var m = r.Match(id);
 
             if (!m.Success) //if input is not Steam64 convert
             {
@@ -132,13 +100,6 @@ namespace StatControl.Mvvm.ViewModel
             _steamVanityUrlService = steamVanityUrlService;
             _steamFriendsService = steamFriendsService;
             ApplicatationDataHandler.SetService(steamGameStatsService, steamUserAchievementsService, steamUserProfileService, steamAchievementDataService, steamFriendsService);
-
-
-            ErrorMsgTextVisible = "False";
-
-            //TEMP ID FOR TESTING - REMOVE ON RELEASE
-            SteamProfileIdText = "76561198045733101";
-            //
 
             if (IsFirstRun || !HasAgreed)
             {
