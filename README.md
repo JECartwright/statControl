@@ -1,5 +1,5 @@
 # Stat Control
-This app is a Counter-Strike: Global Offensive Stat Tracker. To use this app make sure your steam profile is set to public otherwise the API will not be able to get your game data. When you login for the first time you'll be prompted with the option to not store your Counter-Strike: Global Offensive in our Database, the only data that will be stored is your SteamID, and your game data for Counter-Strike: Global Offensive.
+This app is a Counter-Strike: Global Offensive Stat Tracker. To use this app make sure your steam profile is set to public otherwise the API will not be able to get your game data. When you login for the first time you'll be prompted with the option to not store your Counter-Strike: Global Offensive in our Database, the only data that will be stored is your SteamID, and your game data for Counter-Strike: Global Offensive; this is needed for a feature to see an in-depth history of your weapon data over a time period.
 
 # How To Use?
 To first use this application you will need to have your SteamID64; you can get this from your steam URL.
