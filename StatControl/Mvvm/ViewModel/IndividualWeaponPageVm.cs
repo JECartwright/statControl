@@ -643,7 +643,7 @@ namespace StatControl.Mvvm.ViewModel
             }
             weaponmisses = weaponshots - weaponhits;
             weaponaccuracy = Convert.ToSingle(weaponhits) / Convert.ToSingle(weaponshots);
-            string weaponaccuracypercent = (Math.Round(weaponaccuracy, 2) * 100).ToString();
+            string weaponaccuracypercent = Math.Round(weaponaccuracy * 100, 2).ToString();
             GlobalAccuracy = weaponaccuracypercent;
             GlobalMisses = weaponmisses.ToString();
             GlobalHits = weaponhits.ToString();
@@ -656,10 +656,10 @@ namespace StatControl.Mvvm.ViewModel
             int localweaponmisses = 0;
             float localweaponaccuracy = 0f;
             string localweaponaccuracypercent = "0";
-            int globalweaponshotschange = 0;
-            int globalweaponhitschange = 0;
-            int globalweaponkillschange = 0;
-            int globalweaponmisseschange = 0;
+            float globalweaponshotschange = 0f;
+            float globalweaponhitschange = 0f;
+            float globalweaponkillschange = 0f;
+            float globalweaponmisseschange = 0f;
             float globalaccuracychange = 0f;
             string globalaccuracychangepercent = "0";
             if (SQLWeapons.Count > 0)
@@ -671,13 +671,17 @@ namespace StatControl.Mvvm.ViewModel
                 localweaponshots = Convert.ToInt32(recententry.weapon_shots) - Convert.ToInt32(oldentry.weapon_shots);
                 localweaponmisses = localweaponshots - localweaponhits;
                 localweaponaccuracy = Convert.ToSingle(localweaponhits) / Convert.ToSingle(localweaponshots);
-                localweaponaccuracypercent = (Math.Round(localweaponaccuracy, 2) * 100).ToString();
+                localweaponaccuracypercent = Math.Round(localweaponaccuracy*100, 2).ToString();
                 globalaccuracychange = (Convert.ToSingle(recententry.weapon_hits) / Convert.ToSingle(recententry.weapon_shots)) - (Convert.ToSingle(oldentry.weapon_hits) / Convert.ToSingle(oldentry.weapon_shots));
                 globalaccuracychangepercent = (Math.Round(globalaccuracychange, 2) * 100).ToString();
-                globalweaponshotschange = weaponshots - Convert.ToInt32(oldentry.weapon_shots);
-                globalweaponhitschange = weaponhits - Convert.ToInt32(oldentry.weapon_hits);
-                globalweaponkillschange = weaponkills - Convert.ToInt32(oldentry.weapon_kills);
-                globalweaponmisseschange = weaponmisses - Convert.ToInt32(oldentry.weapon_shots - oldentry.weapon_hits);
+                globalweaponhitschange = (((float)weaponhits + (float)localweaponhits)/(float)weaponhits)-1f;
+                globalweaponshotschange = (((float)weaponshots + (float)localweaponshots) / (float)weaponshots)-1f;
+                globalweaponkillschange = (((float)weaponkills + (float)localweaponkills) / (float)weaponkills)-1f;
+                globalweaponmisseschange = (((float)weaponmisses + (float)localweaponmisses) / (float)weaponmisses)-1f;
+                globalweaponhitschange= (float)Math.Round(globalweaponhitschange*100, 2);
+                globalweaponkillschange = (float)Math.Round(globalweaponkillschange * 100, 2);
+                globalweaponshotschange = (float)Math.Round(globalweaponshotschange * 100, 2);
+                globalweaponmisseschange = (float)Math.Round(globalweaponmisseschange * 100, 2);
             }
             RangeAccuracy = localweaponaccuracypercent;
             RangeMisses = localweaponmisses.ToString();
@@ -701,7 +705,7 @@ namespace StatControl.Mvvm.ViewModel
             int changeweaponkills = 0;
             int changeweaponmisses = 0;
             float changeweaponaccuracy = 0f;
-            if (PreviousSQLWeapons.Count > 0)
+            if (PreviousSQLWeapons.Count > 1)
             {
                 SQLWeaponDataModel oldoldentry = PreviousSQLWeapons[0];
                 SQLWeaponDataModel oldrecententry = PreviousSQLWeapons[SQLWeapons.Count - 1];
@@ -716,7 +720,7 @@ namespace StatControl.Mvvm.ViewModel
                 changeweaponkills = weaponkills - oldweaponkills;
                 changeweaponmisses = weaponmisses - oldweaponmisses;
                 changeweaponaccuracy = weaponaccuracy - oldweaponaccuracy;
-                changeweaponaccuracypercent = (Math.Round(changeweaponaccuracy, 2) * 100).ToString();
+                changeweaponaccuracypercent = Math.Round(changeweaponaccuracy * 100, 2).ToString();
             }
             RangeAccuracyChange = changeweaponaccuracypercent;
             RangeHitsChange = changeweaponhits.ToString();
@@ -812,7 +816,7 @@ namespace StatControl.Mvvm.ViewModel
             DateTime lowerbracket = today;
             if (def)
             {
-                lowerbracket = today.AddDays(-7);
+                lowerbracket = today.AddDays(-6);
                 previoustoday = today.AddDays(-7);
                 previouslowerbracket = today.AddDays(-14);
             }
@@ -820,7 +824,7 @@ namespace StatControl.Mvvm.ViewModel
             {
                 if (TimeframeDropper == "1 Week")
                 {
-                    lowerbracket = today.AddDays(-7);
+                    lowerbracket = today.AddDays(-6);
                     previoustoday = today.AddDays(-7);
                     previouslowerbracket = today.AddDays(-14);
                     RangeTimeframe = "1 Week";
