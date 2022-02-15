@@ -101,10 +101,6 @@ namespace StatControl.Mvvm.ViewModel
             _steamFriendsService = steamFriendsService;
             ApplicatationDataHandler.SetService(steamGameStatsService, steamUserAchievementsService, steamUserProfileService, steamAchievementDataService, steamFriendsService);
 
-            //TODO: TEMP ID FOR TESTING - REMOVE ON RELEASE
-            SteamProfileIdText = "76561198045733101";
-            //
-
             if (IsFirstRun || !HasAgreed)
             {
                 IsFirstRun = false;
