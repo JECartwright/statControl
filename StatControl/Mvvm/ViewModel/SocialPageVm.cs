@@ -42,7 +42,7 @@ namespace StatControl.Mvvm.ViewModel
         private ConcurrentBag<SocialProfileDisplayModel> _pointsConcurrentBag = new ConcurrentBag<SocialProfileDisplayModel>();
         private List<SteamUserProfileResponse> _steamUserProfileResponsesList = new List<SteamUserProfileResponse>();
         private readonly IPageServiceZero _pageService;
-        private CarouselPageVm daddy;
+        private CarouselPageVm _daddy;
 
         public ICommand SearchCommand { get; }
         private Task SearchCommandExecuteAsync()
@@ -109,7 +109,7 @@ namespace StatControl.Mvvm.ViewModel
             await ApplicatationDataHandler.Update(id);
             if (ApplicatationDataHandler.CheckAPI)
             {
-                daddy.RefreshAll();
+                _daddy.RefreshAll();
                 await Application.Current.MainPage.DisplayAlert("Alert", "Successfully Selected User's Data.\nPlease Swipe Right.", "OK");
             }
             else
@@ -184,14 +184,14 @@ namespace StatControl.Mvvm.ViewModel
             if (ApplicatationDataHandler.CheckAPI)
             {
                 SteamUserProfileService = ApplicatationDataHandler.GetUserProfileServiceForSocial();
-                SteamFriendsResponse = ApplicatationDataHandler.ResultFriends;
+                SteamFriendsResponse = ApplicatationDataHandler.resultFriends;
             }
             OnPropertyChanged();
         }
 
         public void GetParent(CarouselPageVm dad)
         {
-            daddy = dad;
+            _daddy = dad;
         }
 
         public SocialPageVm(IPageServiceZero pageService)

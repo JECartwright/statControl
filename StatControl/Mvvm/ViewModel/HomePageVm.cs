@@ -1,12 +1,12 @@
-﻿using FunctionZero.MvvmZero;
+﻿using System;
+using FunctionZero.MvvmZero;
 using System.Windows.Input;
 using System.Threading.Tasks;
-using StatControl.Services;
-using System.Diagnostics;
-using Xamarin.Forms;
+using FunctionZero.CommandZero;
 using Xamarin.Essentials;
 using StatControl.Mvvm.Model.SteamUserProfile;
 using StatControl.Mvvm.Model.ApplicationAPIData;
+using Uri = System.Uri;
 
 
 namespace StatControl.Mvvm.ViewModel
@@ -15,7 +15,7 @@ namespace StatControl.Mvvm.ViewModel
     {
         private readonly IPageServiceZero _pageService;
         private SteamUserProfileResponse _resultProfile;
-        private CarouselPageVm daddy;
+        private CarouselPageVm _daddy;
         public ICommand ReloadUser { get; }
         public ICommand OpenProfile { get; }
         public ICommand UpdateCommand { get; }
@@ -33,16 +33,13 @@ namespace StatControl.Mvvm.ViewModel
         public bool IsButtonVisible
         {
             get => _isButtonVisible;
-            set
-            {
-                SetProperty(ref _isButtonVisible, value);
-            }
+            set => SetProperty(ref _isButtonVisible, value);
         }
 
         private async Task RealoadUserCommand()
         {
             await ApplicatationDataHandler.ReloadMain();
-            daddy.RefreshAll();
+            _daddy.RefreshAll();
         }
 
         public void getParent(CarouselPageVm dad)
@@ -55,14 +52,7 @@ namespace StatControl.Mvvm.ViewModel
             if (ApplicatationDataHandler.CheckAPI)
             {
                 ResultProfile = ApplicatationDataHandler.resultProfile;
-                if (ResultProfile.response.players[0].steamid == ApplicatationDataHandler.MainUserID)
-                {
-                    IsButtonVisible = false;
-                }
-                else
-                {
-                    IsButtonVisible = true;
-                }
+                IsButtonVisible = ResultProfile.response.players[0].steamid != ApplicatationDataHandler.MainUserId;
             }
             
             OnPropertyChanged();

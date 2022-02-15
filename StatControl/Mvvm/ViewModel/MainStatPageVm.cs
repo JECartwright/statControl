@@ -10,7 +10,7 @@ namespace StatControl.Mvvm.ViewModel
         private readonly IPageServiceZero _pageService;
         private SteamGameStatsResponse _resultStats;
         private string _roundsWon;
-        private string _mVP;
+        private string _mvp;
         private string _moneyEarned;
         private string _bombsPlanted;
         private string _bombsDefused;
@@ -32,9 +32,9 @@ namespace StatControl.Mvvm.ViewModel
             set => SetProperty(ref _roundsWon, value);
         }
 
-        public string MVP { 
-            get => _mVP; 
-            set => SetProperty(ref _mVP, value);
+        public string Mvp { 
+            get => _mvp; 
+            set => SetProperty(ref _mvp, value);
         }
 
         public string MoneyEarned { 
@@ -116,7 +116,7 @@ namespace StatControl.Mvvm.ViewModel
                 SetProperty(ref _resultStats, value);
 
                 RoundsWon = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_wins"))?.value.ToString() ?? "0";
-                MVP = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_mvps"))?.value.ToString() ?? "0";
+                Mvp = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_mvps"))?.value.ToString() ?? "0";
                 MoneyEarned = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_money_earned"))?.value.ToString() ?? "0";
                 BombsPlanted = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_planted_bombs"))?.value.ToString() ?? "0";
                 BombsDefused = _resultStats.playerstats.stats.Find(x => x.name.Equals("total_defused_bombs"))?.value.ToString() ?? "0";
@@ -148,7 +148,7 @@ namespace StatControl.Mvvm.ViewModel
         {
             if (ApplicatationDataHandler.CheckAPI)
             {
-                ResultStats = ApplicatationDataHandler.ResultStats;
+                ResultStats = ApplicatationDataHandler.resultStats;
             }
             OnPropertyChanged();
         }

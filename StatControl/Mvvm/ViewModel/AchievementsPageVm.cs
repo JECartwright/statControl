@@ -1,5 +1,4 @@
 ﻿using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -108,8 +107,8 @@ namespace StatControl.Mvvm.ViewModel
         {
             if (ApplicatationDataHandler.CheckAPI)
             {
-                ResultUserAchieve = ApplicatationDataHandler.ResultUserAchieve;
-                ResultAchieveData = ApplicatationDataHandler.ResultAchieveData;
+                ResultUserAchieve = ApplicatationDataHandler.resultUserAchieve;
+                ResultAchieveData = ApplicatationDataHandler.resultAchieveData;
             }
 
             OnPropertyChanged();

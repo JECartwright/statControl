@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Xamarin.Forms;
 using StatControl.Mvvm.Model.ApplicationAPIData;
 using System.Runtime.CompilerServices;
-using StatControl.Mvvm.View;
 
 namespace StatControl.Mvvm.ViewModel
 {
@@ -54,7 +53,7 @@ namespace StatControl.Mvvm.ViewModel
             WeaSelectVm.OnStarted();
             WeaSelectVm.PlatformHelper();
 
-            UserTitle = $"Viewing: {ApplicatationDataHandler.ResultProfile.response.players[0].personaname}";
+            UserTitle = $"Viewing: {ApplicatationDataHandler.resultProfile.response.players[0].personaname}";
 
             OnPropertyChanged();
         }
@@ -65,7 +64,7 @@ namespace StatControl.Mvvm.ViewModel
 
             FunVm.DataRefresh();
             HomeVm.DataRefresh();
-            HomeVm.GetParent(this);
+            HomeVm.getParent(this);
             MainVm.DataRefresh();
             LastVm.DataRefresh();
             WeaSelectVm.DataRefresh();
@@ -77,7 +76,7 @@ namespace StatControl.Mvvm.ViewModel
             WeaSelectVm.OnStarted();
             WeaSelectVm.PlatformHelper();
 
-            UserTitle = $"Viewing: {ApplicatationDataHandler.ResultProfile.response.players[0].personaname}";
+            UserTitle = $"Viewing: {ApplicatationDataHandler.resultProfile.response.players[0].personaname}";
 
             OnPropertyChanged();
         }

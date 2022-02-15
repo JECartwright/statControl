@@ -134,7 +134,7 @@ namespace StatControl.Mvvm.ViewModel
 
             for (int i = 0; i < ResultStats.playerstats.stats.Count; i++)
             {
-                for (int b = 0; b < Weapons.Count; b++)
+                for (int b = 0; b < weapons.Count; b++)
                 {
                     if (ResultStats.playerstats.stats[i].name == $"total_kills_{weapons[b].APIName}")
                     {
@@ -150,11 +150,11 @@ namespace StatControl.Mvvm.ViewModel
                     }
                 }
             }
-            for (int c = 0; c < Weapons.Count; c++)
+            for (int c = 0; c < weapons.Count; c++)
             {
-                Weapons[c].WeaponImage = _favWeaponDictionary[Weapons[c].APIName];
-                Weapons[c].setAccuracy();
-                WeaponsDisplay.Add(Weapons[c]);
+                weapons[c].WeaponImage = _favWeaponDictionary[weapons[c].APIName];
+                weapons[c].setAccuracy();
+                WeaponsDisplay.Add(weapons[c]);
             }
             Debug.WriteLine("Finished Setting Up Weapon Data");
 
@@ -200,7 +200,7 @@ namespace StatControl.Mvvm.ViewModel
         {
             if (ApplicatationDataHandler.CheckAPI)
             {
-                ResultStats = ApplicatationDataHandler.ResultStats;
+                ResultStats = ApplicatationDataHandler.resultStats;
             }
             OnPropertyChanged();
         }
