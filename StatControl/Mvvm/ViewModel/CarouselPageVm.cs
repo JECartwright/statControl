@@ -84,7 +84,7 @@ namespace StatControl.Mvvm.ViewModel
 
             FunVm.DataRefresh();
             HomeVm.DataRefresh();
-            HomeVm.getParent(this);
+            HomeVm.GetParent(this);
             MainVm.DataRefresh();
             LastVm.DataRefresh();
             WeaSelectVm.DataRefresh();

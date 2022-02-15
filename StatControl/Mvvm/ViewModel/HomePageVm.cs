@@ -42,7 +42,7 @@ namespace StatControl.Mvvm.ViewModel
             _daddy.RefreshAll();
         }
 
-        public void getParent(CarouselPageVm dad)
+        public void GetParent(CarouselPageVm dad)
         {
             _daddy = dad;
         }
