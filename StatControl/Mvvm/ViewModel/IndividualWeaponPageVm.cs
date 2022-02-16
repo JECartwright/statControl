@@ -664,7 +664,7 @@ namespace StatControl.Mvvm.ViewModel
             if (_previousSqlWeapons.Count > 1)
             {
                 SQLWeaponDataModel oldoldentry = _previousSqlWeapons[0];
-                SQLWeaponDataModel oldrecententry = _previousSqlWeapons[_sqlWeapons.Count - 1];
+                SQLWeaponDataModel oldrecententry = _previousSqlWeapons[_previousSqlWeapons.Count - 1];
                 oldweaponkills = Convert.ToInt32(oldrecententry.weapon_kills) - Convert.ToInt32(oldoldentry.weapon_kills);
                 oldweaponhits = Convert.ToInt32(oldrecententry.weapon_hits) - Convert.ToInt32(oldoldentry.weapon_hits);
                 oldweaponshots = Convert.ToInt32(oldrecententry.weapon_shots) - Convert.ToInt32(oldoldentry.weapon_shots);
