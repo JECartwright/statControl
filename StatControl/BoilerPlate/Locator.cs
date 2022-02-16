@@ -11,12 +11,14 @@ using FunctionZero.MvvmZero;
 using SimpleInjector;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using StatControl.Constants;
+using System.Net.Http;
 
 namespace StatControl.BoilerPlate
 {
 	public class Locator
 	{
-		private Container _IoCC;
+		private readonly Container _IoCC;
 
 		internal Locator(Application currentApplication)
 		{
@@ -41,24 +43,41 @@ namespace StatControl.BoilerPlate
 
 			// Tell the IoC container about our Pages.
 			_IoCC.Register<AchievementsPage>(Lifestyle.Singleton);
+			_IoCC.Register<CarouselViewPage>(Lifestyle.Singleton);
 			_IoCC.Register<FunPage>(Lifestyle.Singleton);
-			_IoCC.Register<GunPage>(Lifestyle.Singleton);
 			_IoCC.Register<HomePage>(Lifestyle.Singleton);
+			_IoCC.Register<IndividualWeaponPage>(Lifestyle.Singleton);
+			_IoCC.Register<LoginPage>(Lifestyle.Singleton);
 			_IoCC.Register<LastMatchPage>(Lifestyle.Singleton);
 			_IoCC.Register<MainStatPage>(Lifestyle.Singleton);
 			_IoCC.Register<MapPage>(Lifestyle.Singleton);
+			_IoCC.Register<WeaponsSelectPage>(Lifestyle.Singleton);
+			_IoCC.Register<SocialPage>(Lifestyle.Singleton);
+
 
 
 			// Tell the IoC container about our ViewModels.
 			_IoCC.Register<AchievementsPageVm>(Lifestyle.Singleton);
+			_IoCC.Register<CarouselPageVm>(Lifestyle.Singleton);
 			_IoCC.Register<FunPageVm>(Lifestyle.Singleton);
-			_IoCC.Register<GunPageVm>(Lifestyle.Singleton);
 			_IoCC.Register<HomePageVm>(Lifestyle.Singleton);
+			_IoCC.Register<IndividualWeaponPageVm>(Lifestyle.Singleton);
+			_IoCC.Register<LoginPageVm>(Lifestyle.Singleton);
 			_IoCC.Register<LastMatchPageVm>(Lifestyle.Singleton);
 			_IoCC.Register<MainStatPageVm>(Lifestyle.Singleton);
 			_IoCC.Register<MapPageVm>(Lifestyle.Singleton);
+			_IoCC.Register<WeaponsSelectPageVm>(Lifestyle.Singleton);
+			_IoCC.Register<SocialPageVm>(Lifestyle.Singleton);
+
 
 			// Tell the IoC container about our Services.
+			_IoCC.Register<SteamGameStatsService>(GetSteamUserStatsService, Lifestyle.Singleton);
+			_IoCC.Register<SteamUserProfileService>(GetSteamUserProfileService, Lifestyle.Singleton);
+			_IoCC.Register<SteamUserAchievementsService>(GetSteamUserAchievementsService, Lifestyle.Singleton);
+			_IoCC.Register<SteamAchievementService>(GetSteamAchievementsService, Lifestyle.Singleton);
+			_IoCC.Register<SteamFriendsService>(GetSteamFriendsService, Lifestyle.Singleton);
+			_IoCC.Register<SteamVanityUrlService>(GetSteamVanityUrlService, Lifestyle.Singleton);
+			_IoCC.Register<IRestService>(GetRestService, Lifestyle.Singleton);
 
 		}
 
@@ -74,7 +93,7 @@ namespace StatControl.BoilerPlate
 			// () => ((FlyoutPage)App.Current.MainPage).Detail.Navigation
 			App.Current.MainPage = new NavigationPage();
 			// Ask the PageService to assemble and present our HomePage ...
-			await _IoCC.GetInstance<IPageServiceZero>().PushPageAsync<HomePage, HomePageVm>((vm) => {/* Optionally interact with the vm, e.g. to inject seed-data */ });
+			await _IoCC.GetInstance<IPageServiceZero>().PushPageAsync<LoginPage, LoginPageVm>((vm) => {/* Optionally interact with the vm, e.g. to inject seed-data */ });
 		}
 
 		/// <summary>
@@ -85,5 +104,44 @@ namespace StatControl.BoilerPlate
 		{
 			Debug.WriteLine(thePage);
 		}
+
+		private IRestService GetRestService()
+		{
+			var httpClient = new HttpClient();
+			// Configure the client.
+			httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+
+			return new RestService(httpClient, ApiConstants.SteamBaseApiUrl);
+		}
+
+		private SteamGameStatsService GetSteamUserStatsService()
+		{
+			return new SteamGameStatsService(_IoCC.GetInstance<IRestService>(), ApiConstants.SteamGameStatEndpoint, ApiConstants.SteamApiKey);
+		}
+
+		private SteamUserProfileService GetSteamUserProfileService()
+		{
+			return new SteamUserProfileService(_IoCC.GetInstance<IRestService>(), ApiConstants.SteamUserProfileSummaryEndpoint, ApiConstants.SteamApiKey);
+		}
+
+		private SteamUserAchievementsService GetSteamUserAchievementsService()
+		{
+			return new SteamUserAchievementsService(_IoCC.GetInstance<IRestService>(), ApiConstants.SteamUserAchievementsEndpoint, ApiConstants.SteamApiKey);
+		}
+
+		private SteamAchievementService GetSteamAchievementsService()
+		{
+			return new SteamAchievementService(_IoCC.GetInstance<IRestService>(), ApiConstants.SteamAchieveEndpoint, ApiConstants.SteamApiKey);
+		}
+		private SteamVanityUrlService GetSteamVanityUrlService()
+		{
+			return new SteamVanityUrlService(_IoCC.GetInstance<IRestService>(), ApiConstants.SteamVanityUrlEndpoint, ApiConstants.SteamApiKey);
+		}
+
+		private SteamFriendsService GetSteamFriendsService()
+		{
+			return new SteamFriendsService(_IoCC.GetInstance<IRestService>(), ApiConstants.SteamFriendsEndpoint, ApiConstants.SteamApiKey);
+		}
+
 	}
 }

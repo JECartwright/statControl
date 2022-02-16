@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace StatControl.Mvvm.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class GunPage : ContentPage
+    public partial class IndividualWeaponPage : ContentPage
     {
-        public GunPage()
+        public IndividualWeaponPage()
         {
             InitializeComponent();
         }

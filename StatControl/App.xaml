@@ -2,7 +2,38 @@
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StatControl.App">
+    
     <Application.Resources>
+        <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
+            <Setter Property="BackgroundColor" Value="#414141" />
+        </Style>
+        
+        <Style TargetType="Label" ApplyToDerivedTypes="True">
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="LineBreakMode" Value="NoWrap"/>
+        </Style>
+        
+        <Style TargetType="Button" ApplyToDerivedTypes="True">
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="15"/>
+            <Setter Property="Background" Value="#5C7E10"/>
+            <Setter Property="BorderWidth" Value="2"/>
+            <Setter Property="BorderColor" Value="#292929"/>
 
+        </Style>
+        
+        <Style TargetType="Entry" ApplyToDerivedTypes="True">
+            <Setter Property="TextColor" Value="White" />
+        </Style>
+        
+        <Style TargetType="Frame" ApplyToDerivedTypes="True">
+            <Setter Property="BackgroundColor" Value="#707070" />
+            <Setter Property="CornerRadius" Value="15"/>
+        </Style>
+            
+        <Style TargetType="NavigationPage" ApplyToDerivedTypes="true">
+            <Setter Property="BarBackgroundColor" Value="#5C7E10"/>
+            <Setter Property="BarTextColor" Value="White"/>
+        </Style>
     </Application.Resources>
 </Application>

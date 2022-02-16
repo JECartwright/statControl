@@ -1,12 +1,65 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:StatControl.Mvvm.ViewModel"
              x:Class="StatControl.Mvvm.View.LastMatchPage">
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout HorizontalOptions="CenterAndExpand" HeightRequest="40" WidthRequest="300" Spacing="20" Margin="20,20,20,20">
+            <Frame>
+                <StackLayout>
+                    <Label Text="LAST MATCH" HorizontalOptions="CenterAndExpand" FontSize="Large"/>
+                    <BoxView VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="1" WidthRequest="300" Color="#414141"/>
+                    <Label Text="{Binding TextMatchResults}" HorizontalOptions="CenterAndExpand" FontSize="Small"/>
+                </StackLayout>
+            </Frame>
+            <Frame>
+                <StackLayout>
+                    <Label Text="FAVOURITE WEAPON" HorizontalOptions="CenterAndExpand"/>
+                    <BoxView VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="1" WidthRequest="300" Color="#414141"/>
+                    <Image Source="{Binding FavWeaponId}" HorizontalOptions="CenterAndExpand" WidthRequest="150"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Text="{Binding TextFavShots}"/>
+                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding TextFavHits}"/>
+                        <Label Grid.Row="1" Grid.Column="0" Text="{Binding TextFavKills}"/>
+                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding TextFavAccuracy}"/>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+            <Frame>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Text="MVP: " />
+                    <Label Grid.Row="1" Grid.Column="0" Text="Kills: " />
+                    <Label Grid.Row="2" Grid.Column="0" Text="Deaths: " />
+                    <Label Grid.Row="3" Grid.Column="0" Text="KD: " />
+                    <Label Grid.Row="4" Grid.Column="0" Text="Damage: " />
+                    <Label Grid.Row="5" Grid.Column="0" Text="ADR: " />
+                    <Label Grid.Row="6" Grid.Column="0" Text="Money Spent: " />
+                    <Label Grid.Row="7" Grid.Column="0" Text="Score: " />
+
+                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding TextMvp}" />
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding TextKills}" />
+                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding TextDeaths}" />
+                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding TextKd}" />
+                    <Label Grid.Row="4" Grid.Column="1" Text="{Binding TextDamage}" />
+                    <Label Grid.Row="5" Grid.Column="1" Text="{Binding TextAdr}" />
+                    <Label Grid.Row="6" Grid.Column="1" Text="{Binding TextMoneySpent}" />
+                    <Label Grid.Row="7" Grid.Column="1" Text="{Binding TextScore}" />
+                </Grid>
+            </Frame>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

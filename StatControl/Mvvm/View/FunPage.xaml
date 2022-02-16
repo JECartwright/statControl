@@ -1,12 +1,55 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:StatControl.Mvvm.ViewModel"
              x:Class="StatControl.Mvvm.View.FunPage">
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout HorizontalOptions="Center" HeightRequest="40" WidthRequest="300" Spacing="20" Margin="20,20,20,20">
+            <Frame>
+                <Label Text="Fun Stats" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Large" />
+            </Frame>
+
+            <Frame>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" Grid.Row="0" Text="Windows Broken:"/>
+                    <Label Grid.Column="0" Grid.Row="1" Text="Pistol Rounds Won:"/>
+                    <Label Grid.Column="0" Grid.Row="2" Text="Enemy Weapon Kills:"/>
+                    <Label Grid.Column="0" Grid.Row="3" Text="Enemies Flashed:"/>
+                    <Label Grid.Column="0" Grid.Row="4" Text="Knife Kills:"/>
+                    <Label Grid.Column="0" Grid.Row="5" Text="Kills Against Zoomed Sniper:"/>
+                    <Label Grid.Column="0" Grid.Row="6" Text="Dominations:"/>
+                    <Label Grid.Column="0" Grid.Row="7" Text="Overkills:"/>
+                    <Label Grid.Column="0" Grid.Row="8" Text="Revenges:"/>
+                    <Label Grid.Column="0" Grid.Row="9" Text="Gun Game Rounds Won:"/>
+                    <Label Grid.Column="0" Grid.Row="10" Text="Gun Game Rounds Played:"/>
+                    <Label Grid.Column="0" Grid.Row="11" Text="Gun Game Lifetime Score:"/>
+                    <Label Grid.Column="0" Grid.Row="12" Text="Total Hostages Saved:"/>
+
+                    <Label Grid.Column="1" Grid.Row="0" Text="{Binding WindowsBroken}"/>
+                    <Label Grid.Column="1" Grid.Row="1" Text="{Binding PistolRounds}"/>
+                    <Label Grid.Column="1" Grid.Row="2" Text="{Binding EnemyWeapon}"/>
+                    <Label Grid.Column="1" Grid.Row="3" Text="{Binding EnemyFlash}"/>
+                    <Label Grid.Column="1" Grid.Row="4" Text="{Binding KnifeKill}"/>
+                    <Label Grid.Column="1" Grid.Row="5" Text="{Binding ZoomSniperKill}"/>
+                    <Label Grid.Column="1" Grid.Row="6" Text="{Binding Domination}"/>
+                    <Label Grid.Column="1" Grid.Row="7" Text="{Binding Overkill}"/>
+                    <Label Grid.Column="1" Grid.Row="8" Text="{Binding Revenges}"/>
+                    <Label Grid.Column="1" Grid.Row="9" Text="{Binding GgRoundWon}"/>
+                    <Label Grid.Column="1" Grid.Row="10" Text="{Binding GgRoundPlayed}"/>
+                    <Label Grid.Column="1" Grid.Row="11" Text="{Binding GgLifetimeScore}"/>
+                    <Label Grid.Column="1" Grid.Row="12" Text="{Binding HostagesSaved}"/>
+                </Grid>
+            </Frame>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

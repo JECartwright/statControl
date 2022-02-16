@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
-namespace StatControl
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
+namespace StatControl.Mvvm.View
 {
-    public partial class MainPage : ContentPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class WeaponsSelectPage : ContentPage
     {
-        public MainPage()
+        public WeaponsSelectPage()
         {
             InitializeComponent();
         }
