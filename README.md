@@ -10,6 +10,7 @@ Next you'll want to input your ID into the input box.
 
 ![Inputting Steam ID](https://uc40081e1f28fbd3de3d453e2d6e.previews.dropboxusercontent.com/p/thumb/ABdo-YRbHJ9c8BVzbf5u_wDNAWMDGPa01dRRcmmmYvDgRQwOxbMyDH1bOOyCiUvjP9ogynTjOC_aNUr_ELMVrIXDHMqHmwDq7sc7HV36MgcM0xRnASofcbGLI8XZA1JVi5vO7Aqc5QfD76zgFJOH3vUZmp12DfyUKV9QqTqI3oUoQN_VV-nSOV0EfxaFAfMtZNebxbgkbxTQ6YTE7wwF7Vgn8220Ne1yNVgIdaRaawyU8PzykU7XqTr4-FP7xyDegSC4itlUSO-0URhj1qfSFyK-rXpiAKszFBZfCptpb5sQOdnh_tKzWRxA6Ac5GlRpJT4Xcag1b6RVR6N3wnz2Lsov2VMOFxsz_NQL5vyO5yT2-o5D7CQNhUPki5grHulE_-5V4o7VHrGwNvSiaRtNxNWh/p.png?size=2048x1536&size_mode=3)
 
+
 Once you have searched for your SteamID you'll be brought to the homepage. Swipe left to get to your Friends page; Swipe right to see your stats from Counter-Strike: Global Offensive.
 
 On the Social Page, you may select a user to view their stats in more detail.
@@ -24,3 +25,4 @@ Here are a collection of some SteamIDs you can use if you do not have one availa
 - smudgefudge
 - 76561198035170263
 - 76561198078196405
+
