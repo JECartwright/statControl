@@ -12,7 +12,8 @@
             </Frame>
             <ListView ItemsSource="{Binding MapDisplay}"
                 RowHeight="125"
-                SelectionMode="None">
+                SelectionMode="None"
+                VerticalScrollBarVisibility="Always">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="model:MapDisplayModel">
                         <ViewCell>

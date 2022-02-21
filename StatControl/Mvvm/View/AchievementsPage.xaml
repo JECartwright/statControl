@@ -7,11 +7,14 @@
 
     <ContentPage.Content>
         <StackLayout>
+            <Frame>
+                <Label Text="Achievements!" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Large" />
+            </Frame>
             <ListView ItemsSource="{Binding Achievements}"
-                BackgroundColor="Transparent"
-                HasUnevenRows="True"
-                RowHeight="150"
-                SelectionMode="None">
+                      BackgroundColor="Transparent"
+                      HasUnevenRows="True"
+                      RowHeight="150"
+                      SelectionMode="None">
                 
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="model:AchievementDisplayModel">
