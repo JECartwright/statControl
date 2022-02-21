@@ -16,7 +16,7 @@
                     <Label Text="Search" FontSize="Large" VerticalOptions="Start" HorizontalOptions="CenterAndExpand"/>
                     
                     <StackLayout Orientation="Horizontal" Margin="10,0">
-                        <Entry Placeholder="Search ID" Text="{Binding SteamProfileIdText}" HorizontalOptions="FillAndExpand"/>
+                        <Entry Placeholder="Search ID" Text="{Binding SteamProfileIdText}" HorizontalOptions="FillAndExpand" TextColor="#888888"/>
                         <Button Command="{Binding SearchCommand}" Text="🔎︎"  HorizontalOptions="End"/>
                     </StackLayout>
                 </StackLayout>

@@ -5,7 +5,7 @@
 
     <ContentPage.Content>
         <StackLayout VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
-            <Entry Placeholder="Please Enter Your Steam ID..." Text="{Binding SteamProfileIdText}" HorizontalOptions="CenterAndExpand" WidthRequest="300" />
+            <Entry Placeholder="Please Enter Your Steam ID..." Text="{Binding SteamProfileIdText}" HorizontalOptions="CenterAndExpand" WidthRequest="300" TextColor="#888888"/>
             <Button Command="{Binding HomePageCommand}" Text="{Binding HomePageCommand.Text}"/>
         </StackLayout>
     </ContentPage.Content>
